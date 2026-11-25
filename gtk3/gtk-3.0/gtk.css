@@ -1033,34 +1033,56 @@ combobox entry {
 
 combobox button,
 combobox button.combo,
-button.combo {
-  background-color: transparent;
-  color: @furr_paper;
+button.combo,
+window.combo button {
+  background-color: @furr_surface_2;
+  color: @furr_cyan;
   border: 0;
+  border-left: 2px solid @furr_ink;
   border-radius: 0 999px 999px 0;
   box-shadow: none;
   padding: 4px 8px;
-  min-width: 22px;
-  min-height: 22px;
+  min-width: 24px;
+  min-height: 24px;
 }
 
 combobox button:hover,
 combobox button.combo:hover,
-button.combo:hover {
-  background-color: @furr_surface_2;
-  color: @furr_cyan;
-}
-
-combobox button:active,
-combobox button.combo:active,
-button.combo:active {
+button.combo:hover,
+window.combo button:hover {
   background-color: @furr_cyan;
   color: @furr_ink;
 }
 
-combobox arrow {
+combobox button:active,
+combobox button.combo:active,
+button.combo:active,
+window.combo button:active,
+combobox button:checked,
+combobox button.combo:checked,
+button.combo:checked,
+window.combo button:checked {
+  background-color: @furr_pink;
+  color: @furr_ink;
+}
+
+combobox arrow,
+combobox button arrow,
+button.combo arrow,
+window.combo button arrow {
   color: @furr_cyan;
   -gtk-icon-style: regular;
+  min-width: 14px;
+  min-height: 14px;
+}
+
+combobox button:hover arrow,
+combobox button:active arrow,
+combobox button:checked arrow,
+button.combo:hover arrow,
+button.combo:active arrow,
+button.combo:checked arrow {
+  color: @furr_ink;
 }
 
 combobox:focus,
@@ -1076,10 +1098,13 @@ combobox:disabled {
   opacity: 0.75;
 }
 
-/* The dropdown itself: GTK3 uses a popover or a dedicated popup window. */
+/* The dropdown itself: GTK3 uses a popover or a dedicated popup window.
+   LibreOffice opens a real GtkWindow with the "combo" class, so both forms
+   must be styled or the list falls back to the near-black base theme. */
 popover.combo,
 popover.background.combo,
 combobox popover,
+window.combo,
 window.background.combo,
 window.background.csd.combo,
 .combo-window {
@@ -1092,15 +1117,28 @@ window.background.csd.combo,
   -gtk-outline-radius: 14px;
 }
 
+window.combo > box,
+window.combo > grid,
+window.combo > box.vertical,
+window.combo > grid > box {
+  background-color: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
 popover scrolledwindow,
 popover .scrolled-window,
 combobox scrolledwindow,
+window.combo scrolledwindow,
+window.combo .scrolled-window,
 .combo-window scrolledwindow,
 popover viewport,
 combobox viewport,
+window.combo viewport,
 .combo-window viewport,
 popover frame,
 combobox frame,
+window.combo frame,
 .combo-window frame {
   background-color: transparent;
   border: 0;
@@ -1109,7 +1147,8 @@ combobox frame,
 
 /* GTK3 combo popovers use a GtkListBox; older/popup dialogs use a treeview. */
 popover.combo list,
-popover.background.combo list {
+popover.background.combo list,
+window.combo list {
   background-color: @furr_night;
   border: 0;
   border-radius: 10px;
@@ -1118,7 +1157,8 @@ popover.background.combo list {
 }
 
 popover.combo list > row,
-popover.background.combo list > row {
+popover.background.combo list > row,
+window.combo list > row {
   background-color: transparent;
   color: @furr_text;
   border: 0;
@@ -1130,18 +1170,21 @@ popover.background.combo list > row {
 }
 
 popover.combo list > row:not(:last-child),
-popover.background.combo list > row:not(:last-child) {
+popover.background.combo list > row:not(:last-child),
+window.combo list > row:not(:last-child) {
   border-bottom: 0;
 }
 
 popover.combo list > row:hover,
-popover.background.combo list > row:hover {
+popover.background.combo list > row:hover,
+window.combo list > row:hover {
   background-color: @furr_surface_2;
   color: @furr_text;
 }
 
 popover.combo list > row:selected,
-popover.background.combo list > row:selected {
+popover.background.combo list > row:selected,
+window.combo list > row:selected {
   background-color: @furr_cyan;
   color: @furr_ink;
   box-shadow: 2px 2px 0 @furr_pink;
@@ -1149,7 +1192,8 @@ popover.background.combo list > row:selected {
 }
 
 popover.combo list > row:selected label,
-popover.background.combo list > row:selected label {
+popover.background.combo list > row:selected label,
+window.combo list > row:selected label {
   color: @furr_ink;
   font-weight: 800;
 }
@@ -1157,6 +1201,8 @@ popover.background.combo list > row:selected label {
 popover treeview.view,
 popover.background treeview.view,
 combobox treeview.view,
+window.combo treeview.view,
+window.combo .view,
 .combo-window treeview.view {
   background-color: @furr_night;
   color: @furr_text;
@@ -1168,6 +1214,8 @@ combobox treeview.view,
 popover treeview.view:selected,
 popover.background treeview.view:selected,
 combobox treeview.view:selected,
+window.combo treeview.view:selected,
+window.combo .view:selected,
 .combo-window treeview.view:selected {
   background-color: @furr_cyan;
   color: @furr_ink;
@@ -1177,6 +1225,7 @@ combobox treeview.view:selected,
 
 popover treeview.view:selected label,
 combobox treeview.view:selected label,
+window.combo treeview.view:selected label,
 .combo-window treeview.view:selected label {
   color: @furr_ink;
   font-weight: 800;
@@ -1184,6 +1233,7 @@ combobox treeview.view:selected label,
 
 popover entry,
 combobox popover entry,
+window.combo entry,
 .combo-window entry {
   background-color: @furr_night;
   color: @furr_text;
@@ -1206,6 +1256,7 @@ combobox entry:backdrop {
 
 popover.combo:backdrop,
 popover.background.combo:backdrop,
+window.combo:backdrop,
 .combo-window:backdrop {
   background-color: @furr_plum;
   border-color: alpha(@furr_paper, 0.6);
@@ -1214,8 +1265,10 @@ popover.background.combo:backdrop,
 
 popover.combo list > row:selected:backdrop,
 popover.background.combo list > row:selected:backdrop,
+window.combo list > row:selected:backdrop,
 popover treeview.view:selected:backdrop,
 combobox treeview.view:selected:backdrop,
+window.combo treeview.view:selected:backdrop,
 .combo-window treeview.view:selected:backdrop {
   background-color: alpha(@furr_paper, 0.85);
   color: @furr_ink;
@@ -1246,12 +1299,14 @@ combobox button,
 combobox button.combo,
 button.combo {
   padding: 2px 6px;
-  min-width: 16px;
-  min-height: 16px;
+  min-width: 20px;
+  min-height: 20px;
   border-radius: 0 8px 8px 0;
 }
 
-combobox arrow {
+combobox arrow,
+combobox button arrow,
+button.combo arrow {
   min-width: 12px;
   min-height: 12px;
 }
@@ -1275,14 +1330,16 @@ toolbar combobox entry,
 toolbar combobox button,
 .primary-toolbar combobox button,
 toolbar button.combo {
-  padding: 0 4px;
-  min-width: 12px;
-  min-height: 12px;
+  padding: 0 6px;
+  min-width: 18px;
+  min-height: 20px;
 }
 
-toolbar combobox arrow {
-  min-width: 10px;
-  min-height: 10px;
+toolbar combobox arrow,
+toolbar combobox button arrow,
+toolbar button.combo arrow {
+  min-width: 11px;
+  min-height: 11px;
 }
 
 toolbar,

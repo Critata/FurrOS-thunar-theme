@@ -98,7 +98,9 @@ backup as well. Backups created by `install.sh` are kept.
 - Combo boxes and dropdown lists (for example LibreOffice's font picker) are
   styled as one pill: transparent inner entry, cyan arrow, plum popover and
   cyan selected rows with a pink sticker shadow. Both GTK list-box and
-  tree-view popups are covered.
+  tree-view popups are covered, including the dedicated `window.combo` that
+  LibreOffice uses for its font selector. The arrow button has its own ink
+  divider and switches to cyan while the list is open.
 - LibreOffice compatibility: toolbar buttons stay flat, comboboxes and dialog
   buttons use tighter padding/margins, and dialog surfaces have 14 px rounded
   corners. This avoids the inflated, overlapping widgets caused by the
