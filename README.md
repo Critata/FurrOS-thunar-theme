@@ -92,5 +92,9 @@ removes the theme and icons. Backups created by `install.sh` are kept.
   styled as one pill: transparent inner entry, cyan arrow, plum popover and
   cyan selected rows with a pink sticker shadow. Both GTK list-box and
   tree-view popups are covered.
+- LibreOffice compatibility: toolbar buttons stay flat, comboboxes and dialog
+  buttons use tighter padding/margins, and dialog surfaces have 14 px rounded
+  corners. This avoids the inflated, overlapping widgets caused by the
+  sticker shadows when used outside Thunar.
 - Icons are scalable SVG and work at any size. `generate.py` needs only
   Python 3.

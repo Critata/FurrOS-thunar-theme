@@ -119,18 +119,19 @@ button {
   background-color: @furr_surface_2;
   color: @furr_text;
   border: 2px solid @furr_paper;
-  border-radius: 12px;
-  box-shadow: 3px 3px 0 @furr_ink;
-  padding: 5px 12px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 0 @furr_ink;
+  padding: 3px 10px;
+  min-height: 24px;
   font-family: "Nunito", "Segoe UI", sans-serif;
   font-weight: 800;
   transition: background-color 180ms ease, box-shadow 180ms ease;
-  -gtk-outline-radius: 12px;
+  -gtk-outline-radius: 10px;
 }
 
 button:hover {
   background-color: @furr_maroon;
-  box-shadow: 4px 4px 0 @furr_pink;
+  box-shadow: 3px 3px 0 @furr_pink;
 }
 
 button:active {
@@ -207,33 +208,54 @@ toolbar,
   box-shadow: none;
 }
 
+/* Toolbar buttons stay flat: chunky sticker shadows here make LibreOffice's
+   formatting bar unusable and overlap neighbouring icons. */
 toolbar button,
 .toolbutton,
 toolbar .toolbutton,
-.primary-toolbar button {
-  background-color: @furr_surface_2;
+.primary-toolbar button,
+headerbar toolbar button {
+  background-color: transparent;
   color: @furr_text;
-  border: 2px solid @furr_paper;
-  border-radius: 10px;
-  box-shadow: 3px 3px 0 @furr_ink;
-  padding: 4px 9px;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  box-shadow: none;
+  padding: 2px 6px;
+  min-height: 22px;
   -gtk-icon-style: regular;
 }
 
 toolbar button:hover,
 .toolbutton:hover,
-toolbar .toolbutton:hover {
-  background-color: @furr_maroon;
-  box-shadow: 3px 3px 0 @furr_pink;
+toolbar .toolbutton:hover,
+.primary-toolbar button:hover,
+headerbar toolbar button:hover {
+  background-color: @furr_surface_2;
+  border-color: alpha(@furr_paper, 0.5);
+  color: @furr_text;
+  box-shadow: 2px 2px 0 @furr_pink;
 }
 
 toolbar button:active,
 .toolbutton:active,
-toolbar .toolbutton:active {
+toolbar .toolbutton:active,
+.primary-toolbar button:active,
+headerbar toolbar button:active {
   background-color: @furr_cyan;
   color: @furr_ink;
   border-color: @furr_ink;
   box-shadow: none;
+}
+
+toolbar button:checked,
+.toolbutton:checked,
+toolbar .toolbutton:checked,
+.primary-toolbar button:checked,
+headerbar toolbar button:checked {
+  background-color: @furr_paper;
+  color: @furr_ink;
+  border-color: @furr_ink;
+  box-shadow: 2px 2px 0 @furr_pink;
 }
 
 toolbar separator,
@@ -247,18 +269,24 @@ toolbar separator,
 entry,
 .entry,
 .location-entry,
-.pathbar,
-.path-bar,
 .thunar-location-bar entry {
   background-color: @furr_night;
   color: @furr_text;
-  border: 2.5px solid @furr_paper;
-  border-radius: 999px;
-  box-shadow: 3px 3px 0 @furr_pink;
-  padding: 4px 12px;
+  border: 2px solid @furr_paper;
+  border-radius: 10px;
+  box-shadow: 2px 2px 0 @furr_pink;
+  padding: 3px 10px;
   font-family: "Nunito", "Segoe UI", sans-serif;
   font-weight: 700;
   caret-color: @furr_cyan;
+}
+
+/* Thunar's breadcrumb bar keeps the stronger "pill" look. */
+.pathbar,
+.path-bar {
+  border-radius: 999px;
+  box-shadow: 3px 3px 0 @furr_pink;
+  padding: 4px 12px;
 }
 
 entry:focus,
@@ -266,7 +294,7 @@ entry:focus,
 .location-entry:focus,
 .thunar-location-bar entry:focus {
   border-color: @furr_cyan;
-  box-shadow: 3px 3px 0 @furr_cyan;
+  box-shadow: 2px 2px 0 @furr_cyan;
 }
 
 entry:selected,
@@ -1192,4 +1220,118 @@ combobox treeview.view:selected:backdrop,
   background-color: alpha(@furr_paper, 0.85);
   color: @furr_ink;
   box-shadow: none;
+}
+
+/* --------------------------------------------------------------------------
+   LibreOffice compatibility pass.
+   LibreOffice stacks several comboboxes inside its toolbar, so the defaults
+   above inflate the font selector to ~46 px and dialog buttons to ~38 px.
+   These rules keep the same FurrOS palette but use tighter metrics.
+   -------------------------------------------------------------------------- */
+combobox {
+  border-width: 2px;
+  border-radius: 8px;
+  box-shadow: 2px 2px 0 @furr_pink;
+  padding: 0;
+  min-height: 0;
+}
+
+combobox entry {
+  padding: 2px 8px;
+  min-height: 0;
+  font-size: 11px;
+}
+
+combobox button,
+combobox button.combo,
+button.combo {
+  padding: 2px 6px;
+  min-width: 16px;
+  min-height: 16px;
+  border-radius: 0 8px 8px 0;
+}
+
+combobox arrow {
+  min-width: 12px;
+  min-height: 12px;
+}
+
+toolbar combobox,
+.primary-toolbar combobox,
+.secondary-toolbar combobox,
+headerbar combobox {
+  border-width: 1px;
+  border-radius: 8px;
+  box-shadow: 1px 1px 0 @furr_pink;
+}
+
+toolbar combobox entry,
+.primary-toolbar combobox entry {
+  padding: 0 6px;
+  min-height: 0;
+  font-size: 10px;
+}
+
+toolbar combobox button,
+.primary-toolbar combobox button,
+toolbar button.combo {
+  padding: 0 4px;
+  min-width: 12px;
+  min-height: 12px;
+}
+
+toolbar combobox arrow {
+  min-width: 10px;
+  min-height: 10px;
+}
+
+toolbar,
+.primary-toolbar,
+.secondary-toolbar {
+  padding: 3px 5px;
+}
+
+/* Dialogs and their notebook pages: rounded surfaces, no square grey boxes. */
+dialog,
+.dialog,
+dialog background,
+.dialog background {
+  background-color: @furr_plum;
+  color: @furr_text;
+  border: 2.5px solid @furr_paper;
+  border-radius: 14px;
+  box-shadow: 4px 4px 0 @furr_red;
+}
+
+dialog frame,
+dialog viewport,
+dialog .frame,
+dialog .viewport,
+dialog scrolledwindow,
+dialog .scrolled-window {
+  background-color: transparent;
+  border: 0;
+  box-shadow: none;
+  border-radius: 10px;
+}
+
+dialog notebook > header > tabs > tab,
+.dialog notebook > header > tabs > tab {
+  border-radius: 8px 8px 0 0;
+  padding: 4px 10px;
+  min-height: 24px;
+}
+
+dialog button,
+.dialog button,
+dialog button:backdrop,
+.dialog button:backdrop {
+  min-height: 24px;
+  padding: 3px 10px;
+}
+
+dialog entry,
+.dialog entry {
+  border-radius: 8px;
+  padding: 2px 8px;
 }
