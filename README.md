@@ -1,8 +1,8 @@
 # FurrOS Thunar Theme
 
 A GTK3 theme for **Thunar** that reproduces the [FurrOS](https://furros.xyz/)
-design system and the matching Firefox theme: dark surfaces, chunky sticker
-outlines, rounded chips, and coordinated file/folder icons.
+design system: dark surfaces, chunky sticker outlines, rounded chips, and
+coordinated file/folder icons.
 
 No desktop screenshots are included in this repository.
 
@@ -90,9 +90,3 @@ removes the theme and icons. Backups created by `install.sh` are kept.
   (`alpha(...)`) and 12 px rounded corners instead of the default grey box.
 - Icons are scalable SVG and work at any size. `generate.py` needs only
   Python 3.
-
-## Credits
-
-Design and colours: [furros.xyz](https://furros.xyz/). GTK base:
-`adw-gtk3-dark`. Icon shapes inspired by Papirus. No Firefox profile files
-are included.
