@@ -1,0 +1,8 @@
+[Settings]
+gtk-theme-name=FurrOS
+gtk-icon-theme-name=FurrOS-Papirus
+gtk-font-name=Nunito 11
+gtk-cursor-theme-name=FurrOS
+gtk-sound-theme-name=furros
+gtk-enable-event-sounds=1
+gtk-application-prefer-dark-theme=1

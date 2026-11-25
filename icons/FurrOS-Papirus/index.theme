@@ -1,0 +1,19 @@
+[Icon Theme]
+Name=FurrOS-Papirus
+Comment=FurrOS icons: Papirus shapes, furros.xyz colours, paw detail
+Inherits=Papirus-Dark
+Directories=scalable/places,scalable/mimetypes
+
+[scalable/places]
+Size=48
+Type=Scalable
+MinSize=8
+MaxSize=256
+Context=Places
+
+[scalable/mimetypes]
+Size=48
+Type=Scalable
+MinSize=8
+MaxSize=256
+Context=MimeTypes

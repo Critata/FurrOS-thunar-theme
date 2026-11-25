@@ -1,0 +1,5 @@
+[X-GNOME-Metatheme]
+Name=FurrOS
+Comment=FurrOS styling for GTK3 applications (Thunar file manager)
+Encoding=UTF-8
+GtkTheme=FurrOS

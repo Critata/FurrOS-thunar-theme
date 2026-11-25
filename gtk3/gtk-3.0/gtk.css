@@ -1,0 +1,841 @@
+/* ==========================================================================
+   FurrOS GTK3 theme — Thunar file manager
+   Palette, "sticker" shadows and rounded chips taken from furros.xyz
+   and from the FurrOS Firefox theme (v1.0.0).
+   Base: adw-gtk3-dark (installed on the system).
+   ========================================================================== */
+
+@import url("/usr/share/themes/adw-gtk3-dark/gtk-3.0/gtk.css");
+
+@define-color furr_night #150b11;
+@define-color furr_plum #1e1218;
+@define-color furr_surface #2a1a22;
+@define-color furr_surface_2 #3a2430;
+@define-color furr_ink #0e080b;
+@define-color furr_paper #ffecec;
+@define-color furr_text #ffecec;
+@define-color furr_dim #c8aab4;
+@define-color furr_cyan #7ff0f0;
+@define-color furr_pink #ff8cbe;
+@define-color furr_red #e23a44;
+@define-color furr_maroon #781c2c;
+@define-color furr_green #78e6a0;
+@define-color furr_yellow #ffbe5a;
+
+/* Make the inherited widgets use the FurrOS selection/accent colours. */
+@define-color theme_selected_bg_color @furr_paper;
+@define-color theme_selected_fg_color @furr_ink;
+@define-color accent_bg_color @furr_cyan;
+@define-color accent_color @furr_cyan;
+@define-color accent_fg_color @furr_ink;
+@define-color destructive_bg_color @furr_red;
+@define-color destructive_fg_color @furr_paper;
+@define-color window_bg_color @furr_night;
+@define-color window_fg_color @furr_text;
+@define-color headerbar_bg_color @furr_plum;
+@define-color headerbar_fg_color @furr_text;
+@define-color popover_bg_color @furr_surface;
+@define-color popover_fg_color @furr_text;
+@define-color card_bg_color @furr_surface;
+@define-color card_fg_color @furr_text;
+
+/* --------------------------------------------------------------------------
+   Window
+   -------------------------------------------------------------------------- */
+window.background,
+window.background.csd,
+window.background.solid-csd {
+  background-color: @furr_night;
+  color: @furr_text;
+  border-radius: 16px;
+}
+
+window.background.csd {
+  border: 3px solid @furr_paper;
+  box-shadow: 5px 5px 0 @furr_red;
+}
+
+/* Dotted paper texture used on the website, kept very subtle for readability. */
+window.background > box.vertical,
+window.background > grid,
+window.background > box > box.vertical {
+  background-image: radial-gradient(circle, alpha(@furr_text, 0.07) 1px, transparent 1.6px);
+  background-size: 14px 14px;
+}
+
+label,
+.entry,
+textview,
+treeview.view,
+iconview.view {
+  color: @furr_text;
+  font-family: "Nunito", "Segoe UI", sans-serif;
+}
+
+/* GTK3 has no ::selection pseudo-element; text selection is handled by
+   the :selected rules and by the redefined theme selection colours above. */
+
+/* --------------------------------------------------------------------------
+   Header bar / title bar: the site's floating "nav pill"
+   -------------------------------------------------------------------------- */
+headerbar,
+headerbar.titlebar,
+.titlebar,
+headerbar.background {
+  background-color: @furr_plum;
+  color: @furr_text;
+  border-bottom: 3px solid @furr_paper;
+  border-top-left-radius: 13px;
+  border-top-right-radius: 13px;
+  padding: 6px 8px;
+  box-shadow: none;
+}
+
+headerbar .title {
+  color: @furr_text;
+  font-family: "Nunito", "Segoe UI", sans-serif;
+  font-weight: 900;
+  font-size: 15px;
+}
+
+headerbar .subtitle {
+  color: @furr_dim;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 11px;
+}
+
+/* Thunar puts its toolbar inside the headerbar: keep it flat like the site nav. */
+headerbar toolbar,
+headerbar .toolbar {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  padding: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Buttons: rounded chips with an ink outline and a sticker shadow
+   -------------------------------------------------------------------------- */
+button {
+  background-color: @furr_surface_2;
+  color: @furr_text;
+  border: 2px solid @furr_paper;
+  border-radius: 12px;
+  box-shadow: 3px 3px 0 @furr_ink;
+  padding: 5px 12px;
+  font-family: "Nunito", "Segoe UI", sans-serif;
+  font-weight: 800;
+  transition: background-color 180ms ease, box-shadow 180ms ease;
+  -gtk-outline-radius: 12px;
+}
+
+button:hover {
+  background-color: @furr_maroon;
+  box-shadow: 4px 4px 0 @furr_pink;
+}
+
+button:active {
+  background-color: @furr_cyan;
+  color: @furr_ink;
+  border-color: @furr_ink;
+  box-shadow: 1px 1px 0 @furr_ink;
+}
+
+button:checked,
+button:selected {
+  background-color: @furr_paper;
+  color: @furr_ink;
+  border-color: @furr_ink;
+  box-shadow: 3px 3px 0 @furr_pink;
+}
+
+button:focus,
+button:focus-visible {
+  outline: 3px solid @furr_cyan;
+  outline-offset: 2px;
+  -gtk-outline-radius: 12px;
+}
+
+button.suggested-action {
+  background-color: @furr_cyan;
+  color: @furr_ink;
+  border-color: @furr_ink;
+  box-shadow: 3px 3px 0 @furr_pink;
+}
+
+button.suggested-action:hover {
+  background-color: @furr_pink;
+}
+
+button.destructive-action {
+  background-color: @furr_red;
+  color: @furr_paper;
+  border-color: @furr_ink;
+  box-shadow: 3px 3px 0 @furr_ink;
+}
+
+button:disabled {
+  background-color: @furr_surface;
+  color: @furr_dim;
+  border-color: @furr_surface_2;
+  box-shadow: none;
+}
+
+headerbar button,
+.titlebar button {
+  background-color: @furr_plum;
+  border-color: @furr_paper;
+  box-shadow: none;
+  border-radius: 10px;
+}
+
+headerbar button:hover,
+.titlebar button:hover {
+  background-color: @furr_surface_2;
+  box-shadow: 3px 3px 0 @furr_pink;
+}
+
+/* --------------------------------------------------------------------------
+   Toolbars and Thunar's location / path bar
+   -------------------------------------------------------------------------- */
+toolbar,
+.primary-toolbar,
+.secondary-toolbar {
+  background-color: @furr_plum;
+  color: @furr_text;
+  border-bottom: 3px solid @furr_ink;
+  padding: 6px 8px;
+  box-shadow: none;
+}
+
+toolbar button,
+.toolbutton,
+toolbar .toolbutton,
+.primary-toolbar button {
+  background-color: @furr_surface_2;
+  color: @furr_text;
+  border: 2px solid @furr_paper;
+  border-radius: 10px;
+  box-shadow: 3px 3px 0 @furr_ink;
+  padding: 4px 9px;
+  -gtk-icon-style: regular;
+}
+
+toolbar button:hover,
+.toolbutton:hover,
+toolbar .toolbutton:hover {
+  background-color: @furr_maroon;
+  box-shadow: 3px 3px 0 @furr_pink;
+}
+
+toolbar button:active,
+.toolbutton:active,
+toolbar .toolbutton:active {
+  background-color: @furr_cyan;
+  color: @furr_ink;
+  border-color: @furr_ink;
+  box-shadow: none;
+}
+
+toolbar separator,
+.separator {
+  background-color: @furr_surface_2;
+  min-width: 2px;
+  min-height: 2px;
+  margin: 4px 6px;
+}
+
+entry,
+.entry,
+.location-entry,
+.pathbar,
+.path-bar,
+.thunar-location-bar entry {
+  background-color: @furr_night;
+  color: @furr_text;
+  border: 2.5px solid @furr_paper;
+  border-radius: 999px;
+  box-shadow: 3px 3px 0 @furr_pink;
+  padding: 4px 12px;
+  font-family: "Nunito", "Segoe UI", sans-serif;
+  font-weight: 700;
+  caret-color: @furr_cyan;
+}
+
+entry:focus,
+.entry:focus,
+.location-entry:focus,
+.thunar-location-bar entry:focus {
+  border-color: @furr_cyan;
+  box-shadow: 3px 3px 0 @furr_cyan;
+}
+
+entry:selected,
+.entry:selected {
+  background-color: @furr_pink;
+  color: @furr_ink;
+}
+
+entry placeholder,
+.entry placeholder {
+  color: @furr_dim;
+  opacity: 0.9;
+}
+
+/* Breadcrumb buttons inside Thunar's location bar */
+.pathbar button,
+.path-bar button,
+.location-entry button {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  border-radius: 999px;
+  padding: 2px 8px;
+  color: @furr_dim;
+}
+
+.pathbar button:hover,
+.path-bar button:hover,
+.location-entry button:hover {
+  background: @furr_surface_2;
+  color: @furr_text;
+}
+
+.pathbar button:checked,
+.path-bar button:checked {
+  background: @furr_paper;
+  color: @furr_ink;
+}
+
+/* Thunar's breadcrumb buttons */
+.location-button {
+  background: transparent;
+  border: 2px solid transparent;
+  border-radius: 999px;
+  box-shadow: none;
+  padding: 3px 10px;
+  color: @furr_dim;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.location-button:hover {
+  background: @furr_surface_2;
+  border-color: @furr_paper;
+  color: @furr_text;
+}
+
+.location-button:checked {
+  background: @furr_cyan;
+  border-color: @furr_ink;
+  color: @furr_ink;
+  box-shadow: 2px 2px 0 @furr_pink;
+}
+
+toolbar togglebutton:checked,
+.toolbutton:checked {
+  background-color: @furr_paper;
+  color: @furr_ink;
+  border-color: @furr_ink;
+  box-shadow: 3px 3px 0 @furr_pink;
+}
+
+/* --------------------------------------------------------------------------
+   Menu bar and menus
+   -------------------------------------------------------------------------- */
+menubar,
+.menubar {
+  background-color: @furr_plum;
+  color: @furr_text;
+  border-bottom: 2px solid @furr_ink;
+  padding: 2px 6px;
+}
+
+menubar > menuitem,
+.menubar > menuitem {
+  color: @furr_text;
+  font-weight: 800;
+  padding: 4px 11px;
+  border-radius: 8px;
+  border: 0;
+  box-shadow: none;
+  background: transparent;
+}
+
+menubar > menuitem:hover,
+.menubar > menuitem:hover {
+  background-color: @furr_cyan;
+  color: @furr_ink;
+}
+
+menu,
+.menu,
+menuitem,
+.menuitem,
+popover.background,
+.popover {
+  background-color: @furr_surface;
+  color: @furr_text;
+  border: 2.5px solid @furr_paper;
+  border-radius: 14px;
+  box-shadow: 4px 4px 0 @furr_red;
+  padding: 6px;
+  -gtk-outline-radius: 14px;
+}
+
+menuitem,
+.menuitem {
+  border: 0;
+  box-shadow: none;
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-weight: 700;
+}
+
+menuitem:hover,
+.menuitem:hover,
+menuitem:selected,
+.menuitem:selected {
+  background-color: @furr_cyan;
+  color: @furr_ink;
+}
+
+menuitem:disabled,
+.menuitem:disabled {
+  color: @furr_dim;
+  opacity: 0.75;
+}
+
+menuseparator,
+.menuseparator {
+  background-color: @furr_surface_2;
+  min-height: 2px;
+  margin: 5px 8px;
+}
+
+/* --------------------------------------------------------------------------
+   File views: list and icon view
+   -------------------------------------------------------------------------- */
+treeview.view,
+iconview.view,
+.view,
+.list-view,
+.grid-view {
+  background-color: @furr_night;
+  color: @furr_text;
+  border-radius: 10px;
+}
+
+treeview.view:selected,
+iconview.view:selected,
+.view:selected,
+.list-view:selected,
+.grid-view:selected {
+  background-color: @furr_paper;
+  color: @furr_ink;
+}
+
+treeview.view:hover,
+iconview.view:hover,
+.view:hover {
+  background-color: @furr_surface;
+}
+
+treeview.view:focus,
+iconview.view:focus,
+.view:focus {
+  outline: 2px solid @furr_cyan;
+  outline-offset: -2px;
+  -gtk-outline-radius: 10px;
+}
+
+treeview.view:selected label,
+iconview.view:selected label,
+.view:selected label,
+.list-view:selected label,
+.grid-view:selected label {
+  color: @furr_ink;
+  font-weight: 800;
+}
+
+/* Thunar's standard view is the scrolled window around the file list.
+   It gets a "paper" card with the website's dot texture and a faint paw. */
+.standard-view {
+  background-color: @furr_night;
+  border: 2px solid @furr_surface_2;
+  border-radius: 14px;
+  margin: 6px;
+  padding: 0;
+  box-shadow: none;
+}
+
+.standard-view .view,
+.standard-view iconview.view,
+.standard-view treeview.view {
+  background-color: @furr_night;
+  background-image:
+    radial-gradient(circle, alpha(@furr_text, 0.06) 1px, transparent 1.6px),
+    url("assets/furros-watermark.png");
+  background-size: 14px 14px, 260px 260px;
+  background-position: 0 0, center 45%;
+  background-repeat: repeat, no-repeat;
+  border-radius: 12px;
+}
+
+.standard-view:drop(active) {
+  border-color: @furr_cyan;
+  box-shadow: 0 0 0 2px @furr_cyan;
+}
+
+.split-view-inactive-pane .view {
+  background-color: @furr_surface;
+  color: @furr_dim;
+}
+
+.preview-pane {
+  background-color: @furr_surface;
+  color: @furr_text;
+  border-left: 2.5px solid @furr_paper;
+  border-radius: 0 14px 14px 0;
+  margin: 6px 8px 6px 0;
+  box-shadow: 3px 3px 0 @furr_pink;
+}
+
+treeview.view header,
+treeview header,
+.header {
+  background-color: @furr_plum;
+  color: @furr_pink;
+  border-bottom: 3px solid @furr_paper;
+  border-top: 0;
+  padding: 5px 8px;
+  font-weight: 900;
+}
+
+treeview.view header button,
+treeview header button,
+.header button {
+  background: transparent;
+  color: @furr_pink;
+  border: 0;
+  box-shadow: none;
+  border-radius: 8px;
+  padding: 4px 9px;
+}
+
+treeview.view header button:hover,
+treeview header button:hover {
+  background: @furr_surface_2;
+  color: @furr_text;
+}
+
+treeview.view header button:active,
+treeview header button:active {
+  background: @furr_cyan;
+  color: @furr_ink;
+}
+
+/* Thunar side pane: a plum card with a paper outline (site nav pill) */
+#thunar-side-pane,
+.thunar-side-pane,
+.sidebar,
+.side-pane {
+  background-color: @furr_plum;
+  color: @furr_text;
+  border: 2.5px solid @furr_paper;
+  border-radius: 14px;
+  box-shadow: 3px 3px 0 @furr_maroon;
+  margin: 8px 6px 8px 8px;
+  padding: 6px;
+}
+
+#thunar-side-pane treeview.view,
+.thunar-side-pane treeview.view,
+.sidebar treeview.view,
+.side-pane treeview.view,
+treeview.sidebar {
+  background-color: @furr_plum;
+  color: @furr_text;
+  border-radius: 10px;
+}
+
+#thunar-side-pane treeview.view:selected,
+.thunar-side-pane treeview.view:selected,
+.sidebar treeview.view:selected,
+.side-pane treeview.view:selected,
+treeview.sidebar:selected {
+  background-color: @furr_paper;
+  color: @furr_ink;
+  box-shadow: inset 3px 0 0 @furr_pink;
+}
+
+.sidebar label,
+.side-pane label {
+  color: @furr_dim;
+  font-weight: 800;
+}
+
+.sidebar treeview.view header,
+.sidebar header {
+  background-color: @furr_plum;
+  color: @furr_pink;
+  border-bottom: 2px solid @furr_paper;
+}
+
+/* --------------------------------------------------------------------------
+   Status bar
+   -------------------------------------------------------------------------- */
+statusbar,
+.statusbar {
+  background-color: @furr_plum;
+  color: @furr_dim;
+  border-top: 3px solid @furr_ink;
+  padding: 4px 10px;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 11px;
+}
+
+statusbar label,
+.statusbar label {
+  color: @furr_dim;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+}
+
+/* --------------------------------------------------------------------------
+   Scrollbars
+   -------------------------------------------------------------------------- */
+scrollbar,
+.scrollbar {
+  background-color: @furr_night;
+  border: 0;
+}
+
+scrollbar trough {
+  background-color: @furr_night;
+  border-radius: 999px;
+}
+
+scrollbar slider {
+  background-color: @furr_maroon;
+  color: @furr_paper;
+  border: 2px solid @furr_paper;
+  border-radius: 999px;
+  min-width: 9px;
+  min-height: 9px;
+}
+
+scrollbar slider:hover {
+  background-color: @furr_pink;
+}
+
+scrollbar slider:active {
+  background-color: @furr_cyan;
+}
+
+/* --------------------------------------------------------------------------
+   Tabs (Thunar can open folders in tabs)
+   -------------------------------------------------------------------------- */
+notebook {
+  background-color: @furr_night;
+  border: 0;
+  box-shadow: none;
+}
+
+notebook > header {
+  background-color: @furr_plum;
+  border-bottom: 3px solid @furr_paper;
+  padding: 5px 6px 0;
+  box-shadow: none;
+}
+
+notebook > header > tabs > tab,
+notebook header tabs tab {
+  background-color: @furr_surface;
+  color: @furr_dim;
+  border: 2px solid @furr_surface_2;
+  border-bottom: 0;
+  border-radius: 10px 10px 0 0;
+  padding: 6px 14px;
+  margin-right: 3px;
+  font-family: "Nunito", "Segoe UI", sans-serif;
+  font-weight: 800;
+}
+
+notebook > header > tabs > tab:hover,
+notebook header tabs tab:hover {
+  background-color: @furr_surface_2;
+  color: @furr_text;
+}
+
+notebook > header > tabs > tab:checked,
+notebook header tabs tab:checked {
+  background-color: @furr_paper;
+  color: @furr_ink;
+  border-color: @furr_ink;
+  box-shadow: 3px 3px 0 @furr_pink;
+  -gtk-icon-shadow: none;
+}
+
+/* Thunar information bars */
+infobar,
+.infobar {
+  background-color: @furr_surface_2;
+  color: @furr_text;
+  border: 2.5px solid @furr_paper;
+  border-radius: 12px;
+  box-shadow: 3px 3px 0 @furr_cyan;
+  margin: 6px;
+  padding: 6px 10px;
+}
+
+infobar.info {
+  background-color: @furr_surface_2;
+  border-color: @furr_cyan;
+}
+
+infobar.warning {
+  background-color: @furr_yellow;
+  color: @furr_ink;
+  border-color: @furr_ink;
+  box-shadow: 3px 3px 0 @furr_ink;
+}
+
+infobar.error {
+  background-color: @furr_red;
+  color: @furr_paper;
+  border-color: @furr_ink;
+  box-shadow: 3px 3px 0 @furr_ink;
+}
+
+/* --------------------------------------------------------------------------
+   Controls inside dialogs (properties, preferences, "create folder"...)
+   -------------------------------------------------------------------------- */
+dialog,
+.messagedialog,
+.filechooser,
+.background {
+  background-color: @furr_plum;
+  color: @furr_text;
+}
+
+.dialog-action-box,
+.action-area {
+  background-color: @furr_surface;
+  border-top: 3px solid @furr_paper;
+  padding: 8px;
+}
+
+frame,
+.frame,
+box.vertical > frame {
+  border: 2px solid @furr_surface_2;
+  border-radius: 12px;
+  padding: 8px;
+}
+
+separator {
+  background-color: @furr_surface_2;
+  min-width: 2px;
+  min-height: 2px;
+}
+
+checkbutton check,
+radiobutton radio {
+  background-color: @furr_night;
+  border: 2px solid @furr_paper;
+  border-radius: 6px;
+  min-width: 16px;
+  min-height: 16px;
+}
+
+radiobutton radio {
+  border-radius: 999px;
+}
+
+checkbutton:checked check,
+radiobutton:checked radio {
+  background-color: @furr_cyan;
+  color: @furr_ink;
+  border-color: @furr_ink;
+  box-shadow: inset 0 0 0 2px @furr_ink;
+}
+
+checkbutton:hover check,
+radiobutton:hover radio {
+  border-color: @furr_pink;
+}
+
+switch {
+  background-color: @furr_night;
+  border: 2px solid @furr_paper;
+  border-radius: 999px;
+  padding: 2px;
+}
+
+switch:checked {
+  background-color: @furr_cyan;
+  border-color: @furr_ink;
+}
+
+switch slider {
+  background-color: @furr_paper;
+  border-radius: 999px;
+}
+
+switch:checked slider {
+  background-color: @furr_ink;
+}
+
+progressbar trough {
+  background-color: @furr_night;
+  border: 2px solid @furr_paper;
+  border-radius: 999px;
+  min-height: 8px;
+}
+
+progressbar progress {
+  background-color: @furr_cyan;
+  border-radius: 999px;
+}
+
+notebook header tabs tab {
+  background-color: @furr_surface;
+  color: @furr_dim;
+  border: 2px solid @furr_surface_2;
+  border-bottom: 0;
+  border-radius: 10px 10px 0 0;
+  padding: 6px 12px;
+  font-weight: 800;
+}
+
+notebook header tabs tab:checked {
+  background-color: @furr_paper;
+  color: @furr_ink;
+  border-color: @furr_ink;
+  box-shadow: 3px 3px 0 @furr_pink;
+}
+
+tooltip,
+.tooltip {
+  background-color: @furr_surface;
+  color: @furr_text;
+  border: 2.5px solid @furr_paper;
+  border-radius: 10px;
+  box-shadow: 3px 3px 0 @furr_pink;
+  padding: 6px 9px;
+}
+
+tooltip label,
+.tooltip label {
+  color: @furr_text;
+}
+
+/* Keep the FurrOS cursor and monospace path/terminal-looking bits consistent. */
+textview,
+.textview {
+  background-color: @furr_night;
+  color: @furr_text;
+  border: 2px solid @furr_surface_2;
+  border-radius: 10px;
+}
