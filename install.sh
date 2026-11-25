@@ -13,10 +13,8 @@ echo "  Destinazione : $HOME_DIR"
 # ---------------------------------------------------------------------------
 # Tema GTK3
 # ---------------------------------------------------------------------------
-mkdir -p "$HOME_DIR/.themes/FurrOS/gtk-3.0/assets"
+mkdir -p "$HOME_DIR/.themes/FurrOS/gtk-3.0"
 cp -a "$ROOT/gtk3/gtk-3.0/gtk.css" "$HOME_DIR/.themes/FurrOS/gtk-3.0/gtk.css"
-cp -a "$ROOT/gtk3/gtk-3.0/assets/furros-watermark.png" \
-  "$HOME_DIR/.themes/FurrOS/gtk-3.0/assets/furros-watermark.png"
 cp -a "$ROOT/gtk3/index.theme" "$HOME_DIR/.themes/FurrOS/index.theme"
 
 # ---------------------------------------------------------------------------
@@ -82,6 +80,17 @@ if command -v gsettings >/dev/null 2>&1; then
   gsettings set org.gnome.desktop.interface gtk-theme 'FurrOS' || true
   gsettings set org.gnome.desktop.interface icon-theme 'FurrOS-Papirus' || true
   gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark' || true
+fi
+
+# ---------------------------------------------------------------------------
+# LibreOffice: palette applicativa (menu, sidebar, documenti)
+# ---------------------------------------------------------------------------
+if [[ -f "$ROOT/libreoffice/install.sh" ]]; then
+  if pgrep -x soffice.bin >/dev/null 2>&1; then
+    echo "  LibreOffice è aperto: chiudi i documenti e lancia libreoffice/install.sh"
+  else
+    bash "$ROOT/libreoffice/install.sh"
+  fi
 fi
 
 if pgrep -x thunar >/dev/null 2>&1; then

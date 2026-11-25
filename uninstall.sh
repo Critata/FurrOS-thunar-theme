@@ -37,6 +37,14 @@ fi
 
 rm -rf "$HOME_DIR/.themes/FurrOS" "$HOME_DIR/.local/share/icons/FurrOS-Papirus"
 
+if [[ -f "$(dirname "${BASH_SOURCE[0]}")/libreoffice/uninstall.sh" ]]; then
+  if pgrep -x soffice.bin >/dev/null 2>&1; then
+    echo "  LibreOffice è aperto: chiudi i documenti e lancia libreoffice/uninstall.sh"
+  else
+    bash "$(dirname "${BASH_SOURCE[0]}")/libreoffice/uninstall.sh"
+  fi
+fi
+
 if pgrep -x thunar >/dev/null 2>&1; then
   pkill -TERM thunar || true
   sleep 1

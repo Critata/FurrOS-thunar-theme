@@ -18,6 +18,10 @@ icons/FurrOS-Papirus/       65 SVG icons (folders + file types)
   scalable/places/
   scalable/mimetypes/
 config/settings.ini.example reference values
+libreoffice/                LibreOffice application-colour palette
+  generate.py               emits the registry fragments from the palette
+  install.sh                patches the user profile (with backup)
+  uninstall.sh              restores the last backup
 install.sh                  install + backup + Thunar restart
 uninstall.sh                restore Adwaita / Papirus-Dark
 ```
@@ -42,7 +46,9 @@ The installer:
 4. updates only the required keys (`gtk-theme-name`, `gtk-icon-theme-name`,
    Nunito font, dark mode), leaving the other settings untouched;
 5. applies the same values through `gsettings`;
-6. restarts Thunar if it was running.
+6. installs the FurrOS colour scheme into the LibreOffice user profile when
+   LibreOffice is closed (its registry is backed up first);
+7. restarts Thunar if it was running.
 
 Verify with:
 
@@ -60,7 +66,8 @@ gsettings get org.gnome.desktop.interface icon-theme
 ```
 
 This resets `gtk-theme` to `Adwaita` and `icon-theme` to `Papirus-Dark`, then
-removes the theme and icons. Backups created by `install.sh` are kept.
+removes the theme and icons. The LibreOffice palette is restored from its
+backup as well. Backups created by `install.sh` are kept.
 
 ## Palette
 
@@ -96,5 +103,11 @@ removes the theme and icons. Backups created by `install.sh` are kept.
   buttons use tighter padding/margins, and dialog surfaces have 14 px rounded
   corners. This avoids the inflated, overlapping widgets caused by the
   sticker shadows when used outside Thunar.
+- LibreOffice 26.8 draws menus, the sidebar and the document background itself,
+  so CSS alone cannot reach them. `libreoffice/` writes the FurrOS palette into
+  the dark colour scheme in `registrymodifications.xcu`: night menus and app
+  background, plum menus/dialogs, surface document pages, paper text, cyan
+  selection and pink/maroon accents. It also selects the bundled `sifr_dark`
+  icon set. Only the user profile is modified; no system files are touched.
 - Icons are scalable SVG and work at any size. `generate.py` needs only
   Python 3.
