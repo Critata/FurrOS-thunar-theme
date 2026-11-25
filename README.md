@@ -88,5 +88,9 @@ removes the theme and icons. Backups created by `install.sh` are kept.
   view only has a very light dot texture, so selection stays readable.
 - The information area below the side-pane places uses translucent surfaces
   (`alpha(...)`) and 12 px rounded corners instead of the default grey box.
+- Combo boxes and dropdown lists (for example LibreOffice's font picker) are
+  styled as one pill: transparent inner entry, cyan arrow, plum popover and
+  cyan selected rows with a pink sticker shadow. Both GTK list-box and
+  tree-view popups are covered.
 - Icons are scalable SVG and work at any size. `generate.py` needs only
   Python 3.

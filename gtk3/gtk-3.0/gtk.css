@@ -1,7 +1,6 @@
 /* ==========================================================================
    FurrOS GTK3 theme — Thunar file manager
-   Palette, "sticker" shadows and rounded chips taken from furros.xyz
-   and from the FurrOS Firefox theme (v1.0.0).
+   Palette, "sticker" shadows and rounded chips taken from furros.xyz.
    Base: adw-gtk3-dark (installed on the system).
    ========================================================================== */
 
@@ -966,5 +965,231 @@ entry:backdrop,
 .side-pane .preview-pane:backdrop {
   background-color: alpha(@furr_surface, 0.55);
   border-color: alpha(@furr_paper, 0.35);
+  box-shadow: none;
+}
+
+/* --------------------------------------------------------------------------
+   Combo boxes / dropdown lists (font picker, font size, filters, ...).
+   LibreOffice's GTK3 font selector is a GtkComboBox: style the closed field
+   and the popup list together so they look like one FurrOS "chip".
+   Note: GTK adds the "combo" style class to the *internal entry* too, so
+   never use a bare ".combo" selector here or the field gets a double border.
+   -------------------------------------------------------------------------- */
+combobox {
+  background-color: @furr_night;
+  color: @furr_text;
+  border: 2.5px solid @furr_paper;
+  border-radius: 999px;
+  box-shadow: 3px 3px 0 @furr_pink;
+  padding: 0;
+}
+
+combobox > box {
+  background-color: transparent;
+  border-radius: 999px;
+  box-shadow: none;
+  padding: 0;
+}
+
+combobox entry {
+  background-color: transparent;
+  color: @furr_text;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 4px 10px;
+  font-family: "Nunito", "Segoe UI", sans-serif;
+  font-weight: 700;
+  caret-color: @furr_cyan;
+}
+
+combobox button,
+combobox button.combo,
+button.combo {
+  background-color: transparent;
+  color: @furr_paper;
+  border: 0;
+  border-radius: 0 999px 999px 0;
+  box-shadow: none;
+  padding: 4px 8px;
+  min-width: 22px;
+  min-height: 22px;
+}
+
+combobox button:hover,
+combobox button.combo:hover,
+button.combo:hover {
+  background-color: @furr_surface_2;
+  color: @furr_cyan;
+}
+
+combobox button:active,
+combobox button.combo:active,
+button.combo:active {
+  background-color: @furr_cyan;
+  color: @furr_ink;
+}
+
+combobox arrow {
+  color: @furr_cyan;
+  -gtk-icon-style: regular;
+}
+
+combobox:focus,
+combobox:drop(active) {
+  border-color: @furr_cyan;
+  box-shadow: 3px 3px 0 @furr_cyan;
+}
+
+combobox:disabled {
+  color: @furr_dim;
+  border-color: alpha(@furr_paper, 0.4);
+  box-shadow: none;
+  opacity: 0.75;
+}
+
+/* The dropdown itself: GTK3 uses a popover or a dedicated popup window. */
+popover.combo,
+popover.background.combo,
+combobox popover,
+window.background.combo,
+window.background.csd.combo,
+.combo-window {
+  background-color: @furr_plum;
+  color: @furr_text;
+  border: 2.5px solid @furr_paper;
+  border-radius: 14px;
+  box-shadow: 4px 4px 0 @furr_red;
+  padding: 6px;
+  -gtk-outline-radius: 14px;
+}
+
+popover scrolledwindow,
+popover .scrolled-window,
+combobox scrolledwindow,
+.combo-window scrolledwindow,
+popover viewport,
+combobox viewport,
+.combo-window viewport,
+popover frame,
+combobox frame,
+.combo-window frame {
+  background-color: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+/* GTK3 combo popovers use a GtkListBox; older/popup dialogs use a treeview. */
+popover.combo list,
+popover.background.combo list {
+  background-color: @furr_night;
+  border: 0;
+  border-radius: 10px;
+  min-width: 200px;
+  margin: 4px 0;
+}
+
+popover.combo list > row,
+popover.background.combo list > row {
+  background-color: transparent;
+  color: @furr_text;
+  border: 0;
+  border-radius: 8px;
+  margin: 2px 4px;
+  padding: 6px 10px;
+  min-height: 30px;
+  font-family: "Nunito", "Segoe UI", sans-serif;
+}
+
+popover.combo list > row:not(:last-child),
+popover.background.combo list > row:not(:last-child) {
+  border-bottom: 0;
+}
+
+popover.combo list > row:hover,
+popover.background.combo list > row:hover {
+  background-color: @furr_surface_2;
+  color: @furr_text;
+}
+
+popover.combo list > row:selected,
+popover.background.combo list > row:selected {
+  background-color: @furr_cyan;
+  color: @furr_ink;
+  box-shadow: 2px 2px 0 @furr_pink;
+  -gtk-outline-radius: 8px;
+}
+
+popover.combo list > row:selected label,
+popover.background.combo list > row:selected label {
+  color: @furr_ink;
+  font-weight: 800;
+}
+
+popover treeview.view,
+popover.background treeview.view,
+combobox treeview.view,
+.combo-window treeview.view {
+  background-color: @furr_night;
+  color: @furr_text;
+  border-radius: 10px;
+  padding: 2px;
+  font-family: inherit;
+}
+
+popover treeview.view:selected,
+popover.background treeview.view:selected,
+combobox treeview.view:selected,
+.combo-window treeview.view:selected {
+  background-color: @furr_cyan;
+  color: @furr_ink;
+  border-radius: 8px;
+  -gtk-outline-radius: 8px;
+}
+
+popover treeview.view:selected label,
+combobox treeview.view:selected label,
+.combo-window treeview.view:selected label {
+  color: @furr_ink;
+  font-weight: 800;
+}
+
+popover entry,
+combobox popover entry,
+.combo-window entry {
+  background-color: @furr_night;
+  color: @furr_text;
+  border: 2px solid alpha(@furr_paper, 0.5);
+  border-radius: 999px;
+  box-shadow: none;
+  padding: 3px 10px;
+}
+
+/* Unfocused dropdowns keep the same colours instead of falling back to grey. */
+combobox:backdrop {
+  background-color: @furr_night;
+  border-color: alpha(@furr_paper, 0.6);
+  box-shadow: none;
+}
+
+combobox entry:backdrop {
+  color: @furr_dim;
+}
+
+popover.combo:backdrop,
+popover.background.combo:backdrop,
+.combo-window:backdrop {
+  background-color: @furr_plum;
+  border-color: alpha(@furr_paper, 0.6);
+  box-shadow: 2px 2px 0 alpha(@furr_red, 0.6);
+}
+
+popover.combo list > row:selected:backdrop,
+popover.background.combo list > row:selected:backdrop,
+popover treeview.view:selected:backdrop,
+combobox treeview.view:selected:backdrop,
+.combo-window treeview.view:selected:backdrop {
+  background-color: alpha(@furr_paper, 0.85);
+  color: @furr_ink;
   box-shadow: none;
 }
