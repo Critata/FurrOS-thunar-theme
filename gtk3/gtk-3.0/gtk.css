@@ -436,11 +436,9 @@ iconview.view:selected,
   color: @furr_ink;
 }
 
-treeview.view:hover,
-iconview.view:hover,
-.view:hover {
-  background-color: @furr_surface;
-}
+/* Nessun :hover sull'intera vista: in GTK3 colpisce il widget intero e fa
+   "saltare" l'evidenziazione delle righe. L'hover delle singole righe è
+   gestito da GTK, qui lasciamo solo :selected. */
 
 treeview.view:focus,
 iconview.view:focus,
@@ -460,7 +458,8 @@ iconview.view:selected label,
 }
 
 /* Thunar's standard view is the scrolled window around the file list.
-   It gets a "paper" card with the website's dot texture and a faint paw. */
+   Nessun watermark o immagine sotto i nomi dei file: solo la texture a punti,
+   mantenuta molto leggera per non confondere testo e selezione. */
 .standard-view {
   background-color: @furr_night;
   border: 2px solid @furr_surface_2;
@@ -474,12 +473,9 @@ iconview.view:selected label,
 .standard-view iconview.view,
 .standard-view treeview.view {
   background-color: @furr_night;
-  background-image:
-    radial-gradient(circle, alpha(@furr_text, 0.06) 1px, transparent 1.6px),
-    url("assets/furros-watermark.png");
-  background-size: 14px 14px, 260px 260px;
-  background-position: 0 0, center 45%;
-  background-repeat: repeat, no-repeat;
+  background-image: radial-gradient(circle, alpha(@furr_text, 0.05) 1px, transparent 1.6px);
+  background-size: 14px 14px;
+  background-repeat: repeat;
   border-radius: 12px;
 }
 
@@ -493,13 +489,18 @@ iconview.view:selected label,
   color: @furr_dim;
 }
 
-.preview-pane {
-  background-color: @furr_surface;
+/* Pannello informazioni sotto le voci della sidebar: niente rettangolo grigio. */
+.preview-pane,
+.sidebar .preview-pane,
+.side-pane .preview-pane {
+  background-color: alpha(@furr_surface, 0.55);
   color: @furr_text;
-  border-left: 2.5px solid @furr_paper;
-  border-radius: 0 14px 14px 0;
-  margin: 6px 8px 6px 0;
-  box-shadow: 3px 3px 0 @furr_pink;
+  border: 2px solid alpha(@furr_paper, 0.35);
+  border-left-width: 2.5px;
+  border-radius: 12px;
+  margin: 6px;
+  padding: 6px;
+  box-shadow: none;
 }
 
 treeview.view header,
@@ -567,7 +568,22 @@ treeview.sidebar {
 treeview.sidebar:selected {
   background-color: @furr_paper;
   color: @furr_ink;
-  box-shadow: inset 3px 0 0 @furr_pink;
+  box-shadow: none;
+}
+
+/* Frame/viewport interni della sidebar: niente sfondo grigio opaco. */
+.sidebar frame,
+.sidebar .frame,
+.sidebar viewport,
+.sidebar .viewport,
+.sidebar box,
+#thunar-side-pane frame,
+#thunar-side-pane viewport,
+.side-pane frame,
+.side-pane viewport {
+  background-color: transparent;
+  border: 0;
+  box-shadow: none;
 }
 
 .sidebar label,
@@ -588,9 +604,12 @@ treeview.sidebar:selected {
    -------------------------------------------------------------------------- */
 statusbar,
 .statusbar {
-  background-color: @furr_plum;
+  background-color: alpha(@furr_plum, 0.82);
   color: @furr_dim;
-  border-top: 3px solid @furr_ink;
+  border: 2px solid alpha(@furr_paper, 0.35);
+  border-radius: 12px;
+  box-shadow: 3px 3px 0 @furr_maroon;
+  margin: 6px;
   padding: 4px 10px;
   font-family: "JetBrains Mono", ui-monospace, monospace;
   font-size: 11px;

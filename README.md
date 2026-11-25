@@ -1,31 +1,30 @@
 # FurrOS Thunar Theme
 
-Tema GTK3 per **Thunar** che replica il design system di [FurrOS](https://furros.xyz/)
-e del tema Firefox FurrOS: palette scura, bordi "sticker", chip arrotondati,
-zampina e icone coordinate.
+A GTK3 theme for **Thunar** that reproduces the [FurrOS](https://furros.xyz/)
+design system and the matching Firefox theme: dark surfaces, chunky sticker
+outlines, rounded chips, and coordinated file/folder icons.
 
-![Anteprima](docs/thunar-preview.png)
+![Preview](docs/thunar-preview.png)
 
-## Contenuto
+## Contents
 
 ```
-gtk3/                       tema GTK3 (adw-gtk3-dark + override FurrOS)
+gtk3/                       GTK3 theme (adw-gtk3-dark + FurrOS overrides)
   gtk-3.0/gtk.css
-  gtk-3.0/assets/furros-watermark.png
   index.theme
-icons/FurrOS-Papirus/       65 icone SVG (cartelle + tipi di file)
-  index.theme               eredita da Papirus-Dark
-  generate.py               rigenera le icone
+icons/FurrOS-Papirus/       65 SVG icons (folders + file types)
+  index.theme               inherits from Papirus-Dark
+  generate.py               regenerates the icons
   scalable/places/
   scalable/mimetypes/
-config/settings.ini.example valori finali di riferimento
-install.sh                  installazione + backup + restart Thunar
-uninstall.sh                ripristino ad Adwaita/Papirus-Dark
+config/settings.ini.example reference values
+install.sh                  install + backup + Thunar restart
+uninstall.sh                restore Adwaita / Papirus-Dark
 ```
 
-## Installazione
+## Install
 
- Su FurrOS/Arch con Thunar 4.20 e `adw-gtk3-dark` installato:
+On FurrOS/Arch with Thunar 4.20 and `adw-gtk3-dark` installed:
 
 ```bash
 git clone https://github.com/Critata/FurrOS-thunar-theme.git
@@ -34,18 +33,18 @@ chmod +x install.sh uninstall.sh
 ./install.sh
 ```
 
-Lo script:
+The installer:
 
-1. copia il tema in `~/.themes/FurrOS`;
-2. copia le icone in `~/.local/share/icons/FurrOS-Papirus`;
-3. fa un backup di `~/.config/gtk-3.0/settings.ini` e
-   `~/.config/gtk-4.0/settings.ini` con suffisso `.bak-DATA-ORA`;
-4. aggiorna solo le chiavi necessarie (`gtk-theme-name`,
-   `gtk-icon-theme-name`, font Nunito, dark mode), lasciando intatte le altre;
-5. applica i valori anche via `gsettings`;
-6. riavvia Thunar se era in esecuzione.
+1. copies the theme to `~/.themes/FurrOS`;
+2. copies the icons to `~/.local/share/icons/FurrOS-Papirus`;
+3. backs up `~/.config/gtk-3.0/settings.ini` and
+   `~/.config/gtk-4.0/settings.ini` with a `.bak-DATE-TIME` suffix;
+4. updates only the required keys (`gtk-theme-name`, `gtk-icon-theme-name`,
+   Nunito font, dark mode), leaving the other settings untouched;
+5. applies the same values through `gsettings`;
+6. restarts Thunar if it was running.
 
-Verifica:
+Verify with:
 
 ```bash
 gsettings get org.gnome.desktop.interface gtk-theme
@@ -54,43 +53,46 @@ gsettings get org.gnome.desktop.interface icon-theme
 # 'FurrOS-Papirus'
 ```
 
-## Disinstallazione
+## Uninstall
 
 ```bash
 ./uninstall.sh
 ```
 
-Riporta `gtk-theme` ad `Adwaita` e `icon-theme` a `Papirus-Dark` e rimuove
-tema e icone. I backup creati da `install.sh` restano nelle rispettive cartelle.
+This resets `gtk-theme` to `Adwaita` and `icon-theme` to `Papirus-Dark`, then
+removes the theme and icons. Backups created by `install.sh` are kept.
 
 ## Palette
 
-| Nome | Colore | Uso |
+| Name | Colour | Used for |
 | --- | --- | --- |
-| night | `#150B11` | sfondo finestre e viste |
-| plum | `#1E1218` | headerbar, toolbar, sidebar |
-| surface | `#2A1A22` | pannelli |
-| surface-2 | `#3A2430` | hover, bottoni |
-| paper | `#FFECEC` | testo, bordi, selezioni |
-| ink | `#0E080B` | ombre, testo su paper |
-| cyan | `#7FF0F0` | focus e accento primario |
-| pink | `#FF8CBE` | accento secondario |
-| red | `#E23A44` | ombre e azioni distruttive |
-| maroon | `#781C2C` | hover e retro cartelle |
+| night | `#150B11` | window and file-view background |
+| plum | `#1E1218` | header bar, toolbar, side pane |
+| surface | `#2A1A22` | panels |
+| surface-2 | `#3A2430` | hovers and buttons |
+| paper | `#FFECEC` | text, borders, selection |
+| ink | `#0E080B` | shadows and text on paper |
+| cyan | `#7FF0F0` | focus and primary accent |
+| pink | `#FF8CBE` | secondary accent |
+| red | `#E23A44` | shadows and destructive actions |
+| maroon | `#781C2C` | hover state and folder backs |
 
-## Dettagli tecnici
+## Implementation notes
 
-- Il CSS importa `/usr/share/themes/adw-gtk3-dark/gtk-3.0/gtk.css` come base:
-  se quel tema non è presente, installa `adw-gtk3-dark` prima di `install.sh`.
-- Thunar usa classi interne come `.sidebar`, `.standard-view`,
-  `.location-button` e `notebook`: sono quelle che permettono di stilizzare
-  pane laterale, area file, breadcrumb e schede senza patchare l'applicazione.
-- Le icone sono SVG scalable, quindi funzionano a qualsiasi dimensione;
-  `generate.py` non richiede dipendenze oltre a Python 3.
-- Il watermark `furros-watermark.png` è ricavato dal logo FurrOS di sistema
-  con opacità molto bassa (~9%) per non interferire con la leggibilità.
+- The CSS imports `/usr/share/themes/adw-gtk3-dark/gtk-3.0/gtk.css` as a base.
+  Install `adw-gtk3-dark` first if it is missing.
+- Thunar exposes internal style classes such as `.sidebar`, `.standard-view`,
+  `.location-button` and `notebook`. They make it possible to style the side
+  pane, file area, breadcrumbs and tabs without patching the application.
+- There is deliberately **no image watermark behind file names**: the file
+  view only has a very light dot texture, so selection stays readable.
+- The information area below the side-pane places uses translucent surfaces
+  (`alpha(...)`) and 12 px rounded corners instead of the default grey box.
+- Icons are scalable SVG and work at any size. `generate.py` needs only
+  Python 3.
 
-## Crediti
+## Credits
 
-Design e colori: [furros.xyz](https://furros.xyz/). Base GTK: `adw-gtk3-dark`.
-Forma delle icone ispirata a Papirus. Nessun file del profilo Firefox è incluso.
+Design and colours: [furros.xyz](https://furros.xyz/). GTK base:
+`adw-gtk3-dark`. Icon shapes inspired by Papirus. No Firefox profile files
+are included.
