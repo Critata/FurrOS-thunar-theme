@@ -1327,6 +1327,18 @@ toolbar combobox entry,
   font-size: 10px;
 }
 
+/* LibreOffice paints some combo labels in a cell view instead of a real
+   entry. Force the compact font on the whole widget so long values such as
+   "Preformatted Text" and "Liberation Mono" are not clipped by the chip. */
+toolbar combobox,
+toolbar combobox *,
+.primary-toolbar combobox,
+.primary-toolbar combobox * {
+  font-family: "Nunito", "Segoe UI", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+}
+
 toolbar combobox button,
 .primary-toolbar combobox button,
 toolbar button.combo {

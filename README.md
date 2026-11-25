@@ -104,7 +104,10 @@ backup as well. Backups created by `install.sh` are kept.
 - LibreOffice compatibility: toolbar buttons stay flat, comboboxes and dialog
   buttons use tighter padding/margins, and dialog surfaces have 14 px rounded
   corners. This avoids the inflated, overlapping widgets caused by the
-  sticker shadows when used outside Thunar.
+  sticker shadows when used outside Thunar. The compact font is applied to the
+  entire toolbar combobox, not just its inner entry, because LibreOffice can
+  render labels such as "Preformatted Text" and "Liberation Mono" in a cell
+  view; this keeps long values fully visible instead of clipped.
 - LibreOffice 26.8 draws menus, the sidebar and the document background itself,
   so CSS alone cannot reach them. `libreoffice/` writes the FurrOS palette into
   the dark colour scheme in `registrymodifications.xcu`: night menus and app
