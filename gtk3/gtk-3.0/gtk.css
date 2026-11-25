@@ -1071,9 +1071,9 @@ combobox button arrow,
 button.combo arrow,
 window.combo button arrow {
   color: @furr_cyan;
-  -gtk-icon-style: symbolic;
-  min-width: 16px;
-  min-height: 16px;
+  -gtk-icon-style: regular;
+  min-width: 14px;
+  min-height: 14px;
 }
 
 combobox button:hover arrow,
@@ -1298,10 +1298,41 @@ combobox entry {
 combobox button,
 combobox button.combo,
 button.combo {
-  padding: 2px 6px;
-  min-width: 20px;
-  min-height: 20px;
+  /* Match the 38 px dropdown cell LibreOffice allocates. A smaller button
+     leaves a dead strip and draws the arrow half outside the chip. */
+  padding: 0;
+  min-width: 36px;
+  min-height: 34px;
   border-radius: 0 8px 8px 0;
+}
+
+combobox button > image,
+combobox button.combo > image,
+button.combo > image {
+  color: @furr_cyan;
+  -gtk-icon-style: regular;
+}
+
+/* Some LibreOffice builds expose the arrow as a non-button .combo child.
+   Target only the direct child of the combo box, never the inner entry. */
+combobox > box > .combo:not(entry),
+combobox > box > button:not(entry) {
+  padding: 0;
+  min-width: 36px;
+  min-height: 34px;
+  background-color: @furr_surface_2;
+  color: @furr_cyan;
+  border: 0;
+  border-left: 2px solid @furr_ink;
+  border-radius: 0 8px 8px 0;
+  box-shadow: none;
+  -gtk-icon-style: regular;
+}
+
+combobox > box > .combo:not(entry) image,
+combobox > box > button:not(entry) image {
+  color: @furr_cyan;
+  -gtk-icon-style: regular;
 }
 
 combobox arrow,
@@ -1328,28 +1359,22 @@ toolbar combobox entry,
 }
 
 /* LibreOffice paints some combo labels in a cell view instead of a real
-   entry. Apply the compact font only to the text-bearing children; applying
-   it to "*" also resized the dropdown arrow button and clipped its icon. */
+   entry. Force the compact font on the whole widget so long values such as
+   "Preformatted Text" and "Liberation Mono" are not clipped by the chip. */
 toolbar combobox,
-toolbar combobox entry,
-toolbar combobox cellview,
-toolbar combobox label,
-toolbar combobox label *,
+toolbar combobox *,
 .primary-toolbar combobox,
-.primary-toolbar combobox entry,
-.primary-toolbar combobox cellview,
-.primary-toolbar combobox label,
-.primary-toolbar combobox label * {
+.primary-toolbar combobox * {
   font-family: "Nunito", "Segoe UI", sans-serif;
   font-size: 12px;
   font-weight: 700;
 }
 
-/* Keep the dropdown arrow chip large enough to stay inside the rounded
-   outline and avoid a clipped icon. */
 toolbar combobox button,
 .primary-toolbar combobox button,
 toolbar button.combo {
+  /* LibreOffice allocates a 38 px arrow cell. Keep the button at least that
+     wide, otherwise only a sliver is painted and the arrow looks cut off. */
   padding: 0;
   min-width: 36px;
   min-height: 34px;
@@ -1359,12 +1384,12 @@ toolbar combobox button > image,
 .primary-toolbar combobox button > image,
 toolbar button.combo > image {
   color: @furr_cyan;
+  -gtk-icon-style: regular;
 }
 
 toolbar combobox arrow,
 toolbar combobox button arrow,
 toolbar button.combo arrow {
-  color: @furr_cyan;
   min-width: 14px;
   min-height: 14px;
 }
