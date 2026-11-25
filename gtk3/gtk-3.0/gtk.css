@@ -547,7 +547,7 @@ treeview header button:active {
   border: 2.5px solid @furr_paper;
   border-radius: 14px;
   box-shadow: 3px 3px 0 @furr_maroon;
-  margin: 8px 6px 8px 8px;
+  margin: 6px;
   padding: 6px;
 }
 
@@ -857,4 +857,114 @@ textview,
   color: @furr_text;
   border: 2px solid @furr_surface_2;
   border-radius: 10px;
+}
+
+/* --------------------------------------------------------------------------
+   Unfocused windows (:backdrop).
+   Without these rules GTK falls back to the inherited grey, which makes the
+   side-pane buttons look detached from the plum background when Thunar is not
+   the active window.
+   -------------------------------------------------------------------------- */
+window.background:backdrop,
+window.background.csd:backdrop,
+window.background.solid-csd:backdrop {
+  background-color: @furr_night;
+  border-color: alpha(@furr_paper, 0.75);
+  box-shadow: 4px 4px 0 alpha(@furr_red, 0.6);
+}
+
+headerbar:backdrop,
+headerbar.titlebar:backdrop,
+.titlebar:backdrop {
+  background-color: @furr_plum;
+  color: @furr_text;
+  border-color: alpha(@furr_paper, 0.75);
+  box-shadow: none;
+}
+
+toolbar:backdrop,
+.primary-toolbar:backdrop,
+.secondary-toolbar:backdrop,
+menubar:backdrop,
+.menubar:backdrop,
+statusbar:backdrop,
+.statusbar:backdrop {
+  background-color: @furr_plum;
+  color: @furr_text;
+  border-color: alpha(@furr_paper, 0.45);
+  box-shadow: none;
+}
+
+#thunar-side-pane:backdrop,
+.thunar-side-pane:backdrop,
+.sidebar:backdrop,
+.side-pane:backdrop {
+  background-color: @furr_plum;
+  border-color: alpha(@furr_paper, 0.55);
+  box-shadow: 2px 2px 0 alpha(@furr_maroon, 0.6);
+}
+
+#thunar-side-pane treeview.view:backdrop,
+.thunar-side-pane treeview.view:backdrop,
+.sidebar treeview.view:backdrop,
+.side-pane treeview.view:backdrop,
+treeview.sidebar:backdrop {
+  background-color: @furr_plum;
+  color: @furr_text;
+}
+
+#thunar-side-pane treeview.view:selected:backdrop,
+.thunar-side-pane treeview.view:selected:backdrop,
+.sidebar treeview.view:selected:backdrop,
+.side-pane treeview.view:selected:backdrop,
+treeview.sidebar:selected:backdrop {
+  background-color: alpha(@furr_paper, 0.85);
+  color: @furr_ink;
+  box-shadow: none;
+}
+
+button:backdrop,
+toolbar button:backdrop,
+.toolbutton:backdrop,
+headerbar button:backdrop,
+.location-button:backdrop {
+  background-color: @furr_surface_2;
+  color: @furr_text;
+  border-color: alpha(@furr_paper, 0.6);
+  box-shadow: none;
+}
+
+button:checked:backdrop,
+toolbar togglebutton:checked:backdrop,
+.toolbutton:checked:backdrop,
+.location-button:checked:backdrop {
+  background-color: alpha(@furr_paper, 0.85);
+  color: @furr_ink;
+  border-color: @furr_ink;
+  box-shadow: none;
+}
+
+treeview.view:selected:backdrop,
+iconview.view:selected:backdrop,
+.view:selected:backdrop,
+.list-view:selected:backdrop,
+.grid-view:selected:backdrop {
+  background-color: alpha(@furr_paper, 0.85);
+  color: @furr_ink;
+}
+
+entry:backdrop,
+.entry:backdrop,
+.location-entry:backdrop,
+.pathbar:backdrop {
+  border-color: alpha(@furr_paper, 0.6);
+  box-shadow: none;
+}
+
+.preview-pane:backdrop,
+.sidebar .preview-pane:backdrop,
+.side-pane .preview-pane:backdrop {
+  background-color: alpha(@furr_surface, 0.55);
+  border-color: alpha(@furr_paper, 0.35);
+  box-shadow: none;
 }

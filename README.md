@@ -4,7 +4,7 @@ A GTK3 theme for **Thunar** that reproduces the [FurrOS](https://furros.xyz/)
 design system and the matching Firefox theme: dark surfaces, chunky sticker
 outlines, rounded chips, and coordinated file/folder icons.
 
-![Preview](docs/thunar-preview.png)
+No desktop screenshots are included in this repository.
 
 ## Contents
 
