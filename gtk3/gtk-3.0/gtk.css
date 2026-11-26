@@ -24,9 +24,15 @@
 /* Make the inherited widgets use the FurrOS selection/accent colours.
    The rosé fill is translucent: a solid block on selected files showed
    repaint glitches in Thunar's icon view, while the tint stays readable. */
+/* GTK's cell renderer mixes theme_unfocused_selected_bg_color 50% with the
+   view background when the window loses focus. The value below is therefore
+   the focused rosé blend doubled, so the rendered result stays #3a1f2c and
+   does not fall back to the inherited cyan accent. */
 @define-color furr_select_fill alpha(@furr_pink, 0.16);
 @define-color theme_selected_bg_color @furr_select_fill;
 @define-color theme_selected_fg_color @furr_paper;
+@define-color theme_unfocused_selected_bg_color #613549;
+@define-color theme_unfocused_selected_fg_color @furr_paper;
 @define-color accent_bg_color @furr_cyan;
 @define-color accent_color @furr_cyan;
 @define-color accent_fg_color @furr_ink;
@@ -470,10 +476,9 @@ iconview.view:selected,
 /* Thunar (ExoIconView) aggiunge la classe .rubberband ALLA VISTA STESSA,
    non a un nodo figlio: serve .view.rubberband per battere .standard-view .view,
    altrimenti il rettangolo eredita lo sfondo opaco e lascia artefatti.
-   Il bordo deve restare a 1 px: exo_icon_view_update_rubberband() invalida
-   solo un anello di 1 px attorno al rettangolo precedente, quindi un bordo
-   più spesso lascia righe di pixel vecchi (gli "artefatti") dentro il nuovo
-   rettangolo. */
+   Il bordo deve restare a 1 px e gli angoli squadrati: exo_icon_view_update_rubberband()
+   invalida solo un anello di 1 px attorno al rettangolo precedente, quindi un
+   bordo più spesso o un anti-aliasing arrotondato lascia pixel residui. */
 .standard-view .view.rubberband,
 .standard-view iconview.view.rubberband,
 .standard-view treeview.view.rubberband,
@@ -486,7 +491,8 @@ flowbox rubberband,
 .content-view rubberband {
   background-color: alpha(@furr_pink, 0.14);
   border: 1px solid @furr_maroon;
-  border-radius: 6px;
+  border-radius: 0;
+  -gtk-outline-radius: 0;
   box-shadow: none;
 }
 

@@ -96,15 +96,19 @@ backup as well. Backups created by `install.sh` are kept.
   File and side-pane selections use a light translucent rosé pink fill with
   paper text and no dark ink edge, so selected files never look dark; the
   font weight of the label is not changed on selection, so rows do not shift
-  when highlighted. The same fill and paper text are used in the `:backdrop`
-  state, so switching tabs does not change the selection. Thunar's
-  `ExoIconView` adds the `.rubberband` class to the view itself, so the rule
-  targets `.view.rubberband` with enough specificity to beat
-  `.standard-view .view`; the dragged rectangle is a light translucent rosé
-  tint with softly rounded corners and a 1 px opaque maroon frame. The frame
-  must stay 1 px: `exo_icon_view_update_rubberband()` only invalidates a 1 px
-  ring around the previous rectangle, so a thicker frame leaves stale pixels
-  (artifacts) inside the new rectangle while dragging.
+  when highlighted. GTK's cell renderer uses `theme_unfocused_selected_bg_color`
+  when the window loses focus, so the theme defines a doubled rosé value
+  there: GTK blends it 50% with the view background, yielding exactly the
+  same pink as the focused state instead of the inherited cyan accent.
+  Switching tabs or windows therefore keeps the same pink selection and
+  paper text. Thunar's `ExoIconView` adds the `.rubberband`
+  class to the view itself, so the rule targets `.view.rubberband` with enough
+  specificity to beat `.standard-view .view`; the dragged rectangle is a
+  light translucent rosé tint with square corners and a 1 px opaque maroon
+  frame. Both limits are imposed by `exo_icon_view_update_rubberband()`,
+  which only invalidates a 1 px ring around the previous rectangle: a thicker
+  frame or anti-aliased rounded corners leave stale pixels (artifacts) inside
+  the new rectangle while dragging.
 - The information area below the side-pane places uses translucent surfaces
   (`alpha(...)`) and 12 px rounded corners instead of the default grey box.
 - Combo boxes and dropdown lists (for example LibreOffice's font picker) are
