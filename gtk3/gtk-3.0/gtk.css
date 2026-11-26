@@ -459,8 +459,9 @@ iconview.view:selected,
 .view:selected,
 .list-view:selected,
 .grid-view:selected {
-  background-color: @furr_paper;
-  color: @furr_ink;
+  background-color: @furr_maroon;
+  color: @furr_paper;
+  -gtk-outline-radius: 8px;
 }
 
 /* Nessun :hover sull'intera vista: in GTK3 colpisce il widget intero e fa
@@ -475,13 +476,15 @@ iconview.view:focus,
   -gtk-outline-radius: 10px;
 }
 
+/* Non cambiare il peso del font: GTK ricalcola la larghezza delle celle e le
+   righe "saltano" quando cambia la selezione. */
 treeview.view:selected label,
 iconview.view:selected label,
 .view:selected label,
 .list-view:selected label,
 .grid-view:selected label {
-  color: @furr_ink;
-  font-weight: 800;
+  color: @furr_paper;
+  font-weight: inherit;
 }
 
 /* Thunar's standard view is the scrolled window around the file list.
@@ -593,9 +596,10 @@ treeview.sidebar {
 .sidebar treeview.view:selected,
 .side-pane treeview.view:selected,
 treeview.sidebar:selected {
-  background-color: @furr_paper;
-  color: @furr_ink;
+  background-color: @furr_maroon;
+  color: @furr_paper;
   box-shadow: none;
+  -gtk-outline-radius: 8px;
 }
 
 /* Frame/viewport interni della sidebar: niente sfondo grigio opaco. */
@@ -945,8 +949,8 @@ treeview.sidebar:backdrop {
 .sidebar treeview.view:selected:backdrop,
 .side-pane treeview.view:selected:backdrop,
 treeview.sidebar:selected:backdrop {
-  background-color: alpha(@furr_paper, 0.85);
-  color: @furr_ink;
+  background-color: alpha(@furr_maroon, 0.9);
+  color: @furr_paper;
   box-shadow: none;
 }
 
@@ -976,8 +980,8 @@ iconview.view:selected:backdrop,
 .view:selected:backdrop,
 .list-view:selected:backdrop,
 .grid-view:selected:backdrop {
-  background-color: alpha(@furr_paper, 0.85);
-  color: @furr_ink;
+  background-color: alpha(@furr_maroon, 0.9);
+  color: @furr_paper;
 }
 
 entry:backdrop,
@@ -1156,6 +1160,18 @@ window.combo list {
   margin: 4px 0;
 }
 
+/* LibreOffice's font/paragraph dropdown is a plain GtkWindow (CSS class
+   "combo") holding a scrolled GtkTreeView. Paint the outline on the window
+   and on the scroll pane so the panel is framed even when the tree view
+   itself does not draw a border. */
+popover.combo,
+popover.background.combo,
+window.combo {
+  background-color: @furr_surface_2;
+  border: 2px solid @furr_cyan;
+  border-radius: 10px;
+}
+
 popover.combo list > row,
 popover.background.combo list > row,
 window.combo list > row {
@@ -1185,16 +1201,16 @@ window.combo list > row:hover {
 popover.combo list > row:selected,
 popover.background.combo list > row:selected,
 window.combo list > row:selected {
-  background-color: @furr_cyan;
-  color: @furr_ink;
-  box-shadow: 2px 2px 0 @furr_pink;
+  background-color: @furr_maroon;
+  color: @furr_paper;
+  box-shadow: inset 0 0 0 2px @furr_cyan;
   -gtk-outline-radius: 8px;
 }
 
 popover.combo list > row:selected label,
 popover.background.combo list > row:selected label,
 window.combo list > row:selected label {
-  color: @furr_ink;
+  color: @furr_paper;
   font-weight: 800;
 }
 
@@ -1217,8 +1233,8 @@ combobox treeview.view:selected,
 window.combo treeview.view:selected,
 window.combo .view:selected,
 .combo-window treeview.view:selected {
-  background-color: @furr_cyan;
-  color: @furr_ink;
+  background-color: @furr_maroon;
+  color: @furr_paper;
   border-radius: 8px;
   -gtk-outline-radius: 8px;
 }
@@ -1227,7 +1243,7 @@ popover treeview.view:selected label,
 combobox treeview.view:selected label,
 window.combo treeview.view:selected label,
 .combo-window treeview.view:selected label {
-  color: @furr_ink;
+  color: @furr_paper;
   font-weight: 800;
 }
 
@@ -1264,27 +1280,67 @@ popover.combo table cell:hover,
 popover.background.combo table cell:hover,
 window.combo table cell:hover,
 .combo-window table cell:hover {
-  background-color: @furf_plum;
-  color: @furf_text;
+  background-color: alpha(@furr_cyan, 0.14);
+  color: @furr_text;
 }
 
 popover.combo table cell:selected,
 popover.background.combo table cell:selected,
 window.combo table cell:selected,
 .combo-window table cell:selected {
-  background-color: @furf_yellow;
-  color: @furf_ink;
-  border: 2px solid @furf_ink;
+  background-color: @furr_maroon;
+  color: @furr_paper;
+  border: 2px solid @furr_cyan;
   border-radius: 6px;
-  box-shadow: 2px 2px 0 @furf_pink;
+  box-shadow: none;
 }
 
 popover.combo table cell:selected label,
 popover.background.combo table cell:selected label,
 window.combo table cell:selected label,
 .combo-window table cell:selected label {
-  color: @furf_ink;
+  color: @furr_paper;
   font-weight: 800;
+}
+
+/* The scrollbar of a LibreOffice combo popup sits flush against the right
+   edge; with the global night trough it reads as a notch cut out of the
+   panel. Keep the trough on the popup surface and give it a cyan pill so the
+   edge looks deliberate. The scroll pane itself carries the cyan outline,
+   because LO's GtkTable does not render its own border. */
+popover.combo scrolledwindow,
+popover.background.combo scrolledwindow,
+window.combo scrolledwindow,
+.combo-window scrolledwindow {
+  border: 2px solid @furr_cyan;
+  border-radius: 10px;
+}
+
+popover.combo scrollbar,
+popover.background.combo scrollbar,
+window.combo scrollbar,
+.combo-window scrollbar {
+  background-color: @furr_surface_2;
+  border: 0;
+}
+
+popover.combo scrollbar trough,
+popover.background.combo scrollbar trough,
+window.combo scrollbar trough,
+.combo-window scrollbar trough {
+  background-color: @furr_surface_2;
+  border-radius: 999px;
+}
+
+popover.combo scrollbar slider,
+popover.background.combo scrollbar slider,
+window.combo scrollbar slider,
+.combo-window scrollbar slider {
+  background-color: alpha(@furr_cyan, 0.55);
+  border: 0;
+  border-radius: 999px;
+  min-width: 7px;
+  min-height: 40px;
 }
 
 popover entry,

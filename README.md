@@ -92,7 +92,10 @@ backup as well. Backups created by `install.sh` are kept.
   `.location-button` and `notebook`. They make it possible to style the side
   pane, file area, breadcrumbs and tabs without patching the application.
 - There is deliberately **no image watermark behind file names**: the file
-  view only has a very light dot texture, so selection stays readable.
+  view only has a very light dot texture, so selection stays readable. File
+  and side-pane selections use maroon with bold paper text, matching GTK's
+  selection colours; the font weight of the label is not changed on selection,
+  so rows do not shift when they are highlighted.
 - The information area below the side-pane places uses translucent surfaces
   (`alpha(...)`) and 12 px rounded corners instead of the default grey box.
 - Combo boxes and dropdown lists (for example LibreOffice's font picker) are

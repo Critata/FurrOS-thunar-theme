@@ -1,22 +1,22 @@
 <item oor:path="/org.openoffice.Office.UI/ColorScheme/ColorSchemes">
   <node oor:name="COLOR_SCHEME_LIBREOFFICE_DARK" oor:op="replace">
     <node oor:name="WindowColor">
-      <prop oor:name="Color" oor:op="fuse"><value>1379089</value></prop>
+      <prop oor:name="Color" oor:op="fuse"><value>3810352</value></prop>
     </node>
     <node oor:name="WindowTextColor">
       <prop oor:name="Color" oor:op="fuse"><value>16772332</value></prop>
     </node>
     <node oor:name="BaseColor">
-      <prop oor:name="Color" oor:op="fuse"><value>1970712</value></prop>
+      <prop oor:name="Color" oor:op="fuse"><value>3810352</value></prop>
     </node>
     <node oor:name="ButtonColor">
-      <prop oor:name="Color" oor:op="fuse"><value>2759202</value></prop>
+      <prop oor:name="Color" oor:op="fuse"><value>3810352</value></prop>
     </node>
     <node oor:name="ButtonTextColor">
       <prop oor:name="Color" oor:op="fuse"><value>16772332</value></prop>
     </node>
     <node oor:name="AccentColor">
-      <prop oor:name="Color" oor:op="fuse"><value>8384752</value></prop>
+      <prop oor:name="Color" oor:op="fuse"><value>7871532</value></prop>
     </node>
     <node oor:name="DisabledColor">
       <prop oor:name="Color" oor:op="fuse"><value>3810352</value></prop>
@@ -46,16 +46,16 @@
       <prop oor:name="Color" oor:op="fuse"><value>1970712</value></prop>
     </node>
     <node oor:name="MenuBarColor">
-      <prop oor:name="Color" oor:op="fuse"><value>1379089</value></prop>
+      <prop oor:name="Color" oor:op="fuse"><value>3810352</value></prop>
     </node>
     <node oor:name="MenuBarTextColor">
       <prop oor:name="Color" oor:op="fuse"><value>16772332</value></prop>
     </node>
     <node oor:name="MenuBarHighlightColor">
-      <prop oor:name="Color" oor:op="fuse"><value>8384752</value></prop>
+      <prop oor:name="Color" oor:op="fuse"><value>7871532</value></prop>
     </node>
     <node oor:name="MenuBarHighlightTextColor">
-      <prop oor:name="Color" oor:op="fuse"><value>919563</value></prop>
+      <prop oor:name="Color" oor:op="fuse"><value>16772332</value></prop>
     </node>
     <node oor:name="MenuColor">
       <prop oor:name="Color" oor:op="fuse"><value>3810352</value></prop>
@@ -89,7 +89,7 @@
       <prop oor:name="IsVisible" oor:op="fuse"><value>true</value></prop>
     </node>
     <node oor:name="AppBackground">
-      <prop oor:name="Color" oor:op="fuse"><value>1379089</value></prop>
+      <prop oor:name="Color" oor:op="fuse"><value>3810352</value></prop>
     </node>
     <node oor:name="TableBoundaries">
       <prop oor:name="Color" oor:op="fuse"><value>3810352</value></prop>
