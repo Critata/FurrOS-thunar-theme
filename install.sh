@@ -82,17 +82,6 @@ if command -v gsettings >/dev/null 2>&1; then
   gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark' || true
 fi
 
-# ---------------------------------------------------------------------------
-# LibreOffice: palette applicativa (menu, sidebar, documenti)
-# ---------------------------------------------------------------------------
-if [[ -f "$ROOT/libreoffice/install.sh" ]]; then
-  if pgrep -x soffice.bin >/dev/null 2>&1; then
-    echo "  LibreOffice è aperto: chiudi i documenti e lancia libreoffice/install.sh"
-  else
-    bash "$ROOT/libreoffice/install.sh"
-  fi
-fi
-
 if pgrep -x thunar >/dev/null 2>&1; then
   pkill -TERM thunar || true
   sleep 1

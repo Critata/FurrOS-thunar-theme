@@ -18,10 +18,6 @@ icons/FurrOS-Papirus/       65 SVG icons (folders + file types)
   scalable/places/
   scalable/mimetypes/
 config/settings.ini.example reference values
-libreoffice/                LibreOffice application-colour palette
-  generate.py               emits the registry fragments from the palette
-  install.sh                patches the user profile (with backup)
-  uninstall.sh              restores the last backup
 install.sh                  install + backup + Thunar restart
 uninstall.sh                restore Adwaita / Papirus-Dark
 ```
@@ -46,9 +42,7 @@ The installer:
 4. updates only the required keys (`gtk-theme-name`, `gtk-icon-theme-name`,
    Nunito font, dark mode), leaving the other settings untouched;
 5. applies the same values through `gsettings`;
-6. installs the FurrOS colour scheme into the LibreOffice user profile when
-   LibreOffice is closed (its registry is backed up first);
-7. restarts Thunar if it was running.
+6. restarts Thunar if it was running.
 
 Verify with:
 
@@ -59,14 +53,14 @@ gsettings get org.gnome.desktop.interface icon-theme
 # 'FurrOS-Papirus'
 ```
 
-After changing the theme CSS, reload the theme and restart LibreOffice:
+After changing the theme CSS, reload the theme and restart Thunar:
 
 ```bash
 gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita'
 sleep 1
 gsettings set org.gnome.desktop.interface gtk-theme 'FurrOS'
-pkill -x soffice.bin || true
-SAL_USE_VCLPLUGIN=gtk3 soffice --norestore --calc
+pkill -TERM thunar || true
+setsid thunar --daemon >/dev/null 2>&1 &
 ```
 
 ## Uninstall
@@ -76,8 +70,7 @@ SAL_USE_VCLPLUGIN=gtk3 soffice --norestore --calc
 ```
 
 This resets `gtk-theme` to `Adwaita` and `icon-theme` to `Papirus-Dark`, then
-removes the theme and icons. The LibreOffice palette is restored from its
-backup as well. Backups created by `install.sh` are kept.
+removes the theme and icons. Backups created by `install.sh` are kept.
 
 ## Palette
 
@@ -119,41 +112,18 @@ backup as well. Backups created by `install.sh` are kept.
   which only invalidates a 1 px ring around the previous rectangle: a thicker
   frame or anti-aliased rounded corners leave stale pixels (artifacts) inside
   the new rectangle while dragging.
-- The menu bar labels (File, Modifica, Visualizza, Vai, Segnalibri, Aiuto) use
-  ink text while their item is hovered or has its menu open: GTK renders the
-  text as a child `label` node, so colouring the `menuitem` alone cannot fix
-  the contrast on the cyan highlight. The selector is limited to direct
-  children of the top-level menu bar, so normal labels and the entries inside
-  drop-down menus keep their paper colour.
 - The information area below the side-pane places uses translucent surfaces
   (`alpha(...)`) and 12 px rounded corners instead of the default grey box.
-- Combo boxes and dropdown lists (for example LibreOffice's font picker) use
-  one compact 22 px pill: night field and arrow cell, a continuous paper
-  outline, cyan arrow and pink sticker shadow. The arrow stays inside the same
-  pill instead of becoming a separate block. The popover remains `surface-2`
-  with a cyan border, and the selected row uses maroon with bold paper text for
-  strong contrast. GTK list-box, tree-view and table popups are covered,
-  including the dedicated `window.combo` that LibreOffice uses for its font
-  selector.
-- LibreOffice compatibility: toolbar buttons stay flat, comboboxes and dialog
-  buttons use tighter padding/margins, and dialog surfaces have 14 px rounded
-  corners. This avoids the inflated, overlapping widgets caused by the
-  sticker shadows when used outside Thunar. The compact font is applied to the
-  entire toolbar combobox, not just its inner entry, because LibreOffice can
-  render labels such as "Preformatted Text" and "Liberation Mono" in a cell
-  view; this keeps long values fully visible instead of clipped.
+- Combo boxes and dropdown lists use one compact 22 px pill: night field and
+  arrow cell, a continuous paper outline, cyan arrow and pink sticker shadow.
+  The arrow stays inside the same pill instead of becoming a separate block.
+  Combo popovers keep the `surface-2` background with a cyan border, and the
+  selected row uses maroon with bold paper text for strong contrast.
 - Spin buttons share the same pill treatment and keep their +/- controls
   centred and clickable inside it. Check and radio indicators get explicit
   icon sources because `adw-gtk3-dark` disables the inherited ones; compact
   icon-button metrics are scoped to sidebar headers. Focus rings are drawn
   inside the chip radius, so hover/active/checked states no longer leave
   double borders or paper-coloured residue outside the corners.
-- LibreOffice 26.8 draws menus, the sidebar and the document background itself,
-  so CSS alone cannot reach them. `libreoffice/` writes the FurrOS palette into
-  the dark colour scheme in `registrymodifications.xcu`: night app background,
-  surface-2 menus and list backgrounds, maroon menu selection with paper text,
-  cyan menu borders, surface document pages and pink/maroon accents. It also
-  selects the bundled `sifr_dark`
-  icon set. Only the user profile is modified; no system files are touched.
 - Icons are scalable SVG and work at any size. `generate.py` needs only
   Python 3.

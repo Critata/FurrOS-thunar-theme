@@ -217,8 +217,6 @@ toolbar,
   box-shadow: none;
 }
 
-/* Toolbar buttons stay flat: chunky sticker shadows here make LibreOffice's
-   formatting bar unusable and overlap neighbouring icons. */
 toolbar button,
 .toolbutton,
 toolbar .toolbutton,
@@ -405,16 +403,6 @@ menubar > menuitem:hover,
   color: @furr_ink;
 }
 
-/* GTK draws the text as a child `label` node, so colouring the menuitem is
-   not enough: the inherited label colour stayed paper on the cyan highlight.
-   Colour the label only while the top-level item is hovered or has its menu
-   open, leaving normal labels and drop-down menu entries untouched. */
-menubar > menuitem:hover > label,
-menubar > menuitem:selected > label,
-.menubar > menuitem:hover > label,
-.menubar > menuitem:selected > label {
-  color: @furr_ink;
-}
 
 menu,
 .menu,
@@ -1049,19 +1037,12 @@ entry:backdrop,
   box-shadow: none;
 }
 
-/* The dropdown itself: GTK3 uses a popover or a dedicated popup window.
-   LibreOffice opens a real GtkWindow with the "combo" class, so both forms
-   must be styled or the list falls back to the near-black base theme. */
 popover.combo,
 popover.background.combo,
 combobox popover,
 menu-button popover,
 button.dropdown popover,
-.dropdown popover,
-window.combo,
-window.background.combo,
-window.background.csd.combo,
-.combo-window {
+.dropdown popover {
   background-color: @furr_surface_2;
   color: @furr_text;
   border: 2.5px solid @furr_paper;
@@ -1071,29 +1052,14 @@ window.background.csd.combo,
   -gtk-outline-radius: 14px;
 }
 
-window.combo > box,
-window.combo > grid,
-window.combo > box.vertical,
-window.combo > grid > box {
-  background-color: transparent;
-  border: 0;
-  box-shadow: none;
-}
 
 popover scrolledwindow,
 popover .scrolled-window,
 combobox scrolledwindow,
-window.combo scrolledwindow,
-window.combo .scrolled-window,
-.combo-window scrolledwindow,
 popover viewport,
 combobox viewport,
-window.combo viewport,
-.combo-window viewport,
 popover frame,
-combobox frame,
-window.combo frame,
-.combo-window frame {
+combobox frame {
   background-color: transparent;
   border: 0;
   box-shadow: none;
@@ -1101,8 +1067,7 @@ window.combo frame,
 
 /* GTK3 combo popovers use a GtkListBox; older/popup dialogs use a treeview. */
 popover.combo list,
-popover.background.combo list,
-window.combo list {
+popover.background.combo list {
   background-color: @furr_surface_2;
   border: 2px solid @furr_cyan;
   border-radius: 10px;
@@ -1110,21 +1075,15 @@ window.combo list {
   margin: 4px 0;
 }
 
-/* LibreOffice's font/paragraph dropdown is a plain GtkWindow (CSS class
-   "combo") holding a scrolled GtkTreeView. Paint the outline on the window
-   and on the scroll pane so the panel is framed even when the tree view
-   itself does not draw a border. */
 popover.combo,
-popover.background.combo,
-window.combo {
+popover.background.combo {
   background-color: @furr_surface_2;
   border: 2px solid @furr_cyan;
   border-radius: 10px;
 }
 
 popover.combo list > row,
-popover.background.combo list > row,
-window.combo list > row {
+popover.background.combo list > row {
   background-color: transparent;
   color: @furr_text;
   border: 0;
@@ -1136,21 +1095,18 @@ window.combo list > row {
 }
 
 popover.combo list > row:not(:last-child),
-popover.background.combo list > row:not(:last-child),
-window.combo list > row:not(:last-child) {
+popover.background.combo list > row:not(:last-child) {
   border-bottom: 0;
 }
 
 popover.combo list > row:hover,
-popover.background.combo list > row:hover,
-window.combo list > row:hover {
+popover.background.combo list > row:hover {
   background-color: @furr_surface_2;
   color: @furr_text;
 }
 
 popover.combo list > row:selected,
-popover.background.combo list > row:selected,
-window.combo list > row:selected {
+popover.background.combo list > row:selected {
   background-color: @furr_maroon;
   color: @furr_paper;
   box-shadow: inset 0 0 0 2px @furr_cyan;
@@ -1158,18 +1114,14 @@ window.combo list > row:selected {
 }
 
 popover.combo list > row:selected label,
-popover.background.combo list > row:selected label,
-window.combo list > row:selected label {
+popover.background.combo list > row:selected label {
   color: @furr_paper;
   font-weight: 800;
 }
 
 popover treeview.view,
 popover.background treeview.view,
-combobox treeview.view,
-window.combo treeview.view,
-window.combo .view,
-.combo-window treeview.view {
+combobox treeview.view {
   background-color: @furr_surface_2;
   color: @furr_text;
   border-radius: 10px;
@@ -1179,10 +1131,7 @@ window.combo .view,
 
 popover treeview.view:selected,
 popover.background treeview.view:selected,
-combobox treeview.view:selected,
-window.combo treeview.view:selected,
-window.combo .view:selected,
-.combo-window treeview.view:selected {
+combobox treeview.view:selected {
   background-color: @furr_maroon;
   color: @furr_paper;
   border-radius: 8px;
@@ -1190,21 +1139,13 @@ window.combo .view:selected,
 }
 
 popover treeview.view:selected label,
-combobox treeview.view:selected label,
-window.combo treeview.view:selected label,
-.combo-window treeview.view:selected label {
+combobox treeview.view:selected label {
   color: @furr_paper;
   font-weight: 800;
 }
 
-/* LibreOffice renders its font/paragraph lists as a GtkTable inside the
-   "combo" window, not as GtkListBox rows or GtkTreeView rows. Style those
-   cells explicitly and use the same surface as the toolbar arrow button so
-   the chip does not look cut off. */
 popover.combo table,
-popover.background.combo table,
-window.combo table,
-.combo-window table {
+popover.background.combo table {
   background-color: @furr_surface_2;
   color: @furr_text;
   border: 2px solid @furr_cyan;
@@ -1213,9 +1154,7 @@ window.combo table,
 }
 
 popover.combo table cell,
-popover.background.combo table cell,
-window.combo table cell,
-.combo-window table cell {
+popover.background.combo table cell {
   background-color: @furr_surface_2;
   color: @furr_text;
   border: 0;
@@ -1227,17 +1166,13 @@ window.combo table cell,
 }
 
 popover.combo table cell:hover,
-popover.background.combo table cell:hover,
-window.combo table cell:hover,
-.combo-window table cell:hover {
+popover.background.combo table cell:hover {
   background-color: alpha(@furr_cyan, 0.14);
   color: @furr_text;
 }
 
 popover.combo table cell:selected,
-popover.background.combo table cell:selected,
-window.combo table cell:selected,
-.combo-window table cell:selected {
+popover.background.combo table cell:selected {
   background-color: @furr_maroon;
   color: @furr_paper;
   border: 2px solid @furr_cyan;
@@ -1246,46 +1181,31 @@ window.combo table cell:selected,
 }
 
 popover.combo table cell:selected label,
-popover.background.combo table cell:selected label,
-window.combo table cell:selected label,
-.combo-window table cell:selected label {
+popover.background.combo table cell:selected label {
   color: @furr_paper;
   font-weight: 800;
 }
 
-/* The scrollbar of a LibreOffice combo popup sits flush against the right
-   edge; with the global night trough it reads as a notch cut out of the
-   panel. Keep the trough on the popup surface and give it a cyan pill so the
-   edge looks deliberate. The scroll pane itself carries the cyan outline,
-   because LO's GtkTable does not render its own border. */
 popover.combo scrolledwindow,
-popover.background.combo scrolledwindow,
-window.combo scrolledwindow,
-.combo-window scrolledwindow {
+popover.background.combo scrolledwindow {
   border: 2px solid @furr_cyan;
   border-radius: 10px;
 }
 
 popover.combo scrollbar,
-popover.background.combo scrollbar,
-window.combo scrollbar,
-.combo-window scrollbar {
+popover.background.combo scrollbar {
   background-color: @furr_surface_2;
   border: 0;
 }
 
 popover.combo scrollbar trough,
-popover.background.combo scrollbar trough,
-window.combo scrollbar trough,
-.combo-window scrollbar trough {
+popover.background.combo scrollbar trough {
   background-color: @furr_surface_2;
   border-radius: 999px;
 }
 
 popover.combo scrollbar slider,
-popover.background.combo scrollbar slider,
-window.combo scrollbar slider,
-.combo-window scrollbar slider {
+popover.background.combo scrollbar slider {
   background-color: alpha(@furr_cyan, 0.55);
   border: 0;
   border-radius: 999px;
@@ -1294,9 +1214,7 @@ window.combo scrollbar slider,
 }
 
 popover entry,
-combobox popover entry,
-window.combo entry,
-.combo-window entry {
+combobox popover entry {
   background-color: @furr_night;
   color: @furr_text;
   border: 2px solid alpha(@furr_paper, 0.5);
@@ -1317,9 +1235,7 @@ combobox entry:backdrop {
 }
 
 popover.combo:backdrop,
-popover.background.combo:backdrop,
-window.combo:backdrop,
-.combo-window:backdrop {
+popover.background.combo:backdrop {
   background-color: @furr_surface_2;
   border-color: alpha(@furr_paper, 0.6);
   box-shadow: 2px 2px 0 alpha(@furr_red, 0.6);
@@ -1327,18 +1243,13 @@ window.combo:backdrop,
 
 popover.combo list > row:selected:backdrop,
 popover.background.combo list > row:selected:backdrop,
-window.combo list > row:selected:backdrop,
 popover treeview.view:selected:backdrop,
-combobox treeview.view:selected:backdrop,
-window.combo treeview.view:selected:backdrop,
-.combo-window treeview.view:selected:backdrop {
+combobox treeview.view:selected:backdrop {
   background-color: alpha(@furr_paper, 0.85);
   color: @furr_ink;
   box-shadow: none;
 }
 
-/* Keep LibreOffice toolbars compact; combo metrics are normalized in the
-   final widget pass below. */
 toolbar,
 .primary-toolbar,
 .secondary-toolbar {
@@ -1390,17 +1301,6 @@ dialog entry,
   padding: 2px 8px;
 }
 
-/* --------------------------------------------------------------------------
-   Compact controls pass.
-
-   The inherited adw-gtk3 metrics give combobox/spinbutton a 34-43 px minimum
-   height. Inside a LibreOffice toolbar that pushes the lower border below the
-   toolbar edge, so the chip looks cut in half and the arrow loses its pill.
-   These overrides keep the FurrOS palette but use a single 22 px pill for the
-   whole control. They are intentionally scoped to combo/spin/check/radio and
-   sidebar icon buttons: generic LibreOffice button geometry is untouched.
-   The important flag is avoided: GTK3's CSS parser rejects it with a junk error.
-   -------------------------------------------------------------------------- */
 combobox,
 combobox.linked {
   background-color: @furr_night;
@@ -1426,8 +1326,6 @@ combobox > box.linked {
 }
 
 combobox entry,
-combobox entry.combo,
-combobox cellview,
 combobox label {
   background-color: @furr_night;
   color: @furr_text;
@@ -1443,10 +1341,7 @@ combobox label {
   caret-color: @furr_cyan;
 }
 
-combobox button,
-combobox button.combo,
-combobox > box > button.combo,
-button.combo {
+combobox button {
   background-color: @furr_night;
   background-image: none;
   border-image: none;
@@ -1463,27 +1358,19 @@ button.combo {
   background-clip: padding-box;
 }
 
-combobox button:hover,
-combobox button.combo:hover,
-button.combo:hover {
+combobox button:hover {
   background-color: @furr_cyan;
   color: @furr_ink;
 }
 
 combobox button:active,
-combobox button.combo:active,
-combobox button:checked,
-combobox button.combo:checked,
-button.combo:active,
-button.combo:checked {
+combobox button:checked {
   background-color: @furr_pink;
   color: @furr_ink;
 }
 
 combobox arrow,
-combobox button arrow,
-combobox button.combo arrow,
-button.combo arrow {
+combobox button arrow {
   color: @furr_cyan;
   min-width: 12px;
   min-height: 12px;
@@ -1492,10 +1379,7 @@ button.combo arrow {
 
 combobox button:hover arrow,
 combobox button:active arrow,
-combobox button:checked arrow,
-button.combo:hover arrow,
-button.combo:active arrow,
-button.combo:checked arrow {
+combobox button:checked arrow {
   color: @furr_ink;
 }
 
@@ -1678,13 +1562,8 @@ entry:focus-visible {
   -gtk-outline-radius: 8px;
 }
 
-/* Closed dropdowns: one pill for entry + arrow. LibreOffice builds some
-   combos as a GtkBox named "combobox" instead of a GtkComboBox, so both node
-   types are styled. */
 combobox,
 combobox.linked,
-box#combobox,
-box#combobox.linked,
 menu-button,
 button.menu-button,
 button.dropdown,
@@ -1715,16 +1594,6 @@ button.dropdown > box,
 }
 
 combobox entry,
-combobox entry.combo,
-box#combobox entry,
-box#combobox entry.combo,
-box#combobox entry.small-button,
-box#combobox cellview,
-box#combobox cellview label,
-box#combobox label,
-entry.combo,
-combobox cellview,
-combobox cellview label,
 combobox label,
 menu-button label,
 button.dropdown label,
@@ -1747,30 +1616,9 @@ spinbutton:not(.vertical) entry {
   caret-color: @furr_cyan;
 }
 
-/* LibreOffice keeps its GTK entry shorter than the surrounding toolbar row;
-   top/bottom padding makes the entry paint the full height of the pill. */
-box#combobox entry,
-box#combobox entry.combo,
-box#combobox entry.small-button {
-  padding: 6px 8px;
-}
 
-/* LibreOffice also uses GtkToggleButton with class "combo" for combos that
-   have no entry (plain dropdowns, cell name box, style menus). */
 combobox button,
-combobox button.combo,
 combobox togglebutton,
-combobox togglebutton.combo,
-combobox > box > button.combo,
-combobox > box > togglebutton.combo,
-box#combobox button,
-box#combobox button.combo,
-box#combobox button.small-button,
-box#combobox togglebutton,
-box#combobox togglebutton.combo,
-box#combobox togglebutton.small-button,
-button.combo,
-togglebutton.combo,
 button.dropdown {
   background-color: @furr_night;
   background-image: none;
@@ -1789,32 +1637,18 @@ button.dropdown {
   outline-width: 0;
 }
 
-box#combobox button,
-box#combobox button.combo,
-box#combobox button.small-button,
-box#combobox togglebutton,
-box#combobox togglebutton.combo,
-box#combobox togglebutton.small-button {
-  padding: 6px;
-}
 
 /* A plain combo has no text field, so its only button owns the full pill. */
 combobox togglebutton:first-child,
 combobox button:first-child,
 combobox > box > togglebutton:first-child,
-combobox > box > button:first-child,
-box#combobox togglebutton:first-child,
-box#combobox button:first-child {
+combobox > box > button:first-child {
   border-left-color: @furr_paper;
   border-radius: 999px;
 }
 
 combobox button:hover,
-combobox button.combo:hover,
 combobox togglebutton:hover,
-combobox togglebutton.combo:hover,
-button.combo:hover,
-togglebutton.combo:hover,
 button.dropdown:hover,
 .dropdown:hover {
   background-color: @furr_cyan;
@@ -1825,17 +1659,9 @@ button.dropdown:hover,
 }
 
 combobox button:active,
-combobox button.combo:active,
 combobox togglebutton:active,
-combobox togglebutton.combo:active,
 combobox button:checked,
-combobox button.combo:checked,
 combobox togglebutton:checked,
-combobox togglebutton.combo:checked,
-button.combo:active,
-togglebutton.combo:active,
-button.combo:checked,
-togglebutton.combo:checked,
 button.dropdown:active,
 .dropdown:active {
   background-color: @furr_pink;
@@ -1847,11 +1673,7 @@ button.dropdown:active,
 
 combobox arrow,
 combobox button arrow,
-combobox button.combo arrow,
 combobox togglebutton arrow,
-combobox togglebutton.combo arrow,
-button.combo arrow,
-togglebutton.combo arrow,
 button.dropdown arrow,
 .dropdown arrow {
   color: @furr_cyan;
@@ -1862,8 +1684,6 @@ button.dropdown arrow,
 
 combobox button:hover arrow,
 combobox togglebutton:hover arrow,
-button.combo:hover arrow,
-togglebutton.combo:hover arrow,
 button.dropdown:hover arrow {
   color: @furr_ink;
 }
