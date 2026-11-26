@@ -480,8 +480,8 @@ rubberband,
 .rubberband,
 flowbox rubberband,
 .content-view rubberband {
-  background-color: alpha(@furr_pink, 0.10);
-  border: 1px solid alpha(@furr_pink, 0.35);
+  background-color: alpha(@furr_pink, 0.14);
+  border: none;
   border-radius: 6px;
   box-shadow: none;
 }

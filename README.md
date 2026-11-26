@@ -101,8 +101,10 @@ backup as well. Backups created by `install.sh` are kept.
   `.rubberband` class to the view itself, so the rule targets
   `.view.rubberband` with enough specificity to beat `.standard-view .view`;
   the dragged rectangle is a light translucent rosé tint with softly rounded
-  corners instead of an opaque block. Selection keeps the same fill in the
-  `:backdrop` state, so switching tabs does not make selected files turn dark.
+  corners. No frame is drawn: an anti-aliased border left residual pixels at
+  the corners while dragging, so only the rounded fill is painted. Selection
+  keeps the same fill in the `:backdrop` state, so switching tabs does not
+  make selected files turn dark.
 - The information area below the side-pane places uses translucent surfaces
   (`alpha(...)`) and 12 px rounded corners instead of the default grey box.
 - Combo boxes and dropdown lists (for example LibreOffice's font picker) are
