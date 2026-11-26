@@ -102,9 +102,9 @@ backup as well. Backups created by `install.sh` are kept.
   `ExoIconView` adds the `.rubberband` class to the view itself, so the rule
   targets `.view.rubberband` with enough specificity to beat
   `.standard-view .view`; the dragged rectangle is a light translucent rosé
-  tint with softly rounded corners. No frame is drawn on the rubber-band:
-  an anti-aliased border left residual pixels at the corners while dragging,
-  so only the rounded fill is painted.
+  tint with softly rounded corners and a thick 3 px opaque maroon frame. The
+  frame uses a fully opaque colour (not alpha) so the rounded corners do not
+  leave anti-aliased residual pixels while dragging.
 - The information area below the side-pane places uses translucent surfaces
   (`alpha(...)`) and 12 px rounded corners instead of the default grey box.
 - Combo boxes and dropdown lists (for example LibreOffice's font picker) are
