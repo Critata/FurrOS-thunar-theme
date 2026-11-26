@@ -1295,53 +1295,6 @@ combobox entry {
   font-size: 11px;
 }
 
-combobox button,
-combobox button.combo,
-button.combo {
-  /* Match the 38 px dropdown cell LibreOffice allocates. A smaller button
-     leaves a dead strip and draws the arrow half outside the chip. */
-  padding: 0;
-  min-width: 36px;
-  min-height: 34px;
-  border-radius: 0 8px 8px 0;
-}
-
-combobox button > image,
-combobox button.combo > image,
-button.combo > image {
-  color: @furr_cyan;
-  -gtk-icon-style: regular;
-}
-
-/* Some LibreOffice builds expose the arrow as a non-button .combo child.
-   Target only the direct child of the combo box, never the inner entry. */
-combobox > box > .combo:not(entry),
-combobox > box > button:not(entry) {
-  padding: 0;
-  min-width: 36px;
-  min-height: 34px;
-  background-color: @furr_surface_2;
-  color: @furr_cyan;
-  border: 0;
-  border-left: 2px solid @furr_ink;
-  border-radius: 0 8px 8px 0;
-  box-shadow: none;
-  -gtk-icon-style: regular;
-}
-
-combobox > box > .combo:not(entry) image,
-combobox > box > button:not(entry) image {
-  color: @furr_cyan;
-  -gtk-icon-style: regular;
-}
-
-combobox arrow,
-combobox button arrow,
-button.combo arrow {
-  min-width: 12px;
-  min-height: 12px;
-}
-
 toolbar combobox,
 .primary-toolbar combobox,
 .secondary-toolbar combobox,
@@ -1368,30 +1321,6 @@ toolbar combobox *,
   font-family: "Nunito", "Segoe UI", sans-serif;
   font-size: 12px;
   font-weight: 700;
-}
-
-toolbar combobox button,
-.primary-toolbar combobox button,
-toolbar button.combo {
-  /* LibreOffice allocates a 38 px arrow cell. Keep the button at least that
-     wide, otherwise only a sliver is painted and the arrow looks cut off. */
-  padding: 0;
-  min-width: 36px;
-  min-height: 34px;
-}
-
-toolbar combobox button > image,
-.primary-toolbar combobox button > image,
-toolbar button.combo > image {
-  color: @furr_cyan;
-  -gtk-icon-style: regular;
-}
-
-toolbar combobox arrow,
-toolbar combobox button arrow,
-toolbar button.combo arrow {
-  min-width: 14px;
-  min-height: 14px;
 }
 
 toolbar,
