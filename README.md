@@ -12,7 +12,6 @@ No desktop screenshots are included in this repository.
 gtk3/                       GTK3 theme (adw-gtk3-dark + FurrOS overrides)
   gtk-3.0/gtk.css
   index.theme
-  user-override.css         narrow high-priority overrides for LibreOffice
 icons/FurrOS-Papirus/       65 SVG icons (folders + file types)
   index.theme               inherits from Papirus-Dark
   generate.py               regenerates the icons
@@ -47,12 +46,9 @@ The installer:
 4. updates only the required keys (`gtk-theme-name`, `gtk-icon-theme-name`,
    Nunito font, dark mode), leaving the other settings untouched;
 5. applies the same values through `gsettings`;
-6. copies `gtk3/user-override.css` to `~/.config/gtk-3.0/gtk.css` (with a
-   timestamped backup) so the LibreOffice-specific widget fixes load at GTK
-   user priority;
-7. installs the FurrOS colour scheme into the LibreOffice user profile when
+6. installs the FurrOS colour scheme into the LibreOffice user profile when
    LibreOffice is closed (its registry is backed up first);
-8. restarts Thunar if it was running.
+7. restarts Thunar if it was running.
 
 Verify with:
 
@@ -63,7 +59,7 @@ gsettings get org.gnome.desktop.interface icon-theme
 # 'FurrOS-Papirus'
 ```
 
-After changing either CSS file, reload the theme and restart LibreOffice:
+After changing the theme CSS, reload the theme and restart LibreOffice:
 
 ```bash
 gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita'
@@ -146,17 +142,6 @@ backup as well. Backups created by `install.sh` are kept.
   entire toolbar combobox, not just its inner entry, because LibreOffice can
   render labels such as "Preformatted Text" and "Liberation Mono" in a cell
   view; this keeps long values fully visible instead of clipped.
-- LibreOffice's GTK3 VCL injects its own stylesheet at
-  `GTK_STYLE_PROVIDER_PRIORITY_APPLICATION`, which outranks theme CSS no
-  matter how specific the selector is. It repaints `button`, `entry`,
-  `spinbutton` and `check/radio` with hard-coded colours, which used to split
-  the combo pill and flatten the sidebar controls. `gtk3/user-override.css`
-  is installed to `~/.config/gtk-3.0/gtk.css`, where GTK loads it at user
-  priority; it only re-asserts the FurrOS metrics for combo controls
-  (including LibreOffice's `GtkBox` named `combobox`), spin buttons and
-  check/radio indicators. The rules are scoped so generic toolbar buttons and
-  linked icon groups keep the normal theme geometry in other GTK apps.
-  The `!important` flag is avoided because GTK3's parser rejects it.
 - Spin buttons share the same pill treatment and keep their +/- controls
   centred and clickable inside it. Check and radio indicators get explicit
   icon sources because `adw-gtk3-dark` disables the inherited ones; compact

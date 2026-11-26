@@ -35,18 +35,6 @@ if command -v gsettings >/dev/null 2>&1; then
   gsettings set org.gnome.desktop.interface color-scheme 'default' || true
 fi
 
-USER_CSS="$HOME_DIR/.config/gtk-3.0/gtk.css"
-if [[ -f "$USER_CSS" ]]; then
-  LAST_BACKUP=$(ls -1 "$USER_CSS".bak-* 2>/dev/null | sort | tail -n 1 || true)
-  if [[ -n "$LAST_BACKUP" ]]; then
-    cp -a "$LAST_BACKUP" "$USER_CSS"
-    echo "  ripristinato: $USER_CSS <- $LAST_BACKUP"
-  else
-    rm -f "$USER_CSS"
-    echo "  rimosso: $USER_CSS"
-  fi
-fi
-
 rm -rf "$HOME_DIR/.themes/FurrOS" "$HOME_DIR/.local/share/icons/FurrOS-Papirus"
 
 if [[ -f "$(dirname "${BASH_SOURCE[0]}")/libreoffice/uninstall.sh" ]]; then
