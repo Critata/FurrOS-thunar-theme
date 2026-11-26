@@ -464,6 +464,8 @@ iconview.view:selected,
 .grid-view:selected {
   background-color: @furr_select_fill;
   color: @furr_paper;
+  border: 2px solid @furr_ink;
+  border-radius: 6px;
   box-shadow: none;
 }
 
@@ -505,6 +507,16 @@ iconview.view:selected label,
 .view:selected label,
 .list-view:selected label,
 .grid-view:selected label {
+  color: @furr_paper;
+  font-weight: inherit;
+}
+
+/* Il cambio scheda non deve scurire né il riempimento né il testo selezionato. */
+treeview.view:selected:backdrop label,
+iconview.view:selected:backdrop label,
+.view:selected:backdrop label,
+.list-view:selected:backdrop label,
+.grid-view:selected:backdrop label {
   color: @furr_paper;
   font-weight: inherit;
 }
@@ -617,6 +629,8 @@ treeview.sidebar {
 treeview.sidebar:selected {
   background-color: @furr_select_fill;
   color: @furr_paper;
+  border: 2px solid @furr_ink;
+  border-radius: 6px;
   box-shadow: none;
 }
 

@@ -94,17 +94,17 @@ backup as well. Backups created by `install.sh` are kept.
 - There is deliberately **no image watermark or texture behind file names**:
   the file view has a flat background, so translucent selection stays clean.
   File and side-pane selections use a light translucent rosé pink fill with
-  paper text, which avoids the repaint glitches of a solid block; the font
-  weight of the label is not changed on selection, so rows do not shift when
-  highlighted. No outline radius is applied to selected items, so rubber-band
-  dragging does not leave clipped artifacts. Thunar's `ExoIconView` adds the
-  `.rubberband` class to the view itself, so the rule targets
-  `.view.rubberband` with enough specificity to beat `.standard-view .view`;
-  the dragged rectangle is a light translucent rosé tint with softly rounded
-  corners. No frame is drawn: an anti-aliased border left residual pixels at
-  the corners while dragging, so only the rounded fill is painted. Selection
-  keeps the same fill in the `:backdrop` state, so switching tabs does not
-  make selected files turn dark.
+  paper text, a thicker 2 px ink border and softly rounded corners, which
+  avoids the repaint glitches of a solid block; the font weight of the label
+  is not changed on selection, so rows do not shift when highlighted. The
+  same fill, border and paper text are kept in the `:backdrop` state, so
+  switching tabs does not make selected files turn dark. Thunar's
+  `ExoIconView` adds the `.rubberband` class to the view itself, so the rule
+  targets `.view.rubberband` with enough specificity to beat
+  `.standard-view .view`; the dragged rectangle is a light translucent rosé
+  tint with softly rounded corners. No frame is drawn on the rubber-band:
+  an anti-aliased border left residual pixels at the corners while dragging,
+  so only the rounded fill is painted.
 - The information area below the side-pane places uses translucent surfaces
   (`alpha(...)`) and 12 px rounded corners instead of the default grey box.
 - Combo boxes and dropdown lists (for example LibreOffice's font picker) are
