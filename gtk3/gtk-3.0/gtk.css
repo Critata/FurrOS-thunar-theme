@@ -21,8 +21,11 @@
 @define-color furr_green #78e6a0;
 @define-color furr_yellow #ffbe5a;
 
-/* Make the inherited widgets use the FurrOS selection/accent colours. */
-@define-color theme_selected_bg_color @furr_maroon;
+/* Make the inherited widgets use the FurrOS selection/accent colours.
+   The rosé fill is translucent: a solid block on selected files showed
+   repaint glitches in Thunar's icon view, while the tint stays readable. */
+@define-color furr_select_fill alpha(@furr_pink, 0.26);
+@define-color theme_selected_bg_color @furr_select_fill;
 @define-color theme_selected_fg_color @furr_paper;
 @define-color accent_bg_color @furr_cyan;
 @define-color accent_color @furr_cyan;
@@ -459,7 +462,7 @@ iconview.view:selected,
 .view:selected,
 .list-view:selected,
 .grid-view:selected {
-  background-color: @furr_maroon;
+  background-color: @furr_select_fill;
   color: @furr_paper;
   -gtk-outline-radius: 8px;
 }
@@ -596,7 +599,7 @@ treeview.sidebar {
 .sidebar treeview.view:selected,
 .side-pane treeview.view:selected,
 treeview.sidebar:selected {
-  background-color: @furr_maroon;
+  background-color: @furr_select_fill;
   color: @furr_paper;
   box-shadow: none;
   -gtk-outline-radius: 8px;
@@ -949,7 +952,7 @@ treeview.sidebar:backdrop {
 .sidebar treeview.view:selected:backdrop,
 .side-pane treeview.view:selected:backdrop,
 treeview.sidebar:selected:backdrop {
-  background-color: alpha(@furr_maroon, 0.9);
+  background-color: alpha(@furr_pink, 0.16);
   color: @furr_paper;
   box-shadow: none;
 }
@@ -980,7 +983,7 @@ iconview.view:selected:backdrop,
 .view:selected:backdrop,
 .list-view:selected:backdrop,
 .grid-view:selected:backdrop {
-  background-color: alpha(@furr_maroon, 0.9);
+  background-color: alpha(@furr_pink, 0.16);
   color: @furr_paper;
 }
 

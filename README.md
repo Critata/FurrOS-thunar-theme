@@ -93,9 +93,9 @@ backup as well. Backups created by `install.sh` are kept.
   pane, file area, breadcrumbs and tabs without patching the application.
 - There is deliberately **no image watermark behind file names**: the file
   view only has a very light dot texture, so selection stays readable. File
-  and side-pane selections use maroon with bold paper text, matching GTK's
-  selection colours; the font weight of the label is not changed on selection,
-  so rows do not shift when they are highlighted.
+  and side-pane selections use a translucent rosé pink fill with paper text,
+  which avoids the repaint glitches of a solid block; the font weight of the
+  label is not changed on selection, so rows do not shift when highlighted.
 - The information area below the side-pane places uses translucent surfaces
   (`alpha(...)`) and 12 px rounded corners instead of the default grey box.
 - Combo boxes and dropdown lists (for example LibreOffice's font picker) are
