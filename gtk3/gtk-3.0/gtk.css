@@ -482,7 +482,7 @@ flowbox rubberband,
 .content-view rubberband {
   background-color: alpha(@furr_pink, 0.10);
   border: 1px solid alpha(@furr_pink, 0.35);
-  border-radius: 0;
+  border-radius: 6px;
   box-shadow: none;
 }
 
@@ -967,7 +967,7 @@ treeview.sidebar:backdrop {
 .sidebar treeview.view:selected:backdrop,
 .side-pane treeview.view:selected:backdrop,
 treeview.sidebar:selected:backdrop {
-  background-color: alpha(@furr_pink, 0.10);
+  background-color: @furr_select_fill;
   color: @furr_paper;
   box-shadow: none;
 }
@@ -998,7 +998,7 @@ iconview.view:selected:backdrop,
 .view:selected:backdrop,
 .list-view:selected:backdrop,
 .grid-view:selected:backdrop {
-  background-color: alpha(@furr_pink, 0.10);
+  background-color: @furr_select_fill;
   color: @furr_paper;
 }
 
