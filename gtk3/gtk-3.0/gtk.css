@@ -24,7 +24,7 @@
 /* Make the inherited widgets use the FurrOS selection/accent colours.
    The rosé fill is translucent: a solid block on selected files showed
    repaint glitches in Thunar's icon view, while the tint stays readable. */
-@define-color furr_select_fill alpha(@furr_pink, 0.26);
+@define-color furr_select_fill alpha(@furr_pink, 0.16);
 @define-color theme_selected_bg_color @furr_select_fill;
 @define-color theme_selected_fg_color @furr_paper;
 @define-color accent_bg_color @furr_cyan;
@@ -464,7 +464,7 @@ iconview.view:selected,
 .grid-view:selected {
   background-color: @furr_select_fill;
   color: @furr_paper;
-  -gtk-outline-radius: 8px;
+  box-shadow: none;
 }
 
 /* La selezione a rettangolo di Thunar usa il nodo CSS "rubberband": va
@@ -476,8 +476,8 @@ iconview.view rubberband,
 treeview.view rubberband,
 flowbox rubberband,
 .content-view rubberband {
-  background-color: alpha(@furr_pink, 0.14);
-  border: 1px solid alpha(@furr_pink, 0.45);
+  background-color: alpha(@furr_pink, 0.10);
+  border: 1px solid alpha(@furr_pink, 0.35);
   border-radius: 4px;
   box-shadow: none;
 }
@@ -614,7 +614,6 @@ treeview.sidebar:selected {
   background-color: @furr_select_fill;
   color: @furr_paper;
   box-shadow: none;
-  -gtk-outline-radius: 8px;
 }
 
 /* Frame/viewport interni della sidebar: niente sfondo grigio opaco. */
@@ -964,7 +963,7 @@ treeview.sidebar:backdrop {
 .sidebar treeview.view:selected:backdrop,
 .side-pane treeview.view:selected:backdrop,
 treeview.sidebar:selected:backdrop {
-  background-color: alpha(@furr_pink, 0.16);
+  background-color: alpha(@furr_pink, 0.10);
   color: @furr_paper;
   box-shadow: none;
 }
@@ -995,7 +994,7 @@ iconview.view:selected:backdrop,
 .view:selected:backdrop,
 .list-view:selected:backdrop,
 .grid-view:selected:backdrop {
-  background-color: alpha(@furr_pink, 0.16);
+  background-color: alpha(@furr_pink, 0.10);
   color: @furr_paper;
 }
 
