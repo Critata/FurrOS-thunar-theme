@@ -94,17 +94,17 @@ backup as well. Backups created by `install.sh` are kept.
 - There is deliberately **no image watermark or texture behind file names**:
   the file view has a flat background, so translucent selection stays clean.
   File and side-pane selections use a light translucent rosé pink fill with
-  paper text, a thicker ~3 px dark ink edge and softly rounded corners, which
-  avoids the repaint glitches of a solid block; the font weight of the label
-  is not changed on selection, so rows do not shift when highlighted. The
-  same fill, border and paper text are kept in the `:backdrop` state, so
-  switching tabs does not make selected files turn dark. Thunar's
+  paper text and no dark ink edge, so selected files never look dark; the
+  font weight of the label is not changed on selection, so rows do not shift
+  when highlighted. The same fill and paper text are used in the `:backdrop`
+  state, so switching tabs does not change the selection. Thunar's
   `ExoIconView` adds the `.rubberband` class to the view itself, so the rule
   targets `.view.rubberband` with enough specificity to beat
   `.standard-view .view`; the dragged rectangle is a light translucent rosé
-  tint with softly rounded corners and a thick 3 px opaque maroon frame. The
-  frame uses a fully opaque colour (not alpha) so the rounded corners do not
-  leave anti-aliased residual pixels while dragging.
+  tint with softly rounded corners and a 1 px opaque maroon frame. The frame
+  must stay 1 px: `exo_icon_view_update_rubberband()` only invalidates a 1 px
+  ring around the previous rectangle, so a thicker frame leaves stale pixels
+  (artifacts) inside the new rectangle while dragging.
 - The information area below the side-pane places uses translucent surfaces
   (`alpha(...)`) and 12 px rounded corners instead of the default grey box.
 - Combo boxes and dropdown lists (for example LibreOffice's font picker) are
