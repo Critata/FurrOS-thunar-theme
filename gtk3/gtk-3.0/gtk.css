@@ -22,8 +22,8 @@
 @define-color furr_yellow #ffbe5a;
 
 /* Make the inherited widgets use the FurrOS selection/accent colours. */
-@define-color theme_selected_bg_color @furr_paper;
-@define-color theme_selected_fg_color @furr_ink;
+@define-color theme_selected_bg_color @furr_maroon;
+@define-color theme_selected_fg_color @furr_paper;
 @define-color accent_bg_color @furr_cyan;
 @define-color accent_color @furr_cyan;
 @define-color accent_fg_color @furr_ink;
@@ -1108,7 +1108,7 @@ window.combo,
 window.background.combo,
 window.background.csd.combo,
 .combo-window {
-  background-color: @furr_plum;
+  background-color: @furr_surface_2;
   color: @furr_text;
   border: 2.5px solid @furr_paper;
   border-radius: 14px;
@@ -1149,8 +1149,8 @@ window.combo frame,
 popover.combo list,
 popover.background.combo list,
 window.combo list {
-  background-color: @furr_night;
-  border: 0;
+  background-color: @furr_surface_2;
+  border: 2px solid @furr_cyan;
   border-radius: 10px;
   min-width: 200px;
   margin: 4px 0;
@@ -1204,7 +1204,7 @@ combobox treeview.view,
 window.combo treeview.view,
 window.combo .view,
 .combo-window treeview.view {
-  background-color: @furr_night;
+  background-color: @furr_surface_2;
   color: @furr_text;
   border-radius: 10px;
   padding: 2px;
@@ -1228,6 +1228,62 @@ combobox treeview.view:selected label,
 window.combo treeview.view:selected label,
 .combo-window treeview.view:selected label {
   color: @furr_ink;
+  font-weight: 800;
+}
+
+/* LibreOffice renders its font/paragraph lists as a GtkTable inside the
+   "combo" window, not as GtkListBox rows or GtkTreeView rows. Style those
+   cells explicitly and use the same surface as the toolbar arrow button so
+   the chip does not look cut off. */
+popover.combo table,
+popover.background.combo table,
+window.combo table,
+.combo-window table {
+  background-color: @furr_surface_2;
+  color: @furr_text;
+  border: 2px solid @furr_cyan;
+  border-radius: 10px;
+  padding: 2px;
+}
+
+popover.combo table cell,
+popover.background.combo table cell,
+window.combo table cell,
+.combo-window table cell {
+  background-color: @furr_surface_2;
+  color: @furr_text;
+  border: 0;
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-family: "Nunito", "Segoe UI", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+popover.combo table cell:hover,
+popover.background.combo table cell:hover,
+window.combo table cell:hover,
+.combo-window table cell:hover {
+  background-color: @furf_plum;
+  color: @furf_text;
+}
+
+popover.combo table cell:selected,
+popover.background.combo table cell:selected,
+window.combo table cell:selected,
+.combo-window table cell:selected {
+  background-color: @furf_yellow;
+  color: @furf_ink;
+  border: 2px solid @furf_ink;
+  border-radius: 6px;
+  box-shadow: 2px 2px 0 @furf_pink;
+}
+
+popover.combo table cell:selected label,
+popover.background.combo table cell:selected label,
+window.combo table cell:selected label,
+.combo-window table cell:selected label {
+  color: @furf_ink;
   font-weight: 800;
 }
 
@@ -1258,7 +1314,7 @@ popover.combo:backdrop,
 popover.background.combo:backdrop,
 window.combo:backdrop,
 .combo-window:backdrop {
-  background-color: @furr_plum;
+  background-color: @furr_surface_2;
   border-color: alpha(@furr_paper, 0.6);
   box-shadow: 2px 2px 0 alpha(@furr_red, 0.6);
 }

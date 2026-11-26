@@ -77,7 +77,7 @@ backup as well. Backups created by `install.sh` are kept.
 | plum | `#1E1218` | header bar, toolbar, side pane |
 | surface | `#2A1A22` | panels |
 | surface-2 | `#3A2430` | hovers and buttons |
-| paper | `#FFECEC` | text, borders, selection |
+| paper | `#FFECEC` | text, borders, selected menu text |
 | ink | `#0E080B` | shadows and text on paper |
 | cyan | `#7FF0F0` | focus and primary accent |
 | pink | `#FF8CBE` | secondary accent |
@@ -96,11 +96,13 @@ backup as well. Backups created by `install.sh` are kept.
 - The information area below the side-pane places uses translucent surfaces
   (`alpha(...)`) and 12 px rounded corners instead of the default grey box.
 - Combo boxes and dropdown lists (for example LibreOffice's font picker) are
-  styled as one pill: transparent inner entry, cyan arrow, plum popover and
-  cyan selected rows with a pink sticker shadow. Both GTK list-box and
-  tree-view popups are covered, including the dedicated `window.combo` that
-  LibreOffice uses for its font selector. The arrow button has its own ink
-  divider and switches to cyan while the list is open.
+  styled as one pill: transparent inner entry, cyan arrow, and a `surface-2`
+  popover that matches the arrow button's background. The list has a cyan
+  border, and the selected row uses maroon with bold paper text for strong
+  contrast. GTK list-box, tree-view and table popups are covered, including
+  the dedicated `window.combo` that LibreOffice uses for its font selector.
+  The arrow button keeps its native LibreOffice geometry and switches to cyan
+  while the list is open.
 - LibreOffice compatibility: toolbar buttons stay flat, comboboxes and dialog
   buttons use tighter padding/margins, and dialog surfaces have 14 px rounded
   corners. This avoids the inflated, overlapping widgets caused by the
@@ -110,9 +112,10 @@ backup as well. Backups created by `install.sh` are kept.
   view; this keeps long values fully visible instead of clipped.
 - LibreOffice 26.8 draws menus, the sidebar and the document background itself,
   so CSS alone cannot reach them. `libreoffice/` writes the FurrOS palette into
-  the dark colour scheme in `registrymodifications.xcu`: night menus and app
-  background, plum menus/dialogs, surface document pages, paper text, cyan
-  selection and pink/maroon accents. It also selects the bundled `sifr_dark`
+  the dark colour scheme in `registrymodifications.xcu`: night app background,
+  surface-2 menus and list backgrounds, maroon menu selection with paper text,
+  cyan menu borders, surface document pages and pink/maroon accents. It also
+  selects the bundled `sifr_dark`
   icon set. Only the user profile is modified; no system files are touched.
 - Icons are scalable SVG and work at any size. `generate.py` needs only
   Python 3.

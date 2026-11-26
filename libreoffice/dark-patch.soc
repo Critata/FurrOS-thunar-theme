@@ -58,19 +58,19 @@
       <prop oor:name="Color" oor:op="fuse"><value>919563</value></prop>
     </node>
     <node oor:name="MenuColor">
-      <prop oor:name="Color" oor:op="fuse"><value>1970712</value></prop>
+      <prop oor:name="Color" oor:op="fuse"><value>3810352</value></prop>
     </node>
     <node oor:name="MenuTextColor">
       <prop oor:name="Color" oor:op="fuse"><value>16772332</value></prop>
     </node>
     <node oor:name="MenuHighlightColor">
-      <prop oor:name="Color" oor:op="fuse"><value>8384752</value></prop>
+      <prop oor:name="Color" oor:op="fuse"><value>7871532</value></prop>
     </node>
     <node oor:name="MenuHighlightTextColor">
-      <prop oor:name="Color" oor:op="fuse"><value>919563</value></prop>
+      <prop oor:name="Color" oor:op="fuse"><value>16772332</value></prop>
     </node>
     <node oor:name="MenuBorderColor">
-      <prop oor:name="Color" oor:op="fuse"><value>7871532</value></prop>
+      <prop oor:name="Color" oor:op="fuse"><value>8384752</value></prop>
     </node>
     <node oor:name="InactiveColor">
       <prop oor:name="Color" oor:op="fuse"><value>1970712</value></prop>
