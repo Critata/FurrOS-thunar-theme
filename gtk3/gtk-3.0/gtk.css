@@ -467,6 +467,21 @@ iconview.view:selected,
   -gtk-outline-radius: 8px;
 }
 
+/* La selezione a rettangolo di Thunar usa il nodo CSS "rubberband": va
+   impostata a mano, altrimenti eredita il pieno ciano del tema di base e
+   durante il trascinamento lascia artefatti nell'area evidenziata. */
+rubberband,
+.rubberband,
+iconview.view rubberband,
+treeview.view rubberband,
+flowbox rubberband,
+.content-view rubberband {
+  background-color: alpha(@furr_pink, 0.14);
+  border: 1px solid alpha(@furr_pink, 0.45);
+  border-radius: 4px;
+  box-shadow: none;
+}
+
 /* Nessun :hover sull'intera vista: in GTK3 colpisce il widget intero e fa
    "saltare" l'evidenziazione delle righe. L'hover delle singole righe è
    gestito da GTK, qui lasciamo solo :selected. */
@@ -506,9 +521,6 @@ iconview.view:selected label,
 .standard-view iconview.view,
 .standard-view treeview.view {
   background-color: @furr_night;
-  background-image: radial-gradient(circle, alpha(@furr_text, 0.05) 1px, transparent 1.6px);
-  background-size: 14px 14px;
-  background-repeat: repeat;
   border-radius: 12px;
 }
 

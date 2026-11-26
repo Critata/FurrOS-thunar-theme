@@ -91,11 +91,13 @@ backup as well. Backups created by `install.sh` are kept.
 - Thunar exposes internal style classes such as `.sidebar`, `.standard-view`,
   `.location-button` and `notebook`. They make it possible to style the side
   pane, file area, breadcrumbs and tabs without patching the application.
-- There is deliberately **no image watermark behind file names**: the file
-  view only has a very light dot texture, so selection stays readable. File
-  and side-pane selections use a translucent rosé pink fill with paper text,
-  which avoids the repaint glitches of a solid block; the font weight of the
-  label is not changed on selection, so rows do not shift when highlighted.
+- There is deliberately **no image watermark or texture behind file names**:
+  the file view has a flat background, so translucent selection stays clean.
+  File and side-pane selections use a translucent rosé pink fill with paper
+  text, which avoids the repaint glitches of a solid block; the font weight
+  of the label is not changed on selection, so rows do not shift when
+  highlighted. The mouse rubber-band uses an even lighter rosé tint so the
+  dragged area stays transparent.
 - The information area below the side-pane places uses translucent surfaces
   (`alpha(...)`) and 12 px rounded corners instead of the default grey box.
 - Combo boxes and dropdown lists (for example LibreOffice's font picker) are
