@@ -117,14 +117,14 @@ backup as well. Backups created by `install.sh` are kept.
   drop-down menus keep their paper colour.
 - The information area below the side-pane places uses translucent surfaces
   (`alpha(...)`) and 12 px rounded corners instead of the default grey box.
-- Combo boxes and dropdown lists (for example LibreOffice's font picker) are
-  styled as one pill: transparent inner entry, cyan arrow, and a `surface-2`
-  popover that matches the arrow button's background. The list has a cyan
-  border, and the selected row uses maroon with bold paper text for strong
-  contrast. GTK list-box, tree-view and table popups are covered, including
-  the dedicated `window.combo` that LibreOffice uses for its font selector.
-  The arrow button keeps its native LibreOffice geometry and switches to cyan
-  while the list is open.
+- Combo boxes and dropdown lists (for example LibreOffice's font picker) use
+  one compact 22 px pill: night field and arrow cell, a continuous paper
+  outline, cyan arrow and pink sticker shadow. The arrow stays inside the same
+  pill instead of becoming a separate block. The popover remains `surface-2`
+  with a cyan border, and the selected row uses maroon with bold paper text for
+  strong contrast. GTK list-box, tree-view and table popups are covered,
+  including the dedicated `window.combo` that LibreOffice uses for its font
+  selector.
 - LibreOffice compatibility: toolbar buttons stay flat, comboboxes and dialog
   buttons use tighter padding/margins, and dialog surfaces have 14 px rounded
   corners. This avoids the inflated, overlapping widgets caused by the
@@ -132,6 +132,12 @@ backup as well. Backups created by `install.sh` are kept.
   entire toolbar combobox, not just its inner entry, because LibreOffice can
   render labels such as "Preformatted Text" and "Liberation Mono" in a cell
   view; this keeps long values fully visible instead of clipped.
+- Spin buttons share the same pill treatment and keep their +/- controls
+  centred and clickable inside it. Check and radio indicators get explicit
+  icon sources because `adw-gtk3-dark` disables the inherited ones; compact
+  icon-button metrics are scoped to sidebar headers. Generic LibreOffice
+  button geometry is untouched. GTK3's CSS parser rejects `!important`, so
+  selector specificity and provider priority are used instead.
 - LibreOffice 26.8 draws menus, the sidebar and the document background itself,
   so CSS alone cannot reach them. `libreoffice/` writes the FurrOS palette into
   the dark colour scheme in `registrymodifications.xcu`: night app background,

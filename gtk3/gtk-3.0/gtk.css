@@ -1534,3 +1534,266 @@ dialog entry,
   border-radius: 8px;
   padding: 2px 8px;
 }
+
+/* --------------------------------------------------------------------------
+   Compact controls pass.
+
+   The inherited adw-gtk3 metrics give combobox/spinbutton a 34-43 px minimum
+   height. Inside a LibreOffice toolbar that pushes the lower border below the
+   toolbar edge, so the chip looks cut in half and the arrow loses its pill.
+   These overrides keep the FurrOS palette but use a single 22 px pill for the
+   whole control. They are intentionally scoped to combo/spin/check/radio and
+   sidebar icon buttons: generic LibreOffice button geometry is untouched.
+   The important flag is avoided: GTK3's CSS parser rejects it with a junk error.
+   -------------------------------------------------------------------------- */
+combobox,
+combobox.linked {
+  background-color: @furr_night;
+  color: @furr_text;
+  border: 1px solid @furr_paper;
+  border-radius: 999px;
+  box-shadow: 1px 1px 0 @furr_pink;
+  margin: 0;
+  padding: 0;
+  min-height: 22px;
+  -gtk-outline-radius: 999px;
+}
+
+combobox > box,
+combobox > box.linked {
+  background-color: transparent;
+  border: 0;
+  border-radius: 999px;
+  box-shadow: none;
+  margin: 0;
+  padding: 0;
+  min-height: 0;
+}
+
+combobox entry,
+combobox entry.combo,
+combobox cellview,
+combobox label {
+  background-color: @furr_night;
+  color: @furr_text;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  margin: 0;
+  padding: 0 8px;
+  min-height: 0;
+  font-family: "Nunito", "Segoe UI", sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  caret-color: @furr_cyan;
+}
+
+combobox button,
+combobox button.combo,
+combobox > box > button.combo,
+button.combo {
+  background-color: @furr_night;
+  color: @furr_cyan;
+  border: 1px solid @furr_paper;
+  border-left: 1px solid @furr_ink;
+  border-radius: 0 999px 999px 0;
+  box-shadow: none;
+  margin: 0;
+  padding: 0 6px;
+  min-width: 22px;
+  min-height: 0;
+  background-clip: padding-box;
+}
+
+combobox button:hover,
+combobox button.combo:hover,
+button.combo:hover {
+  background-color: @furr_cyan;
+  color: @furr_ink;
+}
+
+combobox button:active,
+combobox button.combo:active,
+combobox button:checked,
+combobox button.combo:checked,
+button.combo:active,
+button.combo:checked {
+  background-color: @furr_pink;
+  color: @furr_ink;
+}
+
+combobox arrow,
+combobox button arrow,
+combobox button.combo arrow,
+button.combo arrow {
+  color: @furr_cyan;
+  min-width: 12px;
+  min-height: 12px;
+  -gtk-icon-style: regular;
+}
+
+combobox button:hover arrow,
+combobox button:active arrow,
+combobox button:checked arrow,
+button.combo:hover arrow,
+button.combo:active arrow,
+button.combo:checked arrow {
+  color: @furr_ink;
+}
+
+combobox:focus,
+combobox:drop(active) {
+  border-color: @furr_cyan;
+  box-shadow: 1px 1px 0 @furr_cyan;
+}
+
+combobox:backdrop {
+  border-color: alpha(@furr_paper, 0.6);
+  box-shadow: none;
+}
+
+spinbutton:not(.vertical) {
+  background-color: @furr_night;
+  color: @furr_text;
+  border: 1px solid @furr_paper;
+  border-radius: 999px;
+  box-shadow: 1px 1px 0 @furr_pink;
+  margin: 0;
+  padding: 0;
+  min-height: 22px;
+  -gtk-outline-radius: 999px;
+}
+
+spinbutton:not(.vertical) entry {
+  background-color: transparent;
+  color: @furr_text;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  margin: 0;
+  padding: 0 6px;
+  min-height: 0;
+  font-family: "Nunito", "Segoe UI", sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+spinbutton:not(.vertical) button {
+  background-color: transparent;
+  color: @furr_cyan;
+  border: 0;
+  border-left: 1px solid @furr_ink;
+  border-radius: 0;
+  box-shadow: none;
+  margin: 0;
+  padding: 0;
+  min-width: 16px;
+  min-height: 0;
+  -gtk-icon-style: regular;
+}
+
+spinbutton:not(.vertical) button:dir(rtl) {
+  border-left: 0;
+  border-right: 1px solid @furr_ink;
+}
+
+spinbutton:not(.vertical) button:dir(ltr):last-child {
+  border-radius: 0 999px 999px 0;
+}
+
+spinbutton:not(.vertical) button:dir(rtl):first-child {
+  border-radius: 999px 0 0 999px;
+}
+
+spinbutton:not(.vertical) button:hover {
+  background-color: alpha(@furr_cyan, 0.18);
+  color: @furr_paper;
+}
+
+spinbutton:not(.vertical) button:active {
+  background-color: @furr_cyan;
+  color: @furr_ink;
+}
+
+/* The base theme sets -gtk-icon-source: none on check/radio. Re-add the icon
+   sources so a checked state is visible inside the cyan indicator. */
+checkbutton check,
+radiobutton radio {
+  background-color: @furr_night;
+  background-image: none;
+  color: @furr_ink;
+  border: 2px solid @furr_paper;
+  border-radius: 5px;
+  margin: 0 4px;
+  padding: 1px;
+  min-width: 16px;
+  min-height: 16px;
+  -gtk-icon-source: none;
+}
+
+radiobutton radio {
+  border-radius: 999px;
+}
+
+checkbutton:checked check,
+radiobutton:checked radio,
+checkbutton:indeterminate check,
+radiobutton:indeterminate radio {
+  background-color: @furr_cyan;
+  background-image: none;
+  color: @furr_ink;
+  border-color: @furr_ink;
+  box-shadow: inset 0 0 0 1px @furr_ink;
+}
+
+checkbutton:checked check {
+  -gtk-icon-source: -gtk-icontheme("object-select-symbolic");
+}
+
+radiobutton:checked radio {
+  -gtk-icon-source: -gtk-icontheme("radio-checked-symbolic");
+}
+
+checkbutton:indeterminate check,
+radiobutton:indeterminate radio {
+  -gtk-icon-source: -gtk-icontheme("list-remove-symbolic");
+}
+
+checkbutton:hover check,
+radiobutton:hover radio {
+  border-color: @furr_pink;
+}
+
+/* Compact icon buttons in side pane / sidebar headers only. */
+.sidebar button.image-button,
+.side-pane button.image-button,
+#thunar-side-pane button.image-button,
+.sidebar headerbar button.image-button,
+.side-pane headerbar button.image-button,
+.sidebar button.sidebar-button,
+.side-pane button.sidebar-button,
+#thunar-side-pane button.sidebar-button,
+button.sidebar-button,
+notebook > header > tabs > arrow {
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  box-shadow: none;
+  margin: 0;
+  padding: 2px 4px;
+  min-width: 22px;
+  min-height: 22px;
+}
+
+.sidebar button.image-button:hover,
+.side-pane button.image-button:hover,
+#thunar-side-pane button.image-button:hover,
+.sidebar button.sidebar-button:hover,
+.side-pane button.sidebar-button:hover,
+#thunar-side-pane button.sidebar-button:hover,
+button.sidebar-button:hover,
+notebook > header > tabs > arrow:hover {
+  background-color: @furr_surface_2;
+  border-color: alpha(@furr_paper, 0.5);
+  box-shadow: none;
+}
