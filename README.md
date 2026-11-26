@@ -97,8 +97,11 @@ backup as well. Backups created by `install.sh` are kept.
   paper text, which avoids the repaint glitches of a solid block; the font
   weight of the label is not changed on selection, so rows do not shift when
   highlighted. No outline radius is applied to selected items, so rubber-band
-  dragging does not leave clipped artifacts. The mouse rubber-band itself uses
-  an even lighter rosé tint so the dragged area stays transparent.
+  dragging does not leave clipped artifacts. Thunar's `ExoIconView` adds the
+  `.rubberband` class to the view itself, so the rule targets
+  `.view.rubberband` with enough specificity to beat `.standard-view .view`;
+  the dragged rectangle is a light translucent rosé tint instead of an opaque
+  block.
 - The information area below the side-pane places uses translucent surfaces
   (`alpha(...)`) and 12 px rounded corners instead of the default grey box.
 - Combo boxes and dropdown lists (for example LibreOffice's font picker) are

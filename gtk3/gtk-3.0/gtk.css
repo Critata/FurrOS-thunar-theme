@@ -467,18 +467,22 @@ iconview.view:selected,
   box-shadow: none;
 }
 
-/* La selezione a rettangolo di Thunar usa il nodo CSS "rubberband": va
-   impostata a mano, altrimenti eredita il pieno ciano del tema di base e
-   durante il trascinamento lascia artefatti nell'area evidenziata. */
+/* Thunar (ExoIconView) aggiunge la classe .rubberband ALLA VISTA STESSA,
+   non a un nodo figlio: serve .view.rubberband per battere .standard-view .view,
+   altrimenti il rettangolo eredita lo sfondo opaco e lascia artefatti. */
+.standard-view .view.rubberband,
+.standard-view iconview.view.rubberband,
+.standard-view treeview.view.rubberband,
+iconview.view.rubberband,
+treeview.view.rubberband,
+.view.rubberband,
 rubberband,
 .rubberband,
-iconview.view rubberband,
-treeview.view rubberband,
 flowbox rubberband,
 .content-view rubberband {
   background-color: alpha(@furr_pink, 0.10);
   border: 1px solid alpha(@furr_pink, 0.35);
-  border-radius: 4px;
+  border-radius: 0;
   box-shadow: none;
 }
 
