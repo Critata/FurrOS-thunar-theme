@@ -405,6 +405,17 @@ menubar > menuitem:hover,
   color: @furr_ink;
 }
 
+/* GTK draws the text as a child `label` node, so colouring the menuitem is
+   not enough: the inherited label colour stayed paper on the cyan highlight.
+   Colour the label only while the top-level item is hovered or has its menu
+   open, leaving normal labels and drop-down menu entries untouched. */
+menubar > menuitem:hover > label,
+menubar > menuitem:selected > label,
+.menubar > menuitem:hover > label,
+.menubar > menuitem:selected > label {
+  color: @furr_ink;
+}
+
 menu,
 .menu,
 menuitem,

@@ -77,7 +77,7 @@ backup as well. Backups created by `install.sh` are kept.
 | plum | `#1E1218` | header bar, toolbar, side pane |
 | surface | `#2A1A22` | panels |
 | surface-2 | `#3A2430` | hovers and buttons |
-| paper | `#FFECEC` | text, borders, selected menu text |
+| paper | `#FFECEC` | text, borders, file and drop-down menu text |
 | ink | `#0E080B` | shadows and text on paper |
 | cyan | `#7FF0F0` | focus and primary accent |
 | pink | `#FF8CBE` | secondary accent |
@@ -109,6 +109,12 @@ backup as well. Backups created by `install.sh` are kept.
   which only invalidates a 1 px ring around the previous rectangle: a thicker
   frame or anti-aliased rounded corners leave stale pixels (artifacts) inside
   the new rectangle while dragging.
+- The menu bar labels (File, Modifica, Visualizza, Vai, Segnalibri, Aiuto) use
+  ink text while their item is hovered or has its menu open: GTK renders the
+  text as a child `label` node, so colouring the `menuitem` alone cannot fix
+  the contrast on the cyan highlight. The selector is limited to direct
+  children of the top-level menu bar, so normal labels and the entries inside
+  drop-down menus keep their paper colour.
 - The information area below the side-pane places uses translucent surfaces
   (`alpha(...)`) and 12 px rounded corners instead of the default grey box.
 - Combo boxes and dropdown lists (for example LibreOffice's font picker) are
