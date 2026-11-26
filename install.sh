@@ -18,6 +18,20 @@ cp -a "$ROOT/gtk3/gtk-3.0/gtk.css" "$HOME_DIR/.themes/FurrOS/gtk-3.0/gtk.css"
 cp -a "$ROOT/gtk3/index.theme" "$HOME_DIR/.themes/FurrOS/index.theme"
 
 # ---------------------------------------------------------------------------
+# User-priority GTK3 override: LibreOffice loads its own CSS at application
+# priority, which outranks theme CSS. This narrow override restores the FurrOS
+# metrics for combo controls, spin buttons and check/radio indicators.
+# ---------------------------------------------------------------------------
+mkdir -p "$HOME_DIR/.config/gtk-3.0"
+USER_CSS="$HOME_DIR/.config/gtk-3.0/gtk.css"
+if [[ -f "$USER_CSS" ]]; then
+  cp -a "$USER_CSS" "$USER_CSS.bak-$STAMP"
+  echo "  backup: $USER_CSS.bak-$STAMP"
+fi
+cp -a "$ROOT/gtk3/user-override.css" "$USER_CSS"
+echo "  aggiornato: $USER_CSS"
+
+# ---------------------------------------------------------------------------
 # Icone
 # ---------------------------------------------------------------------------
 mkdir -p "$HOME_DIR/.local/share/icons/FurrOS-Papirus"

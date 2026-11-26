@@ -1049,114 +1049,15 @@ entry:backdrop,
   box-shadow: none;
 }
 
-/* --------------------------------------------------------------------------
-   Combo boxes / dropdown lists (font picker, font size, filters, ...).
-   LibreOffice's GTK3 font selector is a GtkComboBox: style the closed field
-   and the popup list together so they look like one FurrOS "chip".
-   Note: GTK adds the "combo" style class to the *internal entry* too, so
-   never use a bare ".combo" selector here or the field gets a double border.
-   -------------------------------------------------------------------------- */
-combobox {
-  background-color: @furr_night;
-  color: @furr_text;
-  border: 2.5px solid @furr_paper;
-  border-radius: 999px;
-  box-shadow: 3px 3px 0 @furr_pink;
-  padding: 0;
-}
-
-combobox > box {
-  background-color: transparent;
-  border-radius: 999px;
-  box-shadow: none;
-  padding: 0;
-}
-
-combobox entry {
-  background-color: transparent;
-  color: @furr_text;
-  border: 0;
-  border-radius: 0;
-  box-shadow: none;
-  padding: 4px 10px;
-  font-family: "Nunito", "Segoe UI", sans-serif;
-  font-weight: 700;
-  caret-color: @furr_cyan;
-}
-
-combobox button,
-combobox button.combo,
-button.combo,
-window.combo button {
-  background-color: @furr_surface_2;
-  color: @furr_cyan;
-  border: 0;
-  border-left: 2px solid @furr_ink;
-  border-radius: 0 999px 999px 0;
-  box-shadow: none;
-  padding: 4px 8px;
-  min-width: 24px;
-  min-height: 24px;
-}
-
-combobox button:hover,
-combobox button.combo:hover,
-button.combo:hover,
-window.combo button:hover {
-  background-color: @furr_cyan;
-  color: @furr_ink;
-}
-
-combobox button:active,
-combobox button.combo:active,
-button.combo:active,
-window.combo button:active,
-combobox button:checked,
-combobox button.combo:checked,
-button.combo:checked,
-window.combo button:checked {
-  background-color: @furr_pink;
-  color: @furr_ink;
-}
-
-combobox arrow,
-combobox button arrow,
-button.combo arrow,
-window.combo button arrow {
-  color: @furr_cyan;
-  -gtk-icon-style: regular;
-  min-width: 14px;
-  min-height: 14px;
-}
-
-combobox button:hover arrow,
-combobox button:active arrow,
-combobox button:checked arrow,
-button.combo:hover arrow,
-button.combo:active arrow,
-button.combo:checked arrow {
-  color: @furr_ink;
-}
-
-combobox:focus,
-combobox:drop(active) {
-  border-color: @furr_cyan;
-  box-shadow: 3px 3px 0 @furr_cyan;
-}
-
-combobox:disabled {
-  color: @furr_dim;
-  border-color: alpha(@furr_paper, 0.4);
-  box-shadow: none;
-  opacity: 0.75;
-}
-
 /* The dropdown itself: GTK3 uses a popover or a dedicated popup window.
    LibreOffice opens a real GtkWindow with the "combo" class, so both forms
    must be styled or the list falls back to the near-black base theme. */
 popover.combo,
 popover.background.combo,
 combobox popover,
+menu-button popover,
+button.dropdown popover,
+.dropdown popover,
 window.combo,
 window.background.combo,
 window.background.csd.combo,
@@ -1436,54 +1337,8 @@ window.combo treeview.view:selected:backdrop,
   box-shadow: none;
 }
 
-/* --------------------------------------------------------------------------
-   LibreOffice compatibility pass.
-   LibreOffice stacks several comboboxes inside its toolbar, so the defaults
-   above inflate the font selector to ~46 px and dialog buttons to ~38 px.
-   These rules keep the same FurrOS palette but use tighter metrics.
-   -------------------------------------------------------------------------- */
-combobox {
-  border-width: 2px;
-  border-radius: 8px;
-  box-shadow: 2px 2px 0 @furr_pink;
-  padding: 0;
-  min-height: 0;
-}
-
-combobox entry {
-  padding: 2px 8px;
-  min-height: 0;
-  font-size: 11px;
-}
-
-toolbar combobox,
-.primary-toolbar combobox,
-.secondary-toolbar combobox,
-headerbar combobox {
-  border-width: 1px;
-  border-radius: 8px;
-  box-shadow: 1px 1px 0 @furr_pink;
-}
-
-toolbar combobox entry,
-.primary-toolbar combobox entry {
-  padding: 0 6px;
-  min-height: 0;
-  font-size: 10px;
-}
-
-/* LibreOffice paints some combo labels in a cell view instead of a real
-   entry. Force the compact font on the whole widget so long values such as
-   "Preformatted Text" and "Liberation Mono" are not clipped by the chip. */
-toolbar combobox,
-toolbar combobox *,
-.primary-toolbar combobox,
-.primary-toolbar combobox * {
-  font-family: "Nunito", "Segoe UI", sans-serif;
-  font-size: 12px;
-  font-weight: 700;
-}
-
+/* Keep LibreOffice toolbars compact; combo metrics are normalized in the
+   final widget pass below. */
 toolbar,
 .primary-toolbar,
 .secondary-toolbar {
@@ -1593,11 +1448,14 @@ combobox button.combo,
 combobox > box > button.combo,
 button.combo {
   background-color: @furr_night;
+  background-image: none;
+  border-image: none;
   color: @furr_cyan;
   border: 1px solid @furr_paper;
   border-left: 1px solid @furr_ink;
+  border-bottom: 1px solid @furr_paper;
   border-radius: 0 999px 999px 0;
-  box-shadow: none;
+  box-shadow: inset 0 -1px 0 @furr_paper;
   margin: 0;
   padding: 0 6px;
   min-width: 22px;
@@ -1796,4 +1654,615 @@ notebook > header > tabs > arrow:hover {
   background-color: @furr_surface_2;
   border-color: alpha(@furr_paper, 0.5);
   box-shadow: none;
+}
+
+/* --------------------------------------------------------------------------
+   Final widget normalization pass.
+
+   Earlier closed-combo rules are intentionally removed: one compact pill now
+   owns the border, while the inner entry/cell and the arrow (button OR
+   togglebutton) stay inside that outline. Interactive states keep the same
+   radius, and linked icon groups in toolbars/sidebars share a single outline.
+   -------------------------------------------------------------------------- */
+
+/* Focus rings stay inside the chip instead of leaving white/cyan residue
+   outside the rounded corners. */
+button:focus,
+button:focus-visible,
+togglebutton:focus,
+togglebutton:focus-visible,
+entry:focus,
+entry:focus-visible {
+  outline: 2px solid @furr_cyan;
+  outline-offset: -2px;
+  -gtk-outline-radius: 8px;
+}
+
+/* Closed dropdowns: one pill for entry + arrow. LibreOffice builds some
+   combos as a GtkBox named "combobox" instead of a GtkComboBox, so both node
+   types are styled. */
+combobox,
+combobox.linked,
+box#combobox,
+box#combobox.linked,
+menu-button,
+button.menu-button,
+button.dropdown,
+.dropdown {
+  background-color: @furr_night;
+  color: @furr_text;
+  border: 1px solid @furr_paper;
+  border-radius: 999px;
+  box-shadow: 1px 1px 0 @furr_pink;
+  margin: 0;
+  padding: 0;
+  min-height: 22px;
+  -gtk-outline-radius: 999px;
+}
+
+combobox > box,
+combobox > box.linked,
+menu-button > box,
+button.dropdown > box,
+.dropdown > box {
+  background-color: transparent;
+  border: 0;
+  border-radius: 999px;
+  box-shadow: none;
+  margin: 0;
+  padding: 0;
+  min-height: 0;
+}
+
+combobox entry,
+combobox entry.combo,
+box#combobox entry,
+box#combobox entry.combo,
+box#combobox entry.small-button,
+box#combobox cellview,
+box#combobox cellview label,
+box#combobox label,
+entry.combo,
+combobox cellview,
+combobox cellview label,
+combobox label,
+menu-button label,
+button.dropdown label,
+.dropdown label,
+spinbutton:not(.vertical) entry {
+  background-color: @furr_night;
+  background-image: none;
+  border-image: none;
+  color: @furr_text;
+  border: 0;
+  border-bottom: 1px solid @furr_paper;
+  border-radius: 0;
+  box-shadow: inset 0 -1px 0 @furr_paper;
+  margin: 0;
+  padding: 0 8px;
+  min-height: 22px;
+  font-family: "Nunito", "Segoe UI", sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  caret-color: @furr_cyan;
+}
+
+/* LibreOffice keeps its GTK entry shorter than the surrounding toolbar row;
+   top/bottom padding makes the entry paint the full height of the pill. */
+box#combobox entry,
+box#combobox entry.combo,
+box#combobox entry.small-button {
+  padding: 6px 8px;
+}
+
+/* LibreOffice also uses GtkToggleButton with class "combo" for combos that
+   have no entry (plain dropdowns, cell name box, style menus). */
+combobox button,
+combobox button.combo,
+combobox togglebutton,
+combobox togglebutton.combo,
+combobox > box > button.combo,
+combobox > box > togglebutton.combo,
+box#combobox button,
+box#combobox button.combo,
+box#combobox button.small-button,
+box#combobox togglebutton,
+box#combobox togglebutton.combo,
+box#combobox togglebutton.small-button,
+button.combo,
+togglebutton.combo,
+button.dropdown {
+  background-color: @furr_night;
+  background-image: none;
+  border-image: none;
+  color: @furr_cyan;
+  border: 1px solid @furr_paper;
+  border-left: 1px solid @furr_ink;
+  border-bottom: 1px solid @furr_paper;
+  border-radius: 0 999px 999px 0;
+  box-shadow: inset 0 -1px 0 @furr_paper;
+  margin: 0;
+  padding: 0 6px;
+  min-width: 22px;
+  min-height: 22px;
+  background-clip: padding-box;
+  outline-width: 0;
+}
+
+box#combobox button,
+box#combobox button.combo,
+box#combobox button.small-button,
+box#combobox togglebutton,
+box#combobox togglebutton.combo,
+box#combobox togglebutton.small-button {
+  padding: 6px;
+}
+
+/* A plain combo has no text field, so its only button owns the full pill. */
+combobox togglebutton:first-child,
+combobox button:first-child,
+combobox > box > togglebutton:first-child,
+combobox > box > button:first-child,
+box#combobox togglebutton:first-child,
+box#combobox button:first-child {
+  border-left-color: @furr_paper;
+  border-radius: 999px;
+}
+
+combobox button:hover,
+combobox button.combo:hover,
+combobox togglebutton:hover,
+combobox togglebutton.combo:hover,
+button.combo:hover,
+togglebutton.combo:hover,
+button.dropdown:hover,
+.dropdown:hover {
+  background-color: @furr_cyan;
+  color: @furr_ink;
+  border-color: @furr_paper;
+  border-left-color: @furr_ink;
+  box-shadow: none;
+}
+
+combobox button:active,
+combobox button.combo:active,
+combobox togglebutton:active,
+combobox togglebutton.combo:active,
+combobox button:checked,
+combobox button.combo:checked,
+combobox togglebutton:checked,
+combobox togglebutton.combo:checked,
+button.combo:active,
+togglebutton.combo:active,
+button.combo:checked,
+togglebutton.combo:checked,
+button.dropdown:active,
+.dropdown:active {
+  background-color: @furr_pink;
+  color: @furr_ink;
+  border-color: @furr_paper;
+  border-left-color: @furr_ink;
+  box-shadow: none;
+}
+
+combobox arrow,
+combobox button arrow,
+combobox button.combo arrow,
+combobox togglebutton arrow,
+combobox togglebutton.combo arrow,
+button.combo arrow,
+togglebutton.combo arrow,
+button.dropdown arrow,
+.dropdown arrow {
+  color: @furr_cyan;
+  min-width: 12px;
+  min-height: 12px;
+  -gtk-icon-style: regular;
+}
+
+combobox button:hover arrow,
+combobox togglebutton:hover arrow,
+button.combo:hover arrow,
+togglebutton.combo:hover arrow,
+button.dropdown:hover arrow {
+  color: @furr_ink;
+}
+
+combobox:focus,
+combobox.linked:focus,
+menu-button:focus,
+button.dropdown:focus,
+.dropdown:focus {
+  border-color: @furr_cyan;
+  box-shadow: 1px 1px 0 @furr_cyan;
+  outline: 2px solid @furr_cyan;
+  outline-offset: -2px;
+  -gtk-outline-radius: 999px;
+}
+
+/* The container owns the focus ring: suppress inner rings that used to draw
+   a second, offset outline around the arrow or the entry. */
+combobox *:focus,
+spinbutton *:focus,
+menu-button *:focus,
+button.dropdown *:focus,
+.dropdown *:focus,
+toolbar .linked *:focus,
+.sidebar .linked *:focus,
+.side-pane .linked *:focus {
+  outline-width: 0;
+}
+
+combobox:disabled,
+combobox button:disabled,
+combobox togglebutton:disabled,
+button.dropdown:disabled,
+.dropdown:disabled {
+  color: @furr_dim;
+  border-color: alpha(@furr_paper, 0.4);
+  box-shadow: none;
+  opacity: 0.75;
+}
+
+combobox:backdrop,
+combobox.linked:backdrop,
+menu-button:backdrop,
+button.dropdown:backdrop,
+.dropdown:backdrop {
+  border-color: alpha(@furr_paper, 0.6);
+  box-shadow: none;
+  outline-width: 0;
+}
+
+/* Split icon groups (text colour, background colour, alignment, style) must
+   read as one pill: no double border and no square corner at the join. */
+toolbar .linked,
+.primary-toolbar .linked,
+.secondary-toolbar .linked,
+headerbar .linked,
+.sidebar .linked,
+.side-pane .linked,
+#thunar-side-pane .linked,
+.thunar-side-pane .linked,
+notebook > header .linked,
+placessidebar .linked {
+  background-color: @furr_night;
+  border: 1px solid @furr_paper;
+  border-radius: 999px;
+  box-shadow: 1px 1px 0 @furr_pink;
+  margin: 0;
+  padding: 0;
+  min-height: 22px;
+  -gtk-outline-radius: 999px;
+}
+
+toolbar .linked > button:not(.combo),
+toolbar .linked > togglebutton:not(.combo),
+.primary-toolbar .linked > button:not(.combo),
+.primary-toolbar .linked > togglebutton:not(.combo),
+.secondary-toolbar .linked > button:not(.combo),
+.secondary-toolbar .linked > togglebutton:not(.combo),
+headerbar .linked > button:not(.combo),
+headerbar .linked > togglebutton:not(.combo),
+.sidebar .linked > button:not(.combo),
+.sidebar .linked > togglebutton:not(.combo),
+.side-pane .linked > button:not(.combo),
+.side-pane .linked > togglebutton:not(.combo),
+#thunar-side-pane .linked > button:not(.combo),
+#thunar-side-pane .linked > togglebutton:not(.combo),
+.thunar-side-pane .linked > button:not(.combo),
+.thunar-side-pane .linked > togglebutton:not(.combo),
+notebook > header .linked > button:not(.combo),
+notebook > header .linked > togglebutton:not(.combo),
+placessidebar .linked > button:not(.combo),
+placessidebar .linked > togglebutton:not(.combo) {
+  background-color: transparent;
+  color: @furr_text;
+  border: 0;
+  border-left: 1px solid @furr_ink;
+  border-radius: 0;
+  box-shadow: none;
+  margin: 0;
+  padding: 0 4px;
+  min-width: 24px;
+  min-height: 20px;
+  outline-width: 0;
+}
+
+toolbar .linked > button:first-child:not(.combo),
+toolbar .linked > togglebutton:first-child:not(.combo),
+.primary-toolbar .linked > button:first-child:not(.combo),
+.primary-toolbar .linked > togglebutton:first-child:not(.combo),
+.secondary-toolbar .linked > button:first-child:not(.combo),
+.secondary-toolbar .linked > togglebutton:first-child:not(.combo),
+headerbar .linked > button:first-child:not(.combo),
+headerbar .linked > togglebutton:first-child:not(.combo),
+.sidebar .linked > button:first-child:not(.combo),
+.sidebar .linked > togglebutton:first-child:not(.combo),
+.side-pane .linked > button:first-child:not(.combo),
+.side-pane .linked > togglebutton:first-child:not(.combo),
+#thunar-side-pane .linked > button:first-child:not(.combo),
+#thunar-side-pane .linked > togglebutton:first-child:not(.combo),
+.thunar-side-pane .linked > button:first-child:not(.combo),
+.thunar-side-pane .linked > togglebutton:first-child:not(.combo),
+notebook > header .linked > button:first-child:not(.combo),
+notebook > header .linked > togglebutton:first-child:not(.combo),
+placessidebar .linked > button:first-child:not(.combo),
+placessidebar .linked > togglebutton:first-child:not(.combo) {
+  border-left: 0;
+  border-radius: 999px 0 0 999px;
+}
+
+toolbar .linked > button:last-child:not(.combo),
+toolbar .linked > togglebutton:last-child:not(.combo),
+.primary-toolbar .linked > button:last-child:not(.combo),
+.primary-toolbar .linked > togglebutton:last-child:not(.combo),
+.secondary-toolbar .linked > button:last-child:not(.combo),
+.secondary-toolbar .linked > togglebutton:last-child:not(.combo),
+headerbar .linked > button:last-child:not(.combo),
+headerbar .linked > togglebutton:last-child:not(.combo),
+.sidebar .linked > button:last-child:not(.combo),
+.sidebar .linked > togglebutton:last-child:not(.combo),
+.side-pane .linked > button:last-child:not(.combo),
+.side-pane .linked > togglebutton:last-child:not(.combo),
+#thunar-side-pane .linked > button:last-child:not(.combo),
+#thunar-side-pane .linked > togglebutton:last-child:not(.combo),
+.thunar-side-pane .linked > button:last-child:not(.combo),
+.thunar-side-pane .linked > togglebutton:last-child:not(.combo),
+notebook > header .linked > button:last-child:not(.combo),
+notebook > header .linked > togglebutton:last-child:not(.combo),
+placessidebar .linked > button:last-child:not(.combo),
+placessidebar .linked > togglebutton:last-child:not(.combo) {
+  border-radius: 0 999px 999px 0;
+}
+
+toolbar .linked > button:not(.combo):hover,
+toolbar .linked > togglebutton:not(.combo):hover,
+.primary-toolbar .linked > button:not(.combo):hover,
+.primary-toolbar .linked > togglebutton:not(.combo):hover,
+.secondary-toolbar .linked > button:not(.combo):hover,
+.secondary-toolbar .linked > togglebutton:not(.combo):hover,
+headerbar .linked > button:not(.combo):hover,
+headerbar .linked > togglebutton:not(.combo):hover,
+.sidebar .linked > button:not(.combo):hover,
+.sidebar .linked > togglebutton:not(.combo):hover,
+.side-pane .linked > button:not(.combo):hover,
+.side-pane .linked > togglebutton:not(.combo):hover,
+#thunar-side-pane .linked > button:not(.combo):hover,
+#thunar-side-pane .linked > togglebutton:not(.combo):hover,
+.thunar-side-pane .linked > button:not(.combo):hover,
+.thunar-side-pane .linked > togglebutton:not(.combo):hover,
+notebook > header .linked > button:not(.combo):hover,
+notebook > header .linked > togglebutton:not(.combo):hover,
+placessidebar .linked > button:not(.combo):hover,
+placessidebar .linked > togglebutton:not(.combo):hover {
+  background-color: alpha(@furr_cyan, 0.18);
+  color: @furr_paper;
+  box-shadow: none;
+}
+
+toolbar .linked > button:not(.combo):active,
+toolbar .linked > togglebutton:not(.combo):active,
+toolbar .linked > button:not(.combo):checked,
+toolbar .linked > togglebutton:not(.combo):checked,
+.primary-toolbar .linked > button:not(.combo):active,
+.primary-toolbar .linked > togglebutton:not(.combo):active,
+.primary-toolbar .linked > button:not(.combo):checked,
+.primary-toolbar .linked > togglebutton:not(.combo):checked,
+.secondary-toolbar .linked > button:not(.combo):active,
+.secondary-toolbar .linked > togglebutton:not(.combo):active,
+.secondary-toolbar .linked > button:not(.combo):checked,
+.secondary-toolbar .linked > togglebutton:not(.combo):checked,
+headerbar .linked > button:not(.combo):active,
+headerbar .linked > togglebutton:not(.combo):active,
+headerbar .linked > button:not(.combo):checked,
+headerbar .linked > togglebutton:not(.combo):checked,
+.sidebar .linked > button:not(.combo):active,
+.sidebar .linked > togglebutton:not(.combo):active,
+.sidebar .linked > button:not(.combo):checked,
+.sidebar .linked > togglebutton:not(.combo):checked,
+.side-pane .linked > button:not(.combo):active,
+.side-pane .linked > togglebutton:not(.combo):active,
+.side-pane .linked > button:not(.combo):checked,
+.side-pane .linked > togglebutton:not(.combo):checked,
+#thunar-side-pane .linked > button:not(.combo):active,
+#thunar-side-pane .linked > togglebutton:not(.combo):active,
+#thunar-side-pane .linked > button:not(.combo):checked,
+#thunar-side-pane .linked > togglebutton:not(.combo):checked,
+.thunar-side-pane .linked > button:not(.combo):active,
+.thunar-side-pane .linked > togglebutton:not(.combo):active,
+.thunar-side-pane .linked > button:not(.combo):checked,
+.thunar-side-pane .linked > togglebutton:not(.combo):checked,
+notebook > header .linked > button:not(.combo):active,
+notebook > header .linked > togglebutton:not(.combo):active,
+notebook > header .linked > button:not(.combo):checked,
+notebook > header .linked > togglebutton:not(.combo):checked,
+placessidebar .linked > button:not(.combo):active,
+placessidebar .linked > togglebutton:not(.combo):active,
+placessidebar .linked > button:not(.combo):checked,
+placessidebar .linked > togglebutton:not(.combo):checked {
+  background-color: @furr_cyan;
+  color: @furr_ink;
+  box-shadow: none;
+}
+
+/* Compact icon buttons: square hit area, no sticker shadow, no clipped icon.
+   Scoped to toolbars/sidebar headers; generic document buttons keep their
+   normal FurrOS chip geometry. */
+toolbar button.image-button:not(.combo),
+toolbar togglebutton:not(.combo),
+toolbar button.dropdown:not(.combo),
+.primary-toolbar button.image-button:not(.combo),
+.primary-toolbar togglebutton:not(.combo),
+.secondary-toolbar button.image-button:not(.combo),
+.secondary-toolbar togglebutton:not(.combo),
+headerbar toolbar button.image-button:not(.combo),
+headerbar toolbar togglebutton:not(.combo),
+.sidebar button:not(.combo),
+.side-pane button:not(.combo),
+#thunar-side-pane button:not(.combo),
+.thunar-side-pane button:not(.combo),
+.sidebar togglebutton:not(.combo),
+.side-pane togglebutton:not(.combo),
+notebook > header button:not(.combo),
+notebook > header togglebutton:not(.combo),
+placessidebar button:not(.combo),
+.sidebar-deck button:not(.combo),
+.sidebar-panel button:not(.combo),
+button.sidebar-button:not(.combo),
+notebook > header > tabs > arrow {
+  background-color: transparent;
+  color: @furr_text;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  box-shadow: none;
+  margin: 0;
+  padding: 2px;
+  min-width: 24px;
+  min-height: 24px;
+  -gtk-icon-style: regular;
+  -gtk-outline-radius: 8px;
+}
+
+toolbar button.image-button:not(.combo):hover,
+toolbar togglebutton:not(.combo):hover,
+toolbar button.dropdown:not(.combo):hover,
+.primary-toolbar button.image-button:not(.combo):hover,
+.primary-toolbar togglebutton:not(.combo):hover,
+.secondary-toolbar button.image-button:not(.combo):hover,
+.secondary-toolbar togglebutton:not(.combo):hover,
+headerbar toolbar button.image-button:not(.combo):hover,
+headerbar toolbar togglebutton:not(.combo):hover,
+.sidebar button:not(.combo):hover,
+.side-pane button:not(.combo):hover,
+#thunar-side-pane button:not(.combo):hover,
+.thunar-side-pane button:not(.combo):hover,
+.sidebar togglebutton:not(.combo):hover,
+.side-pane togglebutton:not(.combo):hover,
+notebook > header button:not(.combo):hover,
+notebook > header togglebutton:not(.combo):hover,
+placessidebar button:not(.combo):hover,
+.sidebar-deck button:not(.combo):hover,
+.sidebar-panel button:not(.combo):hover,
+button.sidebar-button:not(.combo):hover,
+notebook > header > tabs > arrow:hover {
+  background-color: @furr_surface_2;
+  border-color: alpha(@furr_paper, 0.5);
+  color: @furr_text;
+  box-shadow: none;
+}
+
+toolbar togglebutton:not(.combo):checked,
+.primary-toolbar togglebutton:not(.combo):checked,
+.secondary-toolbar togglebutton:not(.combo):checked,
+headerbar toolbar togglebutton:not(.combo):checked,
+.sidebar togglebutton:not(.combo):checked,
+.side-pane togglebutton:not(.combo):checked,
+.sidebar button:not(.combo):checked,
+.side-pane button:not(.combo):checked,
+#thunar-side-pane button:not(.combo):checked,
+.thunar-side-pane button:not(.combo):checked,
+notebook > header togglebutton:not(.combo):checked,
+placessidebar togglebutton:not(.combo):checked,
+button.sidebar-button:not(.combo):checked {
+  background-color: @furr_surface_2;
+  color: @furr_cyan;
+  border-color: @furr_cyan;
+  box-shadow: none;
+}
+
+toolbar button:not(.combo):active,
+toolbar togglebutton:not(.combo):active,
+.primary-toolbar button:not(.combo):active,
+.primary-toolbar togglebutton:not(.combo):active,
+.secondary-toolbar button:not(.combo):active,
+.secondary-toolbar togglebutton:not(.combo):active,
+headerbar toolbar button:not(.combo):active,
+headerbar toolbar togglebutton:not(.combo):active,
+.sidebar button:not(.combo):active,
+.side-pane button:not(.combo):active,
+#thunar-side-pane button:not(.combo):active,
+.thunar-side-pane button:not(.combo):active,
+.sidebar togglebutton:not(.combo):active,
+.side-pane togglebutton:not(.combo):active,
+notebook > header button:not(.combo):active,
+notebook > header togglebutton:not(.combo):active,
+placessidebar button:not(.combo):active,
+button.sidebar-button:not(.combo):active {
+  background-color: @furr_cyan;
+  color: @furr_ink;
+  border-color: @furr_ink;
+  box-shadow: none;
+}
+
+/* Spin buttons keep the same 22 px pill and a centred, clickable +/- pair. */
+spinbutton:not(.vertical) entry {
+  min-width: 20px;
+  min-height: 20px;
+  padding: 0 6px;
+}
+
+spinbutton:not(.vertical) button {
+  min-width: 16px;
+  min-height: 20px;
+  padding: 0;
+  box-shadow: none;
+  outline-width: 0;
+}
+
+spinbutton:not(.vertical) button:hover {
+  background-color: alpha(@furr_cyan, 0.18);
+  color: @furr_paper;
+  box-shadow: none;
+}
+
+spinbutton:not(.vertical) button:active {
+  background-color: @furr_cyan;
+  color: @furr_ink;
+  box-shadow: none;
+}
+
+spinbutton:not(.vertical):focus {
+  border-color: @furr_cyan;
+  box-shadow: 1px 1px 0 @furr_cyan;
+  outline: 2px solid @furr_cyan;
+  outline-offset: -2px;
+  -gtk-outline-radius: 999px;
+}
+
+spinbutton:not(.vertical):backdrop {
+  border-color: alpha(@furr_paper, 0.6);
+  box-shadow: none;
+  outline-width: 0;
+}
+
+/* Check/radio rows in narrow side panels: fix the row height and keep the
+   indicator inside its own rounded box instead of being vertically clipped. */
+checkbutton,
+radiobutton {
+  min-height: 20px;
+  margin: 0;
+  padding: 0;
+  -gtk-outline-radius: 6px;
+}
+
+checkbutton check,
+radiobutton radio {
+  margin: 0;
+  padding: 1px;
+  min-width: 16px;
+  min-height: 16px;
+  outline-width: 0;
+}
+
+checkbutton:focus check,
+radiobutton:focus radio {
+  outline: 2px solid @furr_cyan;
+  outline-offset: 1px;
+}
+
+checkbutton:disabled check,
+radiobutton:disabled radio {
+  border-color: alpha(@furr_paper, 0.4);
+  opacity: 0.6;
 }
