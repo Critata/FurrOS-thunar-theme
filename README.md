@@ -94,7 +94,7 @@ backup as well. Backups created by `install.sh` are kept.
 - There is deliberately **no image watermark or texture behind file names**:
   the file view has a flat background, so translucent selection stays clean.
   File and side-pane selections use a light translucent rosé pink fill with
-  paper text, a thicker 2 px ink border and softly rounded corners, which
+  paper text, a thicker ~3 px dark ink edge and softly rounded corners, which
   avoids the repaint glitches of a solid block; the font weight of the label
   is not changed on selection, so rows do not shift when highlighted. The
   same fill, border and paper text are kept in the `:backdrop` state, so

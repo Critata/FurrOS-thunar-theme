@@ -464,9 +464,9 @@ iconview.view:selected,
 .grid-view:selected {
   background-color: @furr_select_fill;
   color: @furr_paper;
-  border: 2px solid @furr_ink;
+  border: 1px solid @furr_ink;
   border-radius: 6px;
-  box-shadow: none;
+  box-shadow: inset 0 0 0 2px @furr_ink;
 }
 
 /* Thunar (ExoIconView) aggiunge la classe .rubberband ALLA VISTA STESSA,
@@ -629,9 +629,9 @@ treeview.sidebar {
 treeview.sidebar:selected {
   background-color: @furr_select_fill;
   color: @furr_paper;
-  border: 2px solid @furr_ink;
+  border: 1px solid @furr_ink;
   border-radius: 6px;
-  box-shadow: none;
+  box-shadow: inset 0 0 0 2px @furr_ink;
 }
 
 /* Frame/viewport interni della sidebar: niente sfondo grigio opaco. */
