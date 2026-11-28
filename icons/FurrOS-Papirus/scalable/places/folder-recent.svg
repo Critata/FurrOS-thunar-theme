@@ -3,12 +3,22 @@
   <path d="M5 10 H18 L21 14 H42 A3 3 0 0 1 45 17 V39 A3 3 0 0 1 42 42 H5 A3 3 0 0 1 2 39 V13 A3 3 0 0 1 5 10 Z" fill="#781C2C" stroke="#0E080B" stroke-width="2.5" stroke-linejoin="round"/>
   <path d="M2 21 H46 V39 A3 3 0 0 1 43 42 H5 A3 3 0 0 1 2 39 Z" fill="#C8AAB4" stroke="#0E080B" stroke-width="2.5" stroke-linejoin="round"/>
   <path d="M6 24 H20 V26 H6 Z" fill="#FFECEC" opacity="0.30"/>
-<g transform="translate(19 31) scale(0.78)"><rect x="-11" y="-11" width="22" height="22" rx="5" fill="#FFECEC" stroke="#0E080B" stroke-width="1.5"/><circle cx="0" cy="0" r="9" fill="#C8AAB4" stroke="#0E080B" stroke-width="1.5"/><path d="M0 -5 V0 L4 3" fill="none" stroke="#0E080B" stroke-width="2" stroke-linecap="round"/></g>
-  <g fill="#FFECEC" opacity="0.30">
+
+  <g transform="translate(19 31)">
+    <rect x="-12" y="-9" width="26" height="22" rx="6" fill="#0E080B" opacity="0.35"/>
+    <rect x="-13" y="-11" width="26" height="22" rx="6" fill="#FFECEC" stroke="#0E080B" stroke-width="2.2"/>
+    <path d="M-13 -4 H13" stroke="#0E080B" stroke-width="1.2" opacity="0.35"/>
+    <circle cx="-8" cy="-7.4" r="1.1" fill="#C8AAB4"/>
+    <circle cx="-3" cy="-7.4" r="1.1" fill="#C8AAB4"/>
+    <circle cx="2" cy="-7.4" r="1.1" fill="#C8AAB4"/>
+    <g transform="translate(0 1) scale(0.9)"><circle cx="0" cy="0" r="9" fill="#C8AAB4" stroke="#0E080B" stroke-width="1.5"/><path d="M0 -5 V0 L4 3" fill="none" stroke="#0E080B" stroke-width="2" stroke-linecap="round"/></g>
+  </g>
+
+<g transform="translate(13 5) scale(0.7)">  <g fill="#FFECEC" opacity="0.30">
     <circle cx="29" cy="29" r="2.1"/>
     <circle cx="34" cy="27" r="2.4"/>
     <circle cx="39" cy="28" r="2.3"/>
     <circle cx="43" cy="31" r="2.0"/>
     <ellipse cx="36" cy="35" rx="6" ry="4" transform="rotate(-10 36 35)"/>
   </g>
-</svg>
+</g></svg>

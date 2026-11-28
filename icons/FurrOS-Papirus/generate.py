@@ -13,15 +13,15 @@ PLUM = "#781C2C"
 PAPER = "#FFECEC"
 DIM = "#C8AAB4"
 
-# Folder colour, plus an optional glyph drawn on a paper badge.
+# Folder colour, plus an optional glyph drawn on a large paper sticker.
 FOLDERS = {
     "folder": ("#FF8CBE", None),
     "user-home": ("#FFBE5A", "home"),
-    "folder-documents": ("#7FF0F0", "lines"),
+    "folder-documents": ("#7FF0F0", "doc"),
     "folder-download": ("#78E6A0", "download"),
     "folder-music": ("#FF8CBE", "note"),
     "folder-pictures": ("#FFBE5A", "image"),
-    "folder-videos": ("#E23A44", "play"),
+    "folder-videos": ("#E23A44", "film"),
     "folder-templates": ("#C8AAB4", "plus"),
     "folder-publicshare": ("#5FB4F0", "share"),
     "folder-desktop": ("#FF8CBE", "monitor"),
@@ -38,7 +38,7 @@ FOLDERS = {
     "folder-system": ("#E23A44", "gear"),
     "folder-temp": ("#781C2C", "clock"),
     "folder-downloads": ("#78E6A0", "download"),
-    "folder-video": ("#E23A44", "play"),
+    "folder-video": ("#E23A44", "film"),
     "folder-photo": ("#FFBE5A", "image"),
     "folder-work": ("#C8AAB4", "grid4"),
     "folder-cloud": ("#5FB4F0", "globe"),
@@ -164,6 +164,9 @@ PAW = f"""  <g fill="{PAPER}" opacity="0.30">
   </g>
 """
 
+# Smaller, shifted paw so it does not clash with the large folder sticker.
+SMALL_PAW = f'<g transform="translate(13 5) scale(0.7)">{PAW}</g>'
+
 
 def lighten(hex_color: str, amount: float = 0.22) -> str:
     r, g, b = (int(hex_color[i : i + 2], 16) for i in (1, 3, 5))
@@ -186,6 +189,28 @@ def glyph(kind: str, color: str, badge: bool = False) -> str:
         parts.append(
             f'<path d="M-8 -5 H8 M-8 0 H8 M-8 5 H4" fill="none" '
             f'stroke="{ink}" stroke-width="2" stroke-linecap="round"/>'
+        )
+    elif kind == "doc":
+        parts.append(
+            f'<path d="M-7 -9 H2 L7 -4 V9 H-7 Z" fill="{color}" '
+            f'stroke="{ink}" stroke-width="1.5" stroke-linejoin="round"/>'
+            f'<path d="M2 -9 V-4 H7" fill="none" stroke="{ink}" '
+            f'stroke-width="1.5" stroke-linejoin="round"/>'
+            f'<path d="M-4 -0.5 H4 M-4 2.5 H4 M-4 5.5 H1" stroke="{ink}" '
+            f'stroke-width="1.3" stroke-linecap="round"/>'
+        )
+    elif kind == "film":
+        parts.append(
+            f'<rect x="-9" y="-7" width="18" height="14" rx="2" fill="{color}" '
+            f'stroke="{ink}" stroke-width="1.5"/>'
+            f'<rect x="-7" y="-5.5" width="2" height="2" fill="{paper}"/>'
+            f'<rect x="-2" y="-5.5" width="2" height="2" fill="{paper}"/>'
+            f'<rect x="3" y="-5.5" width="2" height="2" fill="{paper}"/>'
+            f'<rect x="-7" y="3.5" width="2" height="2" fill="{paper}"/>'
+            f'<rect x="-2" y="3.5" width="2" height="2" fill="{paper}"/>'
+            f'<rect x="3" y="3.5" width="2" height="2" fill="{paper}"/>'
+            f'<path d="M-2 -3 L4 0 L-2 3 Z" fill="{paper}" stroke="{ink}" '
+            f'stroke-width="1.1" stroke-linejoin="round"/>'
         )
     elif kind == "code":
         parts.append(
@@ -386,6 +411,7 @@ def folder_svg(
     if open_folder:
         color = lighten(color)
     extra = ""
+    paw = PAW
     if archive:
         extra = f"""
   <rect x="21.5" y="22" width="5" height="19" rx="1.5" fill="{PAPER}" opacity="0.92"/>
@@ -395,17 +421,27 @@ def folder_svg(
   <rect x="22.4" y="35.4" width="3.2" height="2.2" rx="0.8" fill="{PAPER}" stroke="{INK}" stroke-width="1"/>
 """
     elif symbol:
-        extra = (
-            f'<g transform="translate(19 31) scale(0.78)">'
-            f'{glyph(symbol, color, badge=True)}</g>'
-        )
+        # A large paper sticker with a coloured top tab: readable even at
+        # 32 px, unlike the small badge used by the original icons.
+        extra = f"""
+  <g transform="translate(19 31)">
+    <rect x="-12" y="-9" width="26" height="22" rx="6" fill="{INK}" opacity="0.35"/>
+    <rect x="-13" y="-11" width="26" height="22" rx="6" fill="{PAPER}" stroke="{INK}" stroke-width="2.2"/>
+    <path d="M-13 -4 H13" stroke="{INK}" stroke-width="1.2" opacity="0.35"/>
+    <circle cx="-8" cy="-7.4" r="1.1" fill="{color}"/>
+    <circle cx="-3" cy="-7.4" r="1.1" fill="{color}"/>
+    <circle cx="2" cy="-7.4" r="1.1" fill="{color}"/>
+    <g transform="translate(0 1) scale(0.9)">{glyph(symbol, color)}</g>
+  </g>
+"""
+        paw = SMALL_PAW
     return f"""<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
   <path d="{BACK}" transform="translate(3 3)" fill="{INK}" opacity="0.9"/>
   <path d="{BACK}" fill="{PLUM}" stroke="{INK}" stroke-width="2.5" stroke-linejoin="round"/>
   <path d="{FRONT}" fill="{color}" stroke="{INK}" stroke-width="2.5" stroke-linejoin="round"/>
   <path d="{HIGHLIGHT}" fill="{PAPER}" opacity="0.30"/>
 {extra}
-{PAW}</svg>
+{paw}</svg>
 """
 
 
