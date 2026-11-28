@@ -7,10 +7,6 @@
   <g transform="translate(19 31)">
     <rect x="-12" y="-9" width="26" height="22" rx="6" fill="#0E080B" opacity="0.35"/>
     <rect x="-13" y="-11" width="26" height="22" rx="6" fill="#FFECEC" stroke="#0E080B" stroke-width="2.2"/>
-    <path d="M-13 -4 H13" stroke="#0E080B" stroke-width="1.2" opacity="0.35"/>
-    <circle cx="-8" cy="-7.4" r="1.1" fill="#FFA5CC"/>
-    <circle cx="-3" cy="-7.4" r="1.1" fill="#FFA5CC"/>
-    <circle cx="2" cy="-7.4" r="1.1" fill="#FFA5CC"/>
     <g transform="translate(0 1) scale(0.9)"><path d="M0 -9 L2.6 -3 L9 -2.4 L4.4 1.8 L5.6 8.2 L0 5 L-5.6 8.2 L-4.4 1.8 L-9 -2.4 L-2.6 -3 Z" fill="#FFA5CC" stroke="#0E080B" stroke-width="1.2" stroke-linejoin="round"/></g>
   </g>
 

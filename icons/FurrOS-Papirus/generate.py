@@ -427,10 +427,6 @@ def folder_svg(
   <g transform="translate(19 31)">
     <rect x="-12" y="-9" width="26" height="22" rx="6" fill="{INK}" opacity="0.35"/>
     <rect x="-13" y="-11" width="26" height="22" rx="6" fill="{PAPER}" stroke="{INK}" stroke-width="2.2"/>
-    <path d="M-13 -4 H13" stroke="{INK}" stroke-width="1.2" opacity="0.35"/>
-    <circle cx="-8" cy="-7.4" r="1.1" fill="{color}"/>
-    <circle cx="-3" cy="-7.4" r="1.1" fill="{color}"/>
-    <circle cx="2" cy="-7.4" r="1.1" fill="{color}"/>
     <g transform="translate(0 1) scale(0.9)">{glyph(symbol, color)}</g>
   </g>
 """
