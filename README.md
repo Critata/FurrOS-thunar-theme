@@ -7,6 +7,10 @@ the GTK theme that was active before FurrOS was installed.
 
 No desktop screenshots are included in this repository.
 
+> **Desktop support:** the most complete customization is currently available on
+> KDE Plasma. The theme and icon set also work well on other desktops (GNOME,
+> XFCE, Zorin OS, ...), but fewer visual changes will be applied there.
+
 ## Contents
 
 ```
