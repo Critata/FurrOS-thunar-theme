@@ -155,8 +155,9 @@ by `install.sh` are kept.
   double borders or paper-coloured residue outside the corners.
 - Icons are scalable SVG and work at any size. `generate.py` needs only
   Python 3. Archive file types reuse the normal folder silhouette with a
-  zipper badge, so `.zip`, `.tar`, `.7z`, `.rar`, `.gz` and similar files read
-  as folders instead of generic documents. File icons also carry short labels
+  zipper drawn down the front (teeth, slider and pull tab), so `.zip`, `.tar`,
+  `.7z`, `.rar`, `.gz` and similar files read as folders instead of generic
+  documents. File icons also carry short labels
   (PDF, DOC, XLS, PPT, ODT, ODS, ODP, DOCX, XLSX, PPTX, PNG, JPG, SVG, GIF,
   WEBP, MP3, FLAC, WAV, OGG, MP4, MKV, WEBM, ISO, DEB, RPM, APK, APP, MD, PHP,
   RB, LUA, C#, DB, TOR, EPUB) and category glyphs for code, images, audio,

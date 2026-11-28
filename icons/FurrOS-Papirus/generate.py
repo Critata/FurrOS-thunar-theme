@@ -377,12 +377,25 @@ def glyph(kind: str, color: str, badge: bool = False) -> str:
     return "".join(parts)
 
 
-def folder_svg(color: str, open_folder: bool = False, symbol: str | None = None) -> str:
+def folder_svg(
+    color: str,
+    open_folder: bool = False,
+    symbol: str | None = None,
+    archive: bool = False,
+) -> str:
     if open_folder:
         color = lighten(color)
-    badge = ""
-    if symbol:
-        badge = (
+    extra = ""
+    if archive:
+        extra = f"""
+  <rect x="21.5" y="22" width="5" height="19" rx="1.5" fill="{PAPER}" opacity="0.92"/>
+  <path d="M24 22.5 V40.5" stroke="{INK}" stroke-width="1.2" stroke-dasharray="1.5 1.3"/>
+  <rect x="21" y="29" width="6" height="3.6" rx="1" fill="{color}" stroke="{INK}" stroke-width="1.1"/>
+  <path d="M24 32.6 V35.4" stroke="{INK}" stroke-width="1.2" stroke-linecap="round"/>
+  <rect x="22.4" y="35.4" width="3.2" height="2.2" rx="0.8" fill="{PAPER}" stroke="{INK}" stroke-width="1"/>
+"""
+    elif symbol:
+        extra = (
             f'<g transform="translate(19 31) scale(0.78)">'
             f'{glyph(symbol, color, badge=True)}</g>'
         )
@@ -391,7 +404,7 @@ def folder_svg(color: str, open_folder: bool = False, symbol: str | None = None)
   <path d="{BACK}" fill="{PLUM}" stroke="{INK}" stroke-width="2.5" stroke-linejoin="round"/>
   <path d="{FRONT}" fill="{color}" stroke="{INK}" stroke-width="2.5" stroke-linejoin="round"/>
   <path d="{HIGHLIGHT}" fill="{PAPER}" opacity="0.30"/>
-{badge}
+{extra}
 {PAW}</svg>
 """
 
@@ -428,11 +441,23 @@ def trash_svg() -> str:
 
 
 for name, (color, symbol) in FOLDERS.items():
+    is_archive = name == "folder-archives"
     (PLACES / f"{name}.svg").write_text(
-        folder_svg(color, symbol=symbol), encoding="utf-8"
+        folder_svg(
+            color,
+            symbol=None if is_archive else symbol,
+            archive=is_archive,
+        ),
+        encoding="utf-8",
     )
     (PLACES / f"{name}-open.svg").write_text(
-        folder_svg(color, open_folder=True, symbol=symbol), encoding="utf-8"
+        folder_svg(
+            color,
+            open_folder=True,
+            symbol=None if is_archive else symbol,
+            archive=is_archive,
+        ),
+        encoding="utf-8",
     )
 
 for name, (color, symbol, label) in FILES.items():
@@ -442,7 +467,7 @@ for name, (color, symbol, label) in FILES.items():
 
 for name, color in ARCHIVES.items():
     (MIMETYPES / f"{name}.svg").write_text(
-        folder_svg(color, symbol="zip"), encoding="utf-8"
+        folder_svg(color, archive=True), encoding="utf-8"
     )
 
 (PLACES / "user-trash.svg").write_text(trash_svg(), encoding="utf-8")
