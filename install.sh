@@ -433,6 +433,16 @@ echo "Installazione completata. Se Thunar era aperto, è stato riavviato."
 if ! command -v thunar >/dev/null 2>&1; then
   echo "  Nota: Thunar non è installato; il tema resta attivo per le altre app GTK3."
 fi
+if [ -n "${LO_PRESENT:-}" ]; then
+  case ":$PATH:" in
+    *":$HOME_DIR/.local/bin:"*) ;;
+    *)
+      echo "  Nota: ~/.local/bin non è nel PATH."
+      echo "  Le voci di menu usano il wrapper LibreOffice; da terminale usa:"
+      echo "    $HOME_DIR/.local/bin/libreoffice"
+      ;;
+  esac
+fi
 echo "  LibreOffice usa il tema GTK precedente: $PREV_GTK"
 echo "Verifica:"
 echo "  gsettings get org.gnome.desktop.interface gtk-theme"
