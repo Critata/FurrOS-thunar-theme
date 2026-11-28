@@ -1,7 +1,7 @@
 /* ==========================================================================
    FurrOS GTK3 theme — Thunar file manager
    Palette, "sticker" shadows and rounded chips taken from furros.xyz.
-   Base: adw-gtk3-dark (installed on the system).
+   Base: the system GTK3 theme (adw-gtk3-dark when available).
    ========================================================================== */
 
 @import url("/usr/share/themes/adw-gtk3-dark/gtk-3.0/gtk.css");
