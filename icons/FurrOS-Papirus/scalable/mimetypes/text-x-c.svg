@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
+  <path d="M9 3 H29 L39 13 V43 A2 2 0 0 1 37 45 H9 A2 2 0 0 1 7 43 V5 A2 2 0 0 1 9 3 Z"
+        transform="translate(3 3)" fill="#0E080B" opacity="0.9"/>
+  <path d="M9 3 H29 L39 13 V43 A2 2 0 0 1 37 45 H9 A2 2 0 0 1 7 43 V5 A2 2 0 0 1 9 3 Z"
+        fill="#FFECEC" stroke="#0E080B" stroke-width="2.5" stroke-linejoin="round"/>
+  <path d="M29 3 V13 H39" fill="none" stroke="#0E080B" stroke-width="2.5" stroke-linejoin="round"/>
+  <rect x="11" y="6" width="15" height="6" rx="2" fill="#5FB4F0" stroke="#0E080B" stroke-width="1.5"/>
+<text x="19" y="11" text-anchor="middle" font-family="Nunito, sans-serif" font-size="5.4" font-weight="800" fill="#FFECEC">C</text>
+  <g transform="translate(24 29)"><text x="0" y="4" text-anchor="middle" font-family="monospace" font-size="13" font-weight="700" fill="#0E080B">&lt;/&gt;</text></g>
+</svg>

@@ -1,30 +1,34 @@
 # FurrOS Thunar Theme
 
-A GTK3 theme for **Thunar** that reproduces the [FurrOS](https://furros.xyz/)
+A GTK3/GTK4 theme for **Thunar** that reproduces the [FurrOS](https://furros.xyz/)
 design system: dark surfaces, chunky sticker outlines, rounded chips, and
-coordinated file/folder icons.
+coordinated file/folder icons. LibreOffice is explicitly excluded so it keeps
+the GTK theme that was active before FurrOS was installed.
 
 No desktop screenshots are included in this repository.
 
 ## Contents
 
 ```
-gtk3/                       GTK3 theme (adw-gtk3-dark + FurrOS overrides)
+gtk3/                       GTK3 theme (adw-gtk3-dark/Adwaita + FurrOS overrides)
   gtk-3.0/gtk.css
   index.theme
-icons/FurrOS-Papirus/       65 SVG icons (folders + file types)
-  index.theme               inherits from Papirus-Dark
+gtk4/gtk-4.0/gtk.css        GTK4/libadwaita palette for Nautilus and GTK4 apps
+icons/FurrOS-Papirus/       156 SVG icons (folders + file types)
+  index.theme               inherits Papirus-Dark, Adwaita and hicolor
   generate.py               regenerates the icons
   scalable/places/
   scalable/mimetypes/
 config/settings.ini.example reference values
 install.sh                  install + backup + Thunar restart
-uninstall.sh                restore Adwaita / Papirus-Dark
+uninstall.sh                restore the previous GTK theme and icons
 ```
 
 ## Install
 
-On FurrOS/Arch with Thunar 4.20 and `adw-gtk3-dark` installed:
+On any GTK3 desktop with Thunar (tested on FurrOS/Arch and Zorin OS).
+`adw-gtk3-dark` is used when present; otherwise the installer picks the system
+GTK3 theme (Adwaita, Zorin, ...) so the FurrOS rules still apply.
 
 ```bash
 git clone https://github.com/Critata/FurrOS-thunar-theme.git
@@ -35,14 +39,20 @@ chmod +x install.sh uninstall.sh
 
 The installer:
 
-1. copies the theme to `~/.themes/FurrOS`;
-2. copies the icons to `~/.local/share/icons/FurrOS-Papirus`;
-3. backs up `~/.config/gtk-3.0/settings.ini` and
+1. copies the theme to `~/.themes/FurrOS` and
+   `~/.local/share/themes/FurrOS`;
+2. copies the icons to `~/.local/share/icons/FurrOS-Papirus` and
+   `~/.icons/FurrOS-Papirus`;
+3. installs the GTK4 palette to `~/.config/gtk-4.0/gtk.css` (with a backup);
+4. backs up `~/.config/gtk-3.0/settings.ini` and
    `~/.config/gtk-4.0/settings.ini` with a `.bak-DATE-TIME` suffix;
-4. updates only the required keys (`gtk-theme-name`, `gtk-icon-theme-name`,
+5. updates only the required keys (`gtk-theme-name`, `gtk-icon-theme-name`,
    Nunito font, dark mode), leaving the other settings untouched;
-5. applies the same values through `gsettings`;
-6. restarts Thunar if it was running.
+6. applies the same values through `gsettings`;
+7. saves the current GTK theme and creates a LibreOffice wrapper plus local
+   `.desktop` overrides, so LibreOffice keeps the previous theme;
+8. removes an old FurrOS LibreOffice palette from the user registry, if any;
+9. restarts Thunar if it was running.
 
 Verify with:
 
@@ -69,8 +79,11 @@ setsid thunar --daemon >/dev/null 2>&1 &
 ./uninstall.sh
 ```
 
-This resets `gtk-theme` to `Adwaita` and `icon-theme` to `Papirus-Dark`, then
-removes the theme and icons. Backups created by `install.sh` are kept.
+This restores the GTK theme, icon theme, font and dark-mode preference saved by
+`install.sh` (falling back to `adw-gtk3-dark`/`Adwaita` and
+`Papirus-Dark` when no previous values exist), then removes the theme, icons,
+GTK4 CSS, LibreOffice wrapper and local `.desktop` overrides. Backups created
+by `install.sh` are kept.
 
 ## Palette
 
@@ -89,8 +102,23 @@ removes the theme and icons. Backups created by `install.sh` are kept.
 
 ## Implementation notes
 
-- The CSS imports `/usr/share/themes/adw-gtk3-dark/gtk-3.0/gtk.css` as a base.
-  Install `adw-gtk3-dark` first if it is missing.
+- The CSS imports `adw-gtk3-dark` when it is available. `install.sh` rewrites
+  the import to Adwaita on systems where only the stock GTK theme exists, so
+  the FurrOS rules are not silently ignored on distributions such as Zorin OS.
+- The theme is installed in both `~/.themes` and `~/.local/share/themes`, and
+  the icon theme in both `~/.local/share/icons` and `~/.icons`, to cover the
+  different lookup paths used by GTK3/GTK4 desktops.
+- `gtk4/gtk-4.0/gtk.css` defines the libadwaita named colours
+  (`window_bg_color`, `accent_bg_color`, `sidebar_bg_color`, ...). It is copied
+  to `~/.config/gtk-4.0/gtk.css` so GTK4 apps such as GNOME Files/Nautilus use
+  the same FurrOS palette as the GTK3 theme.
+- LibreOffice is not themed by FurrOS. `install.sh` writes
+  `~/.local/bin/furros-libreoffice`, which exports the GTK theme that was active
+  before installation, and local `.desktop` overrides for Writer, Calc,
+  Impress, Draw, Base, Math and the Start Center. GUI launches therefore use
+  the previous theme. Native packages, Snap and Flatpak desktop files are
+  supported. If `~/.local/bin` is in `PATH`, the `soffice`, `libreoffice` and
+  `lo*` commands do too; otherwise use the menu entries or the wrapper path.
 - Thunar exposes internal style classes such as `.sidebar`, `.standard-view`,
   `.location-button` and `notebook`. They make it possible to style the side
   pane, file area, breadcrumbs and tabs without patching the application.
@@ -126,4 +154,10 @@ removes the theme and icons. Backups created by `install.sh` are kept.
   inside the chip radius, so hover/active/checked states no longer leave
   double borders or paper-coloured residue outside the corners.
 - Icons are scalable SVG and work at any size. `generate.py` needs only
-  Python 3.
+  Python 3. Archive file types reuse the normal folder silhouette with a
+  zipper badge, so `.zip`, `.tar`, `.7z`, `.rar`, `.gz` and similar files read
+  as folders instead of generic documents. File icons also carry short labels
+  (PDF, DOC, XLS, PPT, ODT, ODS, ODP, DOCX, XLSX, PPTX, PNG, JPG, SVG, GIF,
+  WEBP, MP3, FLAC, WAV, OGG, MP4, MKV, WEBM, ISO, DEB, RPM, APK, APP, MD, PHP,
+  RB, LUA, C#, DB, TOR, EPUB) and category glyphs for code, images, audio,
+  video, spreadsheets, presentations, fonts and packages.

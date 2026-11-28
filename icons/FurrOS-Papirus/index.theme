@@ -1,7 +1,7 @@
 [Icon Theme]
 Name=FurrOS-Papirus
 Comment=FurrOS icons: Papirus shapes, furros.xyz colours, paw detail
-Inherits=Papirus-Dark
+Inherits=Papirus-Dark,Adwaita,hicolor
 Directories=scalable/places,scalable/mimetypes
 
 [scalable/places]
